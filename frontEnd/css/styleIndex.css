@@ -106,18 +106,6 @@ h2 {
     grid-auto-flow: column;
 }
 
-.service {
-    min-width: 220px;
-    flex: 0 0 auto;
-}
-
-.service img {
-    margin: 1rem;
-    width: 30rem;
-    height: 45rem;
-    border-radius: 8px;
-}
-
 .opiniones {
     background-color: #f7f7f7;
     padding: 2rem;
