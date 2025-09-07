@@ -3,6 +3,7 @@
         //Atributos
         private $idEmpleado;
         private $nombreEmpleado;
+        private $dni;
         private $apellidoPaternoE;
         private $apellidoMaternoE;
         private $telefono;
@@ -11,43 +12,44 @@
         private $estadoEmpleado;
 
         //Constructor 
-        public function __construct($nombreEmpleado, $apellidoPaternoE, $apellidoMaternoE, $telefono, $salario, $cargo, $estadoEmpleado){
-            $this->$nombreEmpleado = $nombreEmpleado;
-            $this->$apellidoPaternoE = $apellidoPaternoE;
-            $this->$apellidoMaternoE = $apellidoMaternoE;
-            $this->$telefono = $telefono;
-            $this->$salario = $salario;
-            $this->$cargo = $cargo;
-            $this->$estadoEmpleado = $estadoEmpleado;
+        public function __construct($nombreEmpleado, $dni, $apellidoPaternoE, $apellidoMaternoE, $telefono, $salario, $cargo, $estadoEmpleado){
+            $this->nombreEmpleado = $nombreEmpleado;
+            $this->dni = $dni;
+            $this->apellidoPaternoE = $apellidoPaternoE;
+            $this->apellidoMaternoE = $apellidoMaternoE;
+            $this->telefono = $telefono;
+            $this->salario = $salario;
+            $this->cargo = $cargo;
+            $this->estadoEmpleado = $estadoEmpleado;
         }
 
         //Getters
         public function getNombreE(){
-            return $this->$nombreEmpleado;
+            return $this->nombreEmpleado;
         }
 
         public function getApellidoPaternoE(){
-            return $this->$apellidoPaternoE;
+            return $this->apellidoPaternoE;
         }
 
         public function getApellidoMaternoE(){
-            return $this->$apellidoMaternoE;
+            return $this->apellidoMaternoE;
         }
 
         public function getTelefono(){
-            return $this->$telefono;
+            return $this->telefono;
         }
 
         public function getSalario(){
-            return $this->$salario;
+            return $this->salario;
         }
 
         public function getCargo(){
-            return $this->$cargo;
+            return $this->cargo;
         }
 
         public function getEstadoEmpleado(){
-            return $this->$estadoEmpleado;
+            return $this->estadoEmpleado;
         }
 
         //Setters
@@ -65,6 +67,18 @@
 
         public function setTelefono($telefono) {
             $this->$telefono = $telefono;
+        }
+
+        public function setSalario($salario) {
+            $this->$salario = $salario;
+        }
+
+        public function setCargo($cargo) {
+            $this->$cargo = $cargo ;
+        }
+
+        public function setEstadoEmpleado($estadoEmpleado) {
+            $this->$estadoEmpleado = $estadoEmpleado;
         }
     }    
 ?>
