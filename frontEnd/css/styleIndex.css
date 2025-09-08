@@ -35,6 +35,12 @@ body {
 .navbar.scrolled .nav-link {
     color: black;
 }
+.nav-link:hover {
+    color: #ff6600;
+}
+.navbar.scrolled .nav-link:hover {
+    color: #ff6600;
+}
 
 header#inicio {
     position: relative;
@@ -80,24 +86,16 @@ header#inicio h1 {
 .carousel-control-next {
   top: -40%;
 }
-/**
-@media(max-width: 768px) {
-  .carousel-control-prev {
-    left: -50px;
-  }
 
-  .carousel-control-next {
-    right: -50px;
-  }
-  .carousel-control-prev,
-  .carousel-control-next {
-    top: -30%;
-  }
-}
-  **/
+
 .android{
     display: none;
 }
+div.offcanvas{
+    background-color: white;
+}
+
+
 @media(max-width:768px) {
     .pc {
         display: none;
@@ -119,4 +117,21 @@ header#inicio h1 {
     .carousel-control-next {
         top: -40%;
     }
+    header#inicio h1 {
+        font-family: 'Satisfy', cursive;
+        font-size: 8rem;
+    }
+
+    .modo_pc{
+        display: none;
+    }
+    .nav-link {
+        color: black;
+        
+    }
+    ion-icon {
+        font-size: 1.6rem;
+        color: rgb(0, 0, 0);
+    }
+    
 }
