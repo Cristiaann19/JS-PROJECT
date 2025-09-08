@@ -21,41 +21,61 @@
             </a>
 
             <!-- Botón responsive -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler border-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar"
+                aria-controls="top-navbar">
+                <ion-icon name="reorder-four-outline"></ion-icon>
             </button>
 
             <!-- Links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse modo_pc" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#barberos">Barberos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#servicios">Sevicios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#comentarios">Comentarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contactanos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contactanos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/frontEnd/html/login.html">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="top-navbar" aria-labelledby="top-navbarLabel">
+        <!--NAVEGACION-->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar"
+            aria-controls="top-navbar">
+            <div class="d-flex justify-content-between align-items-center  p-3">
+                <img src="/recursos/logoBarberia.png" style="max-height: 65px; width: auto;" alt="">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </div>
+        </button>
+        <ul class="navbar-nav ms-lg-auto p-4 p-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#barberos">Barberos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#servicios">Sevicios</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contacto">Contactanos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#comentarios2">Comentarios</a></li>
+            <li class="nav-item"><a class="nav-link" href="/frontEnd/html/login.html">Login</a></li>
+        </ul>
+    </div>
 
     <!--Seccion Inicio-->
     <header id="inicio"
         class="text-black text-center vh-100 d-flex flex-column justify-content-center align-items-center">
         <h1 class="display-1 text-white">Urban Blades</h1>
         <p class="lead text-white">Descubre cortes y afeitados de calidad, creados por manos expertas.</p>
-        <a href="#servicios" class="btn btn-outline-light btn-lg mt-3">Ver más</s></a>
+        <a href="#barberos" class="btn btn-outline-light btn-lg mt-3">Ver más</s></a>
     </header>
 
     <section class="barberos py-5" id="barberos">
         <div class="container">
-            <h2 class="text-center mb-5" id="barberos">Conoce a nuestros mejores Barberos</h2>
+            <h2 class="text-center py-5" id="barberos">Conoce a nuestros mejores Barberos</h2>
             <div class="row g-4">
                 <!-- Barbero 1 -->
                 <div class="col-md-4">
-                    <div class="card h-75 shadow-sm border-0">
+                    <div class="card shadow-sm border-0 cursor-pointer">
                         <img src="https://scontent.flim2-2.fna.fbcdn.net/v/t39.30808-6/361589219_3183206378491192_4024213043651105744_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=MvFYjOIEDH8Q7kNvwG-9yOO&_nc_oc=AdnFqqgoCYaV3y_42cQzrYg0C5BL0u63ycLuib-dKT3eDy57UOaXc-C1cWT35uFAroygvleIrEOYeLv2RxbwP0It&_nc_zt=23&_nc_ht=scontent.flim2-2.fna&_nc_gid=4d7n8LcGQnpkxRdppFhaPg&oh=00_AfYt3OlGDdmA5RQ5dkIPZtsu5UcI6ynWJg4M-oJU4kFvcg&oe=68C2F970"
-                            class="card-img-top rounded-top" alt="Barbero 1" style="height: 620px;">
+                            class="card-img-top rounded-top cursor-pointer" alt="Barbero 1" style="height: 440px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Gus Barber</h5>
                             <p class="card-text">Especialista en cortes clásicos y fades, con más de 5 años de
@@ -64,7 +84,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-75 shadow-sm border-0">
+                    <div class="card  shadow-sm border-0">
                         <img src="https://scontent.flim2-6.fna.fbcdn.net/v/t51.75761-15/485726601_18489671305008695_495743180476908483_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEEW7PAH8FvAnQkQbPV1yS9EhSwzqDs1-wSFLDOoOzX7FRXVD23hh2gJXJ8lgUQNlnFRaHNyB8KVrjRbKbzvuzP&_nc_ohc=3MWgxMyr6l4Q7kNvwG13V48&_nc_oc=AdnHqGcjnwlB6jbY6-RvoXvwjyzFfW6xusYGEGXaxXESZFa3y-t5vuSoD-A3shnZRkmRAxpIjciONFvXBkekflAb&_nc_zt=23&_nc_ht=scontent.flim2-6.fna&_nc_gid=cD7NPpsdEy2Ga7ox6rRFbQ&oh=00_AfYHLOr9Xv-7urGbJTvbTNTEyt6cuQUSkyhZ0BdnLIKwqg&oe=68C2E0E3"
                             class="card-img-top rounded-top" alt="Barbero 1" style="height: 437px;">
                         <div class="card-body text-center">
@@ -75,9 +95,9 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-75 shadow-sm border-0">
-                        <img src="/recursos/barbero3.jpg"
-                            class="card-img-top rounded-top" alt="Barbero 1" style="height: 440px;">
+                    <div class="card  shadow-sm border-0">
+                        <img src="/recursos/barbero3.jpg" class="card-img-top rounded-top" alt="Barbero 1"
+                            style="height: 440px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">VictorinoStylo</h5>
                             <p class="card-text">Especialista en cortes modernos, con más de 10 años de
@@ -90,13 +110,13 @@
 
     <section class="servicios py-1" id="servicios">
         <div class="container">
-            <h2 class="text-center mb-5" id="servicios">Nuestros Servicios</h2>
+            <h2 class="text-center py-5" id="servicios">Nuestros Servicios</h2>
             <div class="row g-4">
                 <!-- Corte Clásico -->
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0">
                         <img src="https://i.pinimg.com/736x/ba/5d/e9/ba5de9c144330c53f43289bb1f6fcbbe.jpg"
-                            class="card-img-top rounded-top" alt="Corte Clásico" style="height: 620px;">
+                            class="card-img-top rounded-topr" alt="Corte Clásico" style="height: 620px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Corte Clásico</h5>
                             <p class="card-text">Un corte tradicional con acabado impecable, ideal para quienes
@@ -128,8 +148,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
                 <!-- Modal de Reservas -->
                 <div class="modal fade" id="reservasModal" tabindex="-1" aria-labelledby="reservasModalLabel"
@@ -175,19 +193,19 @@
                         </div>
                     </div>
                 </div>
-
-                <section class="contacto">
-                    <h2>Contactanos</h2>
-                    <p>Av. Balta 456, Chiclayo - Lambayeque</p>
-                    <p><a href="telefono">Télefono: 987 654 321</a></p>
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.908960878892!2d-79.84219312501694!3d-6.77143086611454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x904ce7a4f2e90bff%3A0x45f4b6b1e537e8a4!2sAv.%20Balta%20456%2C%20Chiclayo%2014001!5e0!3m2!1ses-419!2spe!4v1690123456789!5m2!1ses-419!2spe"
-                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
-                    </iframe>
-                </section>
             </div>
     </section>
-
+    <section class="contacto py-5" id="contacto">
+        <div class="container">
+            <h2 class="text-center mb-5">Ubícanos</h2>
+            <p class="text-center">Av. Balta 456, Chiclayo - Lambayeque</p>
+            <p class="text-center">Télefono:   <a href="telefono">987 654 321</a></p>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.908960878892!2d-79.84219312501694!3d-6.77143086611454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x904ce7a4f2e90bff%3A0x45f4b6b1e537e8a4!2sAv.%20Balta%20456%2C%20Chiclayo%2014001!5e0!3m2!1ses-419!2spe!4v1690123456789!5m2!1ses-419!2spe"
+                width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+    </section>
 
     <!-- Sección de comentarios PC CARRUSEL-->
     <div class="container-md p-5 my-5 shadow border rounded coments-custom pc" id="comentarios">
@@ -227,7 +245,8 @@
                                     </div>
                                 </div>
                                 <p class="text-secondary fst-italic">
-                                    "Mi hermano se cortó el cabello en este local y le quedó perfecto. Recomendado al 100%."
+                                    "Mi hermano se cortó el cabello en este local y le quedó perfecto. Recomendado al
+                                    100%."
                                 </p>
                             </div>
                         </div>
@@ -288,7 +307,7 @@
     </div>
 
     <!-- Sección de comentarios ANDROID CARRUSEL-->
-    <div class="container-md p-5 my-5 shadow border rounded coments-custom android" id="comentarios">
+    <div class="container-md p-5 my-5 shadow border rounded coments-custom android" id="comentarios2">
         <h2 class="text-center fw-bold mb-5 text-black border-bottom border-2 border-black p-2">
             Lo que dicen nuestros clientes
         </h2>
@@ -352,7 +371,8 @@
                                     </div>
                                 </div>
                                 <p class="text-secondary fst-italic">
-                                    "Mi hermano se cortó el cabello en este local y le quedó perfecto. Recomendado al 100%."
+                                    "Mi hermano se cortó el cabello en este local y le quedó perfecto. Recomendado al
+                                    100%."
                                 </p>
                             </div>
                         </div>
@@ -362,7 +382,7 @@
                 <div class="carousel-item">
                     <div class="row g-4">
                         <div class="col-12 col-lg-6">
-                           <div class="card h-100 p-4 card-rounded border-0 shadow-sm">
+                            <div class="card h-100 p-4 card-rounded border-0 shadow-sm">
                                 <div class="d-flex align-items-center mb-3">
                                     <img src="https://placehold.co/60x60/2ecc71/ffffff?text=AF"
                                         class="rounded-circle me-3" alt="Cliente 4">
@@ -444,6 +464,8 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script src="/frontEnd/js/script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
