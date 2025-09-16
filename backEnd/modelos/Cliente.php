@@ -19,7 +19,7 @@
 
         //Getters
         public function getIdCliente() {
-                return $this->idCliente;
+            return $this->idCliente;
         }
 
         public function getNombre() {
@@ -52,19 +52,19 @@
         }
 
         public function setApellidoMaterno($apellidoMaterno) {
-            $this->$apellidoMaterno = $apellidoMaterno;
+            $this->apellidoMaterno = $apellidoMaterno;
         }
 
         public function setTelefono($telefono) {
-            $this->$telefono;
+            $this->telefono = $telefono;
         }
 
-        public function setEmali($email){
-            $this->$email;
+        public function setEmail($email){
+            $this->email = $email;
         }
 
         public function setIdCliente($idCliente) {
-        $this->idCliente = $idCliente;
+            $this->idCliente = $idCliente;
         }
     }
 ?>

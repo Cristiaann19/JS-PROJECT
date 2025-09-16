@@ -1,32 +1,36 @@
 <?php
-    require_once "conexionBD_MySQL.php";
-    require_once "Cliente.php";
+require_once "conexionBD_MySQL.php";
+require_once "Cliente.php";
 
-    class DAO_Cliente {
-        public function agregarCliente($Cliente) {
-            $conexion =  conexionPHP();
-            $sql = "INSERT INTO CLIENTE (nombreCliente, apellidoPaterno, apellidoMaterno, telefono, email) values (?, ?, ?, ?, ?)";
-            $smt = mysqli_prepare($conexion, $sql);
+class DAO_Cliente {
 
-            mysqli_stmt_bind_param(
+    //Agregar un nuevo cliente
+    public function agregarNuevoCliente($cliente) {
+        $conexion = conexionPHP();
+        $sql = "INSERT INTO CLIENTE (nombreCliente, apellidoPaterno, apellidoMaterno, telefono, email) VALUES (?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conexion, $sql);
+
+        mysqli_stmt_bind_param(
             $stmt,
             "sssss",
-            $cliente->getNombreCliente(),
+            $cliente->getNombre(),
             $cliente->getApellidoPaterno(),
             $cliente->getApellidoMaterno(),
             $cliente->getTelefono(),
             $cliente->getEmail()
-            );
-        return mysqli_stmt_execute($stmt);
-        }
+        );
 
-        public function listarCliente() {
-            $conexion =  conexionPHP();
-            $sql = "SELECT * FROM CLIENTE";
-            $resultado = mysqli_query($conexion, $sql);
-            $clientes = [];
-            
-            while ($fila = mysqli_fetch_assoc($resultado)) {
+        return mysqli_stmt_execute($stmt);
+    }
+
+    //Listar todos los clientes
+    public function listarClientes() {
+        $conexion = conexionPHP();
+        $sql = "SELECT * FROM CLIENTE";
+        $resultado = mysqli_query($conexion, $sql);
+        $clientes = [];
+
+        while ($fila = mysqli_fetch_assoc($resultado)) {
             $cliente = new Cliente(
                 $fila['nombreCliente'],
                 $fila['apellidoPaterno'],
@@ -34,14 +38,17 @@
                 $fila['telefono'],
                 $fila['email']
             );
+            $cliente->setIdCliente($fila['idCliente']);
             $clientes[] = $cliente;
         }
-        return $clientes;
-        }
 
-        public function obtenerClientePorId($idCliente) {
+        return $clientes;
+    }
+
+    //Buscar un cliente por ID
+    public function buscarPorId($idCliente) {
         $conexion = conexionPHP();
-        $sql = "SELECT * FROM cliente WHERE idCliente = ?";
+        $sql = "SELECT * FROM CLIENTE WHERE idCliente = ?";
         $stmt = mysqli_prepare($conexion, $sql);
         mysqli_stmt_bind_param($stmt, "i", $idCliente);
         mysqli_stmt_execute($stmt);
@@ -58,16 +65,15 @@
             $cliente->setIdCliente($fila['idCliente']);
             return $cliente;
         }
+
         return null;
-        }
+    }
 
-        public function actualizarCliente($cliente) {
+    //Actualizar un cliente por ID
+    public function actualizarCliente($cliente, $idCliente) {
         $conexion = conexionPHP();
-        $sql = "UPDATE cliente 
-                SET nombreCliente=?, apellidoPaterno=?, apellidoMaterno=?, telefono=?, email=? 
-                WHERE idCliente=?";
+        $sql = "UPDATE CLIENTE SET nombreCliente = ?, apellidoPaterno = ?, apellidoMaterno = ?, telefono = ?, email = ? WHERE idCliente = ?";
         $stmt = mysqli_prepare($conexion, $sql);
-
         mysqli_stmt_bind_param(
             $stmt,
             "sssssi",
@@ -76,10 +82,19 @@
             $cliente->getApellidoMaterno(),
             $cliente->getTelefono(),
             $cliente->getEmail(),
-            $cliente->getIdCliente()
+            $idCliente
         );
 
         return mysqli_stmt_execute($stmt);
-        }
     }
+
+    //Eliminar un cliente por ID
+    public function eliminarCliente($idCliente) {
+        $conexion = conexionPHP();
+        $sql = "DELETE FROM CLIENTE WHERE idCliente = ?";
+        $stmt = mysqli_prepare($conexion, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $idCliente);
+        return mysqli_stmt_execute($stmt);
+    }
+}
 ?>

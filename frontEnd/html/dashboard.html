@@ -111,7 +111,7 @@
           <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Bianca Piminchumo</a>
+          <a href="#" class="d-block">Luis Chafloque</a>
         </div>
       </div>
 
@@ -298,7 +298,35 @@
         <div class="row">
           <!-- Parte izquierda -->
           <section class="col-lg-7 connectedSortable">
-            
+              <!-- Tabla de Empleados -->
+              <section class="content">
+                <div class="container-fluid">
+                  <div class="card">
+                    <div class="card-header bg-primary text-white">
+                      <h3 class="card-title">Lista de Empleados</h3>
+                    </div>
+                    <div class="card-body">
+                      <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>Teléfono</th>
+                            <th>Salario</th>
+                            <th>Cargo</th>
+                            <th>Estado</th>
+                          </tr>
+                        </thead>
+                        <tbody id="empleados-body">
+                          <!-- Aquí se cargará la tabla desde prueba.php -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </section>
           </section>
 
           <!-- Parte derecha -->
@@ -310,8 +338,17 @@
     </section>
   </div>
 </div>
-
 <!-- Script -->
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  fetch('../../backEnd/controladores/controladorEmpleado.php')
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('empleados-body').innerHTML = html;
+    })
+    .catch(err => console.error('Error cargando empleados:', err));
+});
+</script>
 <script src="/frontEnd/javascript/script1.js"></script>
 <script src="/frontEnd/javascript/script2.js"></script>
 <script src="/frontEnd/javascript/script3.js"></script>

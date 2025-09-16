@@ -16,6 +16,7 @@ create table Cliente (
 create table Empleado (
 	idEmpleado int auto_increment unique, 
     nombreEmpleado varchar(30) not null, 
+    dni char(8) not null unique,
     apellidoPaternoE varchar(50) not null, 
     apellidoMaternoE varchar(50) not null, 
     telefono char(9) not null unique, 
@@ -96,3 +97,111 @@ create table Pago (
     primary key (idPago), 
     foreign key (idReserva) references Reserva(idReserva)
 );
+
+-- LLENADO DE LA BD
+-- 1. PRIMERO: Insertar datos en la tabla Cliente
+INSERT INTO Cliente (nombreCliente, apellidoPaterno, apellidoMaterno, telefono, email) VALUES
+('Carlos', 'García', 'López', '987654321', 'carlos.garcia@email.com'),
+('Miguel', 'Rodríguez', 'Fernández', '976543210', 'miguel.rodriguez@email.com'),
+('José', 'Martínez', 'Sánchez', '965432109', 'jose.martinez@email.com'),
+('Luis', 'Hernández', 'Ruiz', '954321098', 'luis.hernandez@email.com'),
+('David', 'González', 'Díaz', '943210987', 'david.gonzalez@email.com'),
+('Antonio', 'Pérez', 'Moreno', '932109876', 'antonio.perez@email.com'),
+('Francisco', 'López', 'Muñoz', '921098765', 'francisco.lopez@email.com'),
+('Javier', 'Sánchez', 'Álvarez', '910987654', 'javier.sanchez@email.com'),
+('Rafael', 'Díaz', 'Romero', '909876543', 'rafael.diaz@email.com'),
+('Alejandro', 'Moreno', 'Alonso', '998765432', 'alejandro.moreno@email.com');
+
+-- 2. SEGUNDO: Insertar datos en la tabla Empleado
+INSERT INTO Empleado (nombreEmpleado, dni, apellidoPaternoE, apellidoMaternoE, telefono, salario, cargo, estadoE) VALUES
+('Pedro', '12345678', 'Ramírez', 'Torres', '987123456', 2500.00, 'Barbero', 'Activo'),
+('Juan', '87654321', 'Vásquez', 'Castillo', '976234567', 2800.00, 'Barbero', 'Activo'),
+('Eduardo', '11223344', 'Silva', 'Mendoza', '965345678', 2600.00, 'Barbero', 'Activo'),
+('Ana', '44332211', 'Flores', 'Jiménez', '954456789', 1800.00, 'Recepcionista', 'Activo'),
+('María', '55667788', 'Vargas', 'Herrera', '943567890', 1900.00, 'Recepcionista', 'Activo'),
+('Roberto', '88776655', 'Campos', 'Navarro', '932678901', 3500.00, 'Administrador', 'Activo'),
+('Carmen', '99887766', 'Ramos', 'Ortega', '921789012', 2400.00, 'Barbero', 'Activo'),
+('Fernando', '66554433', 'Cruz', 'Guerrero', '910890123', 1850.00, 'Recepcionista', 'Activo');
+
+-- 3. TERCERO: Insertar datos en la tabla Servicio
+INSERT INTO Servicio (nombreServicio, descripcion, precio) VALUES
+('Corte clasico', 'Corte tradicional con tijeras y máquina', 20.00),
+('Corte moderno', 'Corte personalizado con asesoría de estilo', 35.00),
+('Afeitado barba y bigote', 'Afeitado tradicional con navaja y toallas calientes', 25.00);
+
+-- 4. CUARTO: Insertar datos en la tabla Barbero
+INSERT INTO Barbero (idEmpleado, especialidad) VALUES
+(1, 'Cortes clásicos y modernos'),
+(2, 'Afeitado tradicional y barba'),
+(3, 'Cortes juveniles y degradados'),
+(7, 'Peinados y tratamientos capilares');
+
+-- 5. QUINTO: Insertar datos en la tabla Recepcionista
+INSERT INTO Recepcionista (idEmpleado, turno) VALUES
+(4, 'Mañana'),
+(5, 'Tarde'),
+(8, 'Noche');
+
+-- 6. SEXTO: Insertar datos en la tabla Administrador
+INSERT INTO Administrador (idEmpleado) VALUES
+(6);
+
+-- 7. SÉPTIMO: Insertar datos en la tabla Usuario
+INSERT INTO Usuario (idEmpleado, nombreUsuario, contraseña) VALUES
+(1, 'pedro_barbero', 'pedro123'),
+(2, 'juan_barbero', 'juan456'),
+(3, 'eduardo_barbero', 'edu789'),
+(4, 'ana_recep', 'ana321'),
+(5, 'maria_recep', 'maria654'),
+(6, 'roberto_admin', 'admin987'),
+(7, 'carmen_barbero', 'carmen159'),
+(8, 'fernando_recep', 'fer753');
+
+-- 8. OCTAVO: Insertar datos en la tabla Reserva
+INSERT INTO Reserva (idCliente, idBarbero, idServicio, fechaReserva, hora, estado) VALUES
+(1, 1, 1, '2025-09-10', '09:00:00', 'Completada'),
+(2, 2, 3, '2025-09-10', '10:30:00', 'Completada'),
+(3, 3, 2, '2025-09-11', '14:00:00', 'Completada'),
+(4, 1, 1, '2025-09-11', '16:30:00', 'Completada'),
+(5, 4, 2, '2025-09-12', '11:00:00', 'Completada'),
+(6, 2, 3, '2025-09-12', '15:45:00', 'Completada'),
+(7, 3, 1, '2025-09-13', '10:15:00', 'Completada'),
+(8, 1, 2, '2025-09-13', '12:30:00', 'Completada'),
+(9, 4, 3, '2025-09-14', '09:45:00', 'Completada'),
+(10, 2, 1, '2025-09-14', '17:00:00', 'Completada'),
+(1, 3, 2, '2025-09-05', '08:30:00', 'Completada'),
+(2, 1, 3, '2025-09-06', '13:15:00', 'Completada'),
+(3, 4, 1, '2025-09-07', '18:00:00', 'Completada'),
+(4, 2, 2, '2025-09-08', '11:45:00', 'Completada'),
+(5, 3, 3, '2025-09-09', '16:15:00', 'Completada'),
+(6, 1, 1, '2025-08-30', '10:00:00', 'Completada'),
+(7, 2, 2, '2025-08-31', '14:30:00', 'Completada'),
+(8, 4, 3, '2025-09-01', '12:00:00', 'Completada'),
+(9, 3, 1, '2025-09-02', '15:30:00', 'Completada'),
+(10, 1, 2, '2025-09-03', '09:15:00', 'Completada');
+
+-- 9. NOVENO: Insertar datos en la tabla Pago (AL FINAL)
+INSERT INTO Pago (idReserva, montoPago, metodo, fechaPago) VALUES
+(1, 20.00, 'Efectivo', '2025-09-10 09:30:00'),      -- Corte clásico
+(2, 25.00, 'Tarjeta', '2025-09-10 11:00:00'),       -- Afeitado barba y bigote
+(3, 35.00, 'Yape', '2025-09-11 14:30:00'),          -- Corte moderno
+(4, 20.00, 'Efectivo', '2025-09-11 17:00:00'),      -- Corte clásico
+(5, 35.00, 'Tarjeta', '2025-09-12 11:30:00'),       -- Corte moderno
+(6, 25.00, 'Plin', '2025-09-12 16:15:00'),          -- Afeitado barba y bigote
+(7, 20.00, 'Yape', '2025-09-13 10:45:00'),          -- Corte clásico
+(8, 35.00, 'Efectivo', '2025-09-13 13:00:00'),      -- Corte moderno
+(9, 25.00, 'Tarjeta', '2025-09-14 10:15:00'),       -- Afeitado barba y bigote
+(10, 20.00, 'Efectivo', '2025-09-14 17:30:00'),     -- Corte clásico
+(11, 35.00, 'Yape', '2025-09-05 09:00:00'),         -- Corte moderno
+(12, 25.00, 'Plin', '2025-09-06 13:45:00'),         -- Afeitado barba y bigote
+(13, 20.00, 'Tarjeta', '2025-09-07 18:30:00'),      -- Corte clásico
+(14, 35.00, 'Efectivo', '2025-09-08 12:15:00'),     -- Corte moderno
+(15, 25.00, 'Yape', '2025-09-09 16:45:00'),         -- Afeitado barba y bigote
+(16, 20.00, 'Tarjeta', '2025-08-30 10:30:00'),      -- Corte clásico
+(17, 35.00, 'Efectivo', '2025-08-31 15:00:00'),     -- Corte moderno
+(18, 25.00, 'Plin', '2025-09-01 12:30:00'),         -- Afeitado barba y bigote
+(19, 20.00, 'Yape', '2025-09-02 16:00:00'),         -- Corte clásico
+(20, 35.00, 'Efectivo', '2025-09-03 09:45:00');     -- Corte moderno
+
+
+select * from empleado;
