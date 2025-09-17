@@ -8,14 +8,15 @@ $contador = 1;
 
 foreach ($empleados as $emp) {
     echo "<tr>";
-    echo "<td>{$contador}</td>";
-    echo "<td>{$emp->getNombreE()}</td>";
+    echo "<td>{$emp->getDNIempleado()}</td>";
+    echo "<td>{$emp->getNombreE()}</td>";    
     echo "<td>{$emp->getApellidoPaternoE()}</td>";
     echo "<td>{$emp->getApellidoMaternoE()}</td>";
     echo "<td>{$emp->getTelefono()}</td>";
     echo "<td>{$emp->getSalario()}</td>";
     echo "<td>{$emp->getCargo()}</td>";
-    echo "<td>{$emp->getEstadoEmpleado()}</td>";
+    echo "<td>{$emp->getEstadoEmpleado()}</td>";   
+     echo "<td>{$emp->getGenero()}</td>";
     echo "</tr>";
     $contador++;
 }

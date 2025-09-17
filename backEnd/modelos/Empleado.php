@@ -10,6 +10,7 @@
         private $salario;
         private $cargo;
         private $estadoEmpleado;
+        private $generoEmpleado;
 
         //Constructor 
         public function __construct($nombreEmpleado, $dni, $apellidoPaternoE, $apellidoMaternoE, $telefono, $salario, $cargo, $estadoEmpleado){
@@ -52,6 +53,14 @@
             return $this->estadoEmpleado;
         }
 
+        public function getDNIempleado(){
+            return $this->dni;
+        }
+
+        public function getGenero(){
+            return $this->generoEmpleado;
+        }
+
         //Setters
         public function setNombreEmpleado($nombreEmpleado){
             $this->$nombreEmpleado = $nombreEmpleado;
@@ -79,6 +88,14 @@
 
         public function setEstadoEmpleado($estadoEmpleado) {
             $this->$estadoEmpleado = $estadoEmpleado;
+        }
+
+        public function setDNIempleado($dniEmpleado){
+            $this->$dni = $dniEmpleado;
+        }
+
+        public function setGeneroEmpleado($generoE){
+            $this->$generoEmpleado = $generoE;
         }
     }    
 ?>

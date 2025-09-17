@@ -42,7 +42,8 @@ class DAO_Empleado {
                 $fila['telefono'],
                 $fila['salario'],
                 $fila['cargo'],
-                $fila['estadoE']
+                $fila['estadoE'],
+                $fila['generoE']
             );
             $empleados[] = $empleado;
         }

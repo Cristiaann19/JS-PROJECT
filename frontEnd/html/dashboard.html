@@ -4,13 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Urban Blades Barber - Sistema</title>
-
   <!-- Fuente de iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <!-- Estilos del dashboard -->  
   <link rel="stylesheet" href="/frontEnd/css/styleDashboard.css">
   <link rel="stylesheet" href="/frontEnd/css/styleDashboard2.css">
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -111,11 +109,7 @@
           <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-<<<<<<< HEAD
           <a href="#" class="d-block">Luis Chafloque</a>
-=======
-          <a href="#" class="d-block">Cristian</a>
->>>>>>> 69e545d2448d9acec0902dcf991cb513a6daabd9
         </div>
       </div>
 
@@ -244,7 +238,7 @@
             <!-- small  -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3 id="cantidadEmpleados">0</h3>
                 <p>Cantidad Empleadoss</p>
               </div>
               <div class="icon">
@@ -258,8 +252,8 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-                <p>Número de Reservas</p>
+                <h3 id="cantidadReservas">0</h3>
+                <p>Cantidad de Reservas</p>
               </div>
               <div class="icon">
                   <i class="fas fa-calendar-alt nav-icon mr-2"></i>
@@ -272,7 +266,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3 id="ingresosTotales">0</h3>
                 <p>Ingresos Totales </p>
               </div>
               <div class="icon">
@@ -286,7 +280,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3 id="numeroClientes">0</h3>
                 <p>Número de Clientes</p>
               </div>
               <div class="icon">
@@ -295,68 +289,52 @@
               <a href="#" class="small-box-footer">Más Información <i class="fa-solid fa-circle-info"></i></a>
             </div>
           </div>
-
         </div>
         
-        <!-- Luego de las tarjetas -->
-        <div class="row">
+        <div class="row d-flex">
           <!-- Parte izquierda -->
-          <section class="col-lg-7 connectedSortable">
-              <!-- Tabla de Empleados -->
-              <section class="content">
-                <div class="container-fluid">
-                  <div class="card">
-                    <div class="card-header bg-primary text-white">
-                      <h3 class="card-title">Lista de Empleados</h3>
-                    </div>
-                    <div class="card-body">
-                      <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                          <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Teléfono</th>
-                            <th>Salario</th>
-                            <th>Cargo</th>
-                            <th>Estado</th>
-                          </tr>
-                        </thead>
-                        <tbody id="empleados-body">
-                          <!-- Aquí se cargará la tabla desde prueba.php -->
-                        </tbody>
-                      </table>
-                    </div>
+          <section class="col-lg-6 connectedSortable">
+              <div class="card">
+                  <div class="card-header bg-info text-dark" style="background-color: rgb(248, 133, 18) !important; color: black !important;">
+                      <h3 class="card-title">Reservas por Mes</h3>
                   </div>
-                </div>
-              </section>
+                  <div class="card-body">
+                      <canvas id="chartReservas" style="height: 250px;"></canvas>
+                  </div>
+              </div>
           </section>
 
           <!-- Parte derecha -->
-          <section class="col-lg-5 connectedSortable">
-            
+          <section class="col-lg-6 connectedSortable">
+              <div class="card">
+                  <div class="card-header bg-info text-dark" style="background-color: rgb(45, 132, 239) !important; color: black !important;">
+                      <h3 class="card-title">Ingresos por Mes y Método</h3>
+                  </div>
+                  <div class="card-body">
+                      <canvas id="chartIngresos" style="height: 250px;"></canvas>
+                  </div>
+              </div>
           </section>
         </div>
       </div>
     </section>
   </div>
 </div>
-<!-- Script -->
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-  fetch('../../backEnd/controladores/controladorEmpleado.php')
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById('empleados-body').innerHTML = html;
-    })
-    .catch(err => console.error('Error cargando empleados:', err));
-});
-</script>
+<!-- Script para datos -->
+<script src="/frontEnd/js/otrosScripts/scriptEmpleados.js"></script>
+<script src="/frontEnd/js/otrosScripts/scriptGraficoIngresos.js"></script>
+<script src="/frontEnd/js/otrosScripts/scriptGraficoReservas.js"></script>
+<script src="/frontEnd/js/otrosScripts/scriptReportes.js"></script>
+
+<!-- Otros scripts -->
 <script src="/frontEnd/javascript/script1.js"></script>
 <script src="/frontEnd/javascript/script2.js"></script>
 <script src="/frontEnd/javascript/script3.js"></script>
+
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Link de chart -->
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

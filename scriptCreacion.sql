@@ -23,6 +23,7 @@ create table Empleado (
     salario decimal (10,2) not null, 
     cargo enum('Barbero', 'Recepcionista', 'Administrador'),
     estadoE enum('Activo', 'Inactivo'),
+    generoE enum('Masculino', 'Femenino'),
     primary key (idEmpleado)
 );
 
@@ -113,15 +114,15 @@ INSERT INTO Cliente (nombreCliente, apellidoPaterno, apellidoMaterno, telefono, 
 ('Alejandro', 'Moreno', 'Alonso', '998765432', 'alejandro.moreno@email.com');
 
 -- 2. SEGUNDO: Insertar datos en la tabla Empleado
-INSERT INTO Empleado (nombreEmpleado, dni, apellidoPaternoE, apellidoMaternoE, telefono, salario, cargo, estadoE) VALUES
-('Pedro', '12345678', 'Ramírez', 'Torres', '987123456', 2500.00, 'Barbero', 'Activo'),
-('Juan', '87654321', 'Vásquez', 'Castillo', '976234567', 2800.00, 'Barbero', 'Activo'),
-('Eduardo', '11223344', 'Silva', 'Mendoza', '965345678', 2600.00, 'Barbero', 'Activo'),
-('Ana', '44332211', 'Flores', 'Jiménez', '954456789', 1800.00, 'Recepcionista', 'Activo'),
-('María', '55667788', 'Vargas', 'Herrera', '943567890', 1900.00, 'Recepcionista', 'Activo'),
-('Roberto', '88776655', 'Campos', 'Navarro', '932678901', 3500.00, 'Administrador', 'Activo'),
-('Carmen', '99887766', 'Ramos', 'Ortega', '921789012', 2400.00, 'Barbero', 'Activo'),
-('Fernando', '66554433', 'Cruz', 'Guerrero', '910890123', 1850.00, 'Recepcionista', 'Activo');
+INSERT INTO Empleado (nombreEmpleado, dni, apellidoPaternoE, apellidoMaternoE, telefono, salario, cargo, estadoE, generoE) VALUES
+('Pedro', '12345678', 'Ramírez', 'Torres', '987123456', 2500.00, 'Barbero', 'Activo', 'Masculino'),
+('Juan', '87654321', 'Vásquez', 'Castillo', '976234567', 2800.00, 'Barbero', 'Activo', 'Masculino'),
+('Eduardo', '11223344', 'Silva', 'Mendoza', '965345678', 2600.00, 'Barbero', 'Activo', 'Masculino'),
+('Ana', '44332211', 'Flores', 'Jiménez', '954456789', 1800.00, 'Recepcionista', 'Activo', 'Femenino'),
+('María', '55667788', 'Vargas', 'Herrera', '943567890', 1900.00, 'Recepcionista', 'Activo', 'Femenino'),
+('Roberto', '88776655', 'Campos', 'Navarro', '932678901', 3500.00, 'Administrador', 'Activo', 'Masculino'),
+('Carmen', '99887766', 'Ramos', 'Ortega', '921789012', 2400.00, 'Barbero', 'Activo', 'Femenino'),
+('Fernando', '66554433', 'Cruz', 'Guerrero', '910890123', 1850.00, 'Recepcionista', 'Activo', 'Masculino');
 
 -- 3. TERCERO: Insertar datos en la tabla Servicio
 INSERT INTO Servicio (nombreServicio, descripcion, precio) VALUES
@@ -202,6 +203,3 @@ INSERT INTO Pago (idReserva, montoPago, metodo, fechaPago) VALUES
 (18, 25.00, 'Plin', '2025-09-01 12:30:00'),         -- Afeitado barba y bigote
 (19, 20.00, 'Yape', '2025-09-02 16:00:00'),         -- Corte clásico
 (20, 35.00, 'Efectivo', '2025-09-03 09:45:00');     -- Corte moderno
-
-
-select * from empleado;

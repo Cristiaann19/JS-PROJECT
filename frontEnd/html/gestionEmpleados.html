@@ -1,0 +1,90 @@
+<!-- Gestión de los empleados -->
+<section id="empleados-body">
+    <div class="row">
+        <!-- Parte izquierda -->
+        <section class="col-lg-7 connectedSortable">
+        <section class="content">
+            <div class="container-fluid">
+            <!-- Buscador -->
+            <div class="input-group input-group-sm" style="max-width: 800px;">
+                <span class="input-group-text bg-primary text-white">
+                <i class="fas fa-search"></i>
+                </span>
+                <input type="text" id="buscarEmpleado" 
+                    class="form-control" 
+                    placeholder="Buscar empleado...">
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                <!-- Tabla -->
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Teléfono</th>
+                        <th>Salario</th>
+                        <th>Cargo</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody id="empleados-body">
+                    <!-- Aquí se cargará la tabla desde los controladores -->
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            </div>
+        </section>
+        </section>
+
+        <!-- Parte derecha -->
+        <section class="col-lg-5 connectedSortable">
+        <!-- Tarjeta de perfil -->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+            <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle"
+                    src="/recursos/perfilFotoHombre.png"
+                    alt="Foto de empleado">
+            </div>
+
+            <h3 class="profile-username text-center">Juan Pérez</h3>
+            <p class="text-muted text-center">Barbero</p>
+
+            <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                <b>DNI</b> <span class="float-right">12345678</span>
+                </li>
+                <li class="list-group-item">
+                <b>Teléfono</b> <span class="float-right">987654321</span>
+                </li>
+                <li class="list-group-item">
+                <b>Salario</b> <span class="float-right">S/ 3500</span>
+                </li>
+                <li class="list-group-item">
+                <b>Estado</b> <span class="float-right badge badge-success">Activo</span>
+                </li>
+            </ul>
+
+            <a href="#" class="btn btn-primary btn-block">
+                <i class="fas fa-edit mr-2"></i> Editar
+            </a>
+            <br>
+            <!-- Botones de acción -->
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-success flex-fill mr-2">
+                <i class="fas fa-plus-circle"></i> Agregar
+                </button>
+                <button class="btn btn-danger flex-fill">
+                <i class="fas fa-ban"></i> Deshabilitar
+                </button>
+            </div>
+            </div>
+        </div>            
+        </section>
+    </div>
+</section>
