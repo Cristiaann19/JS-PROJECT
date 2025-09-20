@@ -21,19 +21,19 @@
             </a>
 
             <!-- Botón responsive -->
-            <button class="navbar-toggler border-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar"
-                aria-controls="top-navbar">
+            <button class="navbar-toggler border-0 me-2" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#top-navbar" aria-controls="top-navbar">
                 <ion-icon name="reorder-four-outline"></ion-icon>
             </button>
 
             <!-- Links -->
             <div class="collapse navbar-collapse modo_pc" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#barberos">Barberos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#servicios">Sevicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#comentarios">Comentarios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contactanos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#comentarios">Comentarios</a></li>
                     <li class="nav-item"><a class="nav-link" href="/frontEnd/html/login.html">Login</a></li>
                 </ul>
             </div>
@@ -50,7 +50,7 @@
             </div>
         </button>
         <ul class="navbar-nav ms-lg-auto p-4 p-lg-0">
-            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#barberos">Barberos</a></li>
             <li class="nav-item"><a class="nav-link" href="#servicios">Sevicios</a></li>
             <li class="nav-item"><a class="nav-link" href="#contacto">Contactanos</a></li>
@@ -74,8 +74,8 @@
                 <!-- Barbero 1 -->
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 cursor-pointer">
-                        <img src="https://scontent.flim2-2.fna.fbcdn.net/v/t39.30808-6/361589219_3183206378491192_4024213043651105744_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=MvFYjOIEDH8Q7kNvwG-9yOO&_nc_oc=AdnFqqgoCYaV3y_42cQzrYg0C5BL0u63ycLuib-dKT3eDy57UOaXc-C1cWT35uFAroygvleIrEOYeLv2RxbwP0It&_nc_zt=23&_nc_ht=scontent.flim2-2.fna&_nc_gid=4d7n8LcGQnpkxRdppFhaPg&oh=00_AfYt3OlGDdmA5RQ5dkIPZtsu5UcI6ynWJg4M-oJU4kFvcg&oe=68C2F970"
-                            class="card-img-top rounded-top cursor-pointer" alt="Barbero 1" style="height: 440px;">
+                        <img src="recursos/Barbero1.jpg" class="card-img-top rounded-top cursor-pointer" alt="Barbero 1"
+                            style="height: 440px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Gus Barber</h5>
                             <p class="card-text">Especialista en cortes clásicos y fades, con más de 5 años de
@@ -84,9 +84,9 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card  shadow-sm border-0">
-                        <img src="https://scontent.flim2-6.fna.fbcdn.net/v/t51.75761-15/485726601_18489671305008695_495743180476908483_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEEW7PAH8FvAnQkQbPV1yS9EhSwzqDs1-wSFLDOoOzX7FRXVD23hh2gJXJ8lgUQNlnFRaHNyB8KVrjRbKbzvuzP&_nc_ohc=3MWgxMyr6l4Q7kNvwG13V48&_nc_oc=AdnHqGcjnwlB6jbY6-RvoXvwjyzFfW6xusYGEGXaxXESZFa3y-t5vuSoD-A3shnZRkmRAxpIjciONFvXBkekflAb&_nc_zt=23&_nc_ht=scontent.flim2-6.fna&_nc_gid=cD7NPpsdEy2Ga7ox6rRFbQ&oh=00_AfYHLOr9Xv-7urGbJTvbTNTEyt6cuQUSkyhZ0BdnLIKwqg&oe=68C2E0E3"
-                            class="card-img-top rounded-top" alt="Barbero 1" style="height: 437px;">
+                    <div class="card shadow-sm border-0">
+                        <img src="recursos/Barbero2.jpg" class="card-img-top rounded-top" alt="Barbero 1"
+                            style="height: 437px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Luis Angeles</h5>
                             <p class="card-text">Especialista en cortes clásicos y modernos, con más de 10 años de
@@ -110,96 +110,191 @@
 
     <section class="servicios py-1" id="servicios">
         <div class="container">
-            <h2 class="text-center py-5" id="servicios">Nuestros Servicios</h2>
-            <div class="row g-4">
+            <h2 class="text-center py-5">Nuestros Servicios</h2>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
                 <!-- Corte Clásico -->
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0">
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
                         <img src="https://i.pinimg.com/736x/ba/5d/e9/ba5de9c144330c53f43289bb1f6fcbbe.jpg"
-                            class="card-img-top rounded-topr" alt="Corte Clásico" style="height: 620px;">
+                            class="card-img-top rounded-top" alt="Corte Clásico"
+                            style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Corte Clásico</h5>
-                            <p class="card-text">Un corte tradicional con acabado impecable, ideal para quienes
-                                buscan un estilo limpio y atemporal.</p>
+                            <p class="card-text">Un corte tradicional con acabado impecable.</p>
+                            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal"
+                                data-bs-target="#reservasModal">
+                                Reservar
+                            </button>
                         </div>
                     </div>
                 </div>
+
                 <!-- Corte Moderno -->
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0">
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
                         <img src="https://i.pinimg.com/736x/87/48/03/8748031d6e694fb31b0ad85bf3e7c849.jpg"
-                            class="card-img-top rounded-top" alt="Corte Moderno" style="height: 620px;">
+                            class="card-img-top rounded-top" alt="Corte Moderno"
+                            style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Corte Moderno</h5>
-                            <p class="card-text">Estilos frescos y a la vanguardia, con acabados precisos que marcan
-                                tendencia.</p>
+                            <p class="card-text">Estilos frescos y a la vanguardia.</p>
+                            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal"
+                                data-bs-target="#reservasModal">
+                                Reservar
+                            </button>
                         </div>
                     </div>
                 </div>
+
                 <!-- Arreglo de barba -->
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0">
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
                         <img src="https://i.pinimg.com/1200x/91/d6/03/91d6037c183ccc9644cdd59a70857524.jpg"
-                            class="card-img-top rounded-top" alt="Arreglo de barba y bigote" style="height: 620px;">
+                            class="card-img-top rounded-top" alt="Arreglo de barba y bigote"
+                            style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Arreglo de barba y bigote</h5>
-                            <p class="card-text">Perfilado preciso y cuidado profesional para mantener tu barba
-                                impecable.</p>
+                            <p class="card-text">Perfilado preciso y cuidado profesional.</p>
+                            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal"
+                                data-bs-target="#reservasModal">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--TAPER FADE-->
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
+                        <img src="https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Low_Taper_Fade_Fluffy_Hair.png?v=1747859628"
+                            class="card-img-top rounded-top" alt="Arreglo de barba y bigote"
+                            style="height: 250px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Taper Fade </h5>
+                            <p class="card-text">data</p>
+                            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal"
+                                data-bs-target="#reservasModal">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--Lowe fade-->
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
+                        <img src="https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Low-Drop-Fade_600x600.webp?v=1750682896"
+                            class="card-img-top rounded-top" alt="Arreglo de barba y bigote"
+                            style="height: 250px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Low Fade</h5>
+                            <p class="card-text">Perfilado preciso y cuidado profesional.</p>
+                            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal"
+                                data-bs-target="#reservasModal">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
+                        <img src="https://i.pinimg.com/736x/fb/f7/78/fbf778533f579cbf36c72abbaed7cf3c.jpg"
+                            class="card-img-top rounded-top" alt="Arreglo de barba y bigote"
+                            style="height: 250px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Mohicano</h5>
+                            <p class="card-text">Perfilado preciso y cuidado profesional.</p>
+                            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal"
+                                data-bs-target="#reservasModal">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
+                        <img src="https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Mid-Fade-Haircut_600x600.webp?v=1751273586"
+                            class="card-img-top rounded-top" alt="Arreglo de barba y bigote"
+                            style="height: 250px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Mid Fade</h5>
+                            <p class="card-text">Perfilado preciso y cuidado profesional.</p>
+                            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal"
+                                data-bs-target="#reservasModal">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
+                        <img src="https://media.gqmagazine.fr/photos/66bb2d2aabbfb9fd16c03ab3/1:1/w_1498,h_1498,c_limit/ModCut.jpg"
+                            class="card-img-top rounded-top" alt="Arreglo de barba y bigote"
+                            style="height: 250px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Mod Cut</h5>
+                            <p class="card-text">Perfilado preciso y cuidado profesional.</p>
+                            <button class="btn btn-dark btn-sm mt-2" data-bs-toggle="modal"
+                                data-bs-target="#reservasModal">
+                                Reservar
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Modal de Reservas -->
-                <div class="modal fade" id="reservasModal" tabindex="-1" aria-labelledby="reservasModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content shadow-lg rounded-4 border-0">
+            </div>
+        </div>
 
-                            <!-- Encabezado -->
-                            <div class="modal-header bg-dark text-white">
-                                <h5 class="modal-title" id="reservasModalLabel">Reserva tu cita</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                                    aria-label="Cerrar"></button>
+        <!-- Modal de Reservas -->
+        <div class="modal fade" id="reservasModal" tabindex="-1" aria-labelledby="reservasModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content shadow-lg rounded-4 border-0">
+
+                    <!-- Encabezado -->
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title" id="reservasModalLabel">Reserva tu cita</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Cerrar"></button>
+                    </div>
+
+                    <!-- Cuerpo con formulario -->
+                    <div class="modal-body">
+                        <form id="formReserva">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Nombre" required>
                             </div>
-
-                            <!-- Cuerpo con formulario -->
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" placeholder="Nombre" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input type="tel" class="form-control" placeholder="Teléfono" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input type="date" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <select class="form-control" required>
-                                            <option value="">Selecciona un servicio</option>
-                                            <option>Corte Clásico</option>
-                                            <option>Corte Moderno</option>
-                                            <option>Arreglo de barba</option>
-                                        </select>
-                                    </div>
-                                </form>
+                            <div class="mb-3">
+                                <input type="tel" class="form-control" placeholder="Teléfono" required>
                             </div>
-
-                            <!-- Footer -->
+                            <div class="mb-3">
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-control" required>
+                                    <option value="">Selecciona un servicio</option>
+                                    <option>Corte Clásico</option>
+                                    <option>Corte Moderno</option>
+                                    <option>Arreglo de barba</option>
+                                </select>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-dark">Enviar</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
+
                 </div>
             </div>
+        </div>
     </section>
+
     <section class="contacto py-5" id="contacto">
         <div class="container">
             <h2 class="text-center mb-5">Ubícanos</h2>
             <p class="text-center">Av. Balta 456, Chiclayo - Lambayeque</p>
-            <p class="text-center">Télefono:   <a href="telefono">987 654 321</a></p>
+            <p class="text-center">Télefono: <a href="telefono">987 654 321</a></p>
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.908960878892!2d-79.84219312501694!3d-6.77143086611454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x904ce7a4f2e90bff%3A0x45f4b6b1e537e8a4!2sAv.%20Balta%20456%2C%20Chiclayo%2014001!5e0!3m2!1ses-419!2spe!4v1690123456789!5m2!1ses-419!2spe"
                 width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
@@ -241,7 +336,7 @@
                                         class="rounded-circle me-3" alt="Cliente 2">
                                     <div>
                                         <h6 class="mb-0 fw-bold">Rosina Vasquez</h6>
-                                        <small class="text-secondary">Usuario de Google</small>
+                                        <small class="text-secondary">Ingeniera ISIM</small>
                                     </div>
                                 </div>
                                 <p class="text-secondary fst-italic">
@@ -367,7 +462,7 @@
                                         class="rounded-circle me-3" alt="Cliente 2">
                                     <div>
                                         <h6 class="mb-0 fw-bold">Rosina Vasquez</h6>
-                                        <small class="text-secondary">Usuario de Google</small>
+                                        <small class="text-secondary">Ingeniera ISIM</small>
                                     </div>
                                 </div>
                                 <p class="text-secondary fst-italic">

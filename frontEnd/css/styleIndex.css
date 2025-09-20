@@ -13,6 +13,10 @@ body {
     line-height: 1.6;
 }   
 
+html {
+  scroll-behavior: smooth;
+}
+
 .navbar {
     transition: background-color 0.4s, box-shadow 0.4s;
 }
@@ -24,6 +28,11 @@ body {
 .navbar.scrolled {
     background-color: white !important;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand:hover{
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
 .nav-link {
@@ -87,12 +96,20 @@ header#inicio h1 {
   top: -40%;
 }
 
-
 .android{
     display: none;
 }
 div.offcanvas{
     background-color: white;
+}
+
+
+
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
 
