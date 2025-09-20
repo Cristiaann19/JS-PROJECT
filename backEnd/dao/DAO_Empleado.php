@@ -29,7 +29,7 @@ class DAO_Empleado {
     //Listar todos los empleados
     public function listarEmpleados() {
         $conexion = conexionPHP();
-        $sql = "SELECT * FROM EMPLEADO";
+        $sql = "SELECT * FROM EMPLEADO order by cargo desc;";
         $resultado = mysqli_query($conexion, $sql);
         $empleados = [];
 
@@ -47,33 +47,7 @@ class DAO_Empleado {
             );
             $empleados[] = $empleado;
         }
-
         return $empleados;
-    }
-
-    //Buscar un empleado por DNI
-    public function buscarPorDni($dni) {
-        $conexion = conexionPHP();
-        $sql = "SELECT * FROM EMPLEADO WHERE dni = ?";
-        $stmt = mysqli_prepare($conexion, $sql);
-        mysqli_stmt_bind_param($stmt, "s", $dni);
-        mysqli_stmt_execute($stmt);
-        $resultado = mysqli_stmt_get_result($stmt);
-
-        if ($fila = mysqli_fetch_assoc($resultado)) {
-            return new Empleado(
-                $fila['nombreEmpleado'],
-                $fila['dni'],
-                $fila['apellidoPaternoE'],
-                $fila['apellidoMaternoE'],
-                $fila['telefono'],
-                $fila['salario'],
-                $fila['cargo'],
-                $fila['estadoEmpleado']
-            );
-        }
-
-        return null;
     }
 
     //Actualizar un empleado por DNI
@@ -93,7 +67,6 @@ class DAO_Empleado {
             $empleado->getEstadoEmpleado(),
             $dni
         );
-
         return mysqli_stmt_execute($stmt);
     }
 
@@ -104,6 +77,42 @@ class DAO_Empleado {
         $stmt = mysqli_prepare($conexion, $sql);
         mysqli_stmt_bind_param($stmt, "s", $dni);
         return mysqli_stmt_execute($stmt);
+    }
+
+    //Cargar los datos del empleado 
+    public function obtenerPerfilPorDNI($dni) {
+        $conexion = conexionPHP();
+
+        $sqlCargo = "SELECT cargo from empleado where dni = ?";
+        $stmt = $conexion->prepare($sqlCargo);
+        $stmt->bind_param("s", $dni);
+        $stmt->execute();
+        $resultadoCargo = $stmt->get_result();
+        $cargo = $resultadoCargo->fetch_assoc()['cargo'];
+        
+        if ($cargo === "Barbero") {
+            $sql = "SELECT empleado.nombreEmpleado, empleado.apellidoPaternoE, empleado.apellidoMaternoE, 
+            empleado.cargo, empleado.dni, empleado.telefono, empleado.salario, barbero.especialidad, empleado.generoE
+            from empleado inner join barbero on empleado.idEmpleado = barbero.idEmpleado
+            where empleado.dni = ?";
+        } else if ($cargo === "Recepcionista") {
+            $sql = "SELECT empleado.nombreEmpleado, empleado.apellidoPaternoE, empleado.apellidoMaternoE, 
+            empleado.cargo, empleado.dni, empleado.telefono, empleado.salario, recepcionista.turno, empleado.generoE
+            from empleado inner join recepcionista on empleado.idEmpleado = recepcionista.idEmpleado
+            where empleado.dni = ?";
+        } else if ($cargo === "Administrador") {
+            $sql = "SELECT empleado.nombreEmpleado, empleado.apellidoPaternoE, empleado.apellidoMaternoE, 
+            empleado.cargo, empleado.dni, empleado.telefono, empleado.salario, empleado.generoE
+            from empleado where empleado.dni = ?";
+        }
+
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("s", $dni);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $perfil = $resultado->fetch_assoc();
+
+        return $perfil;
     }
 }
 ?>
