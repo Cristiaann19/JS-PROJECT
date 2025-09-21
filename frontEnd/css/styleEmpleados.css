@@ -9,11 +9,14 @@
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
 #divEmpleados {
-    margin-top: 50px;
-    margin-left: 150px;
+    margin-top: 60px; 
     background: #f1f4f9;
+    margin-left: -20px;
     padding: 1.3rem;
-    font-family: 'Merriweather Sans', sans-serif;
+}
+
+#menu-toggle:checked ~ #divEmpleados {
+    margin-left: 60px;
 }
 
 .contenedor-empleados {

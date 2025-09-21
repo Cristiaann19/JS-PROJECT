@@ -1,41 +1,66 @@
 <?php
-require_once "conexionBD_MySQL.php";
-require_once "Recepcionista.php";
+require_once(__DIR__ . '/../conexionBD_MySQL.php');
+require_once(__DIR__ . '/../modelos/Recepcionista.php');
 
 class DAO_Recepcionista {
 
-    //Agregar un nuevo recepcionista
+    //Agregar un nuevo recepcionista    
     public function agregarNuevoRecepcionista($recepcionista) {
         $conexion = conexionPHP();
-        
-        //Primero insertamos en la tabla EMPLEADO (ya que Recepcionista hereda de Empleado)
-        $sqlEmpleado = "INSERT INTO EMPLEADO (nombreEmpleado, apellidoPaternoE, apellidoMaternoE, telefono, salario, cargo, estadoEmpleado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        $sqlEmpleado = "INSERT INTO EMPLEADO 
+            (nombreEmpleado, dni, apellidoPaternoE, apellidoMaternoE, telefono, salario, cargo, estadoE, generoE) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         $stmtEmp = mysqli_prepare($conexion, $sqlEmpleado);
+        if (!$stmtEmp) {
+            throw new Exception("Error al preparar la consulta EMPLEADO: " . mysqli_error($conexion));
+        }
+
+        $nombre = $recepcionista->getNombreE();
+        $dni = $recepcionista->getDNIempleado();
+        $apellidoP = $recepcionista->getApellidoPaternoE();
+        $apellidoM = $recepcionista->getApellidoMaternoE();
+        $telefono = $recepcionista->getTelefono();
+        $salario = $recepcionista->getSalario();
+        $cargo = $recepcionista->getCargo();
+        $estado = $recepcionista->getEstadoEmpleado();
+        $genero = $recepcionista->getGenero();
+
         mysqli_stmt_bind_param(
             $stmtEmp,
-            "ssssdss",
-            $recepcionista->getNombreE(),
-            $recepcionista->getApellidoPaternoE(),
-            $recepcionista->getApellidoMaternoE(),
-            $recepcionista->getTelefono(),
-            $recepcionista->getSalario(),
-            $recepcionista->getCargo(),
-            $recepcionista->getEstadoEmpleado()
+            "sssssdsss",
+            $nombre,
+            $dni,
+            $apellidoP,
+            $apellidoM,
+            $telefono,
+            $salario,
+            $cargo,
+            $estado,
+            $genero
         );
+
         mysqli_stmt_execute($stmtEmp);
 
         $idEmpleado = mysqli_insert_id($conexion);
 
         $sqlRecep = "INSERT INTO RECEPCIONISTA (idEmpleado, turno) VALUES (?, ?)";
         $stmtRecep = mysqli_prepare($conexion, $sqlRecep);
+        if (!$stmtRecep) {
+            throw new Exception("Error al preparar la consulta RECEPCIONISTA: " . mysqli_error($conexion));
+        }
+
+        $turno = $recepcionista->getTurno();
+
         mysqli_stmt_bind_param(
             $stmtRecep,
             "is",
             $idEmpleado,
-            $recepcionista->getTurno()
+            $turno
         );
-
-        return mysqli_stmt_execute($stmtRecep);
+        mysqli_stmt_execute($stmtRecep);
+        return $idEmpleado;
     }
 
     //Listar todos los recepcionistas

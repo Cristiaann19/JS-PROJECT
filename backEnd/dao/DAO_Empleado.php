@@ -3,29 +3,6 @@ require_once(__DIR__ . '/../conexionBD_MySQL.php');
 require_once(__DIR__ . '/../modelos/Empleado.php');
 
 class DAO_Empleado {
-
-    //Agregar un nuevo empleado
-    public function agregarNuevoEmpleado($empleado) {
-        $conexion = conexionPHP();
-        $sql = "INSERT INTO EMPLEADO (nombreEmpleado, dni, apellidoPaternoE, apellidoMaternoE, telefono, salario, cargo, estadoEmpleado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conexion, $sql);
-
-        mysqli_stmt_bind_param(
-            $stmt,
-            "sssssdss",
-            $empleado->getNombreE(),
-            $empleado->getDni(),
-            $empleado->getApellidoPaternoE(),
-            $empleado->getApellidoMaternoE(),
-            $empleado->getTelefono(),
-            $empleado->getSalario(),
-            $empleado->getCargo(),
-            $empleado->getEstadoEmpleado()
-        );
-
-        return mysqli_stmt_execute($stmt);
-    }
-
     //Listar todos los empleados
     public function listarEmpleados() {
         $conexion = conexionPHP();
@@ -50,30 +27,49 @@ class DAO_Empleado {
         return $empleados;
     }
 
-    //Actualizar un empleado por DNI
-    public function actualizarEmpleado($empleado, $dni) {
+    //Actualizar datos empleado
+    public function actualizarEmpleado($nombre, $apellidoPaterno, $apellidoMaterno, $telefono, $salario, $dni) {
         $conexion = conexionPHP();
-        $sql = "UPDATE EMPLEADO SET nombreEmpleado = ?, apellidoPaternoE = ?, apellidoMaternoE = ?, telefono = ?, salario = ?, cargo = ?, estadoEmpleado = ? WHERE dni = ?";
+
+        $sql = "UPDATE EMPLEADO 
+                SET nombreEmpleado = ?, 
+                    apellidoPaternoE = ?, 
+                    apellidoMaternoE = ?, 
+                    telefono = ?, 
+                    salario = ? 
+                WHERE dni = ?";
+
         $stmt = mysqli_prepare($conexion, $sql);
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta UPDATE: " . mysqli_error($conexion));
+        }
+
         mysqli_stmt_bind_param(
             $stmt,
-            "sssssdss",
-            $empleado->getNombreE(),
-            $empleado->getApellidoPaternoE(),
-            $empleado->getApellidoMaternoE(),
-            $empleado->getTelefono(),
-            $empleado->getSalario(),
-            $empleado->getCargo(),
-            $empleado->getEstadoEmpleado(),
+            "ssssds",
+            $nombre,
+            $apellidoPaterno,
+            $apellidoMaterno,
+            $telefono,
+            $salario,
             $dni
         );
         return mysqli_stmt_execute($stmt);
     }
 
-    //Eliminar un empleado por DNI
-    public function eliminarEmpleado($dni) {
+    //Deshabilitar un empleado por DNI
+    public function deshabilitarEmpleado($dni) {
         $conexion = conexionPHP();
-        $sql = "DELETE FROM EMPLEADO WHERE dni = ?";
+        $sql = "UPDATE empleado SET estadoE = 'Inactivo' WHERE dni = ?";
+        $stmt = mysqli_prepare($conexion, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $dni);
+        return mysqli_stmt_execute($stmt);
+    }
+
+    //Habilitar un empleado por DNI 
+    public function habilitarEmpleado($dni) {
+        $conexion = conexionPHP();
+        $sql = "UPDATE empleado SET estadoE = 'Activo' WHERE dni = ?";
         $stmt = mysqli_prepare($conexion, $sql);
         mysqli_stmt_bind_param($stmt, "s", $dni);
         return mysqli_stmt_execute($stmt);

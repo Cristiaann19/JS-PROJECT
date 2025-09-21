@@ -103,10 +103,6 @@
     font-weight: 600;
 }
 
-.sidebar {
-    /*overflow-y: auto;*/
-}
-
 .side-menu ul {
     text-align: center;
 }
@@ -207,7 +203,6 @@ header {
 .header-menu .notify-icon {
     margin-right: 2rem;
     position: relative;
-    margin-top: 10px;
 }
 
 .header-menu label span,
@@ -234,7 +229,6 @@ header {
 .user {
     display: flex;
     align-items: center;
-    margin-top: 10px;
 }
 
 .user div, .client-img {
@@ -490,9 +484,38 @@ table tbody tr {
 
 .row {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    width: 100%;
     margin-top: 20px;
+}
+
+.row section {
+    display: flex;
+    flex-direction: column;
+}
+
+.row .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;   
+    margin-right: 30px;
+    padding: 0;
+    width: 100%;
+}
+
+.row .card h3 {
+    padding: 12px 0;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+}
+
+.row .card canvas {
+    flex: 1;
+    width: 100% !important;
+    height: 300px !important;
+    display: block;
 }
 
 .card h3 {
@@ -518,6 +541,24 @@ table tbody tr {
 
 .side-header img:hover {
     transform: scale(1.05);
+}
+
+.card canvas {
+    width: 100% !important;
+    height: 300px !important;
+    display: block;
+}
+
+@media only screen and (max-width: 768px) {
+    .card canvas {
+        height: 250px !important;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .card canvas {
+        height: 200px !important;
+    }
 }
 
 #menu-toggle:checked ~ .sidebar .side-header img {

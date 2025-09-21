@@ -1,6 +1,6 @@
 <?php
-require_once "conexionBD_MySQL.php";
-require_once "Reserva.php";
+require_once(__DIR__ . '/../conexionBD_MySQL.php');
+require_once(__DIR__ . '/../modelos/Reserva.php');
 
 class DAO_Reserva {
 

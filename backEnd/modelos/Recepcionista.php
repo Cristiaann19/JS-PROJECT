@@ -1,22 +1,25 @@
-<?php 
-    class Recepcionista extends Empleado {
-        //Atributos 
-        private $idRecepcionista;
-        private $turno;
+<?php
 
-        //Constructor
-        public function __construct($nombreEmpleado, $apellidoPaternoE, $apellidoMaternoE, $telefono, $salario, $cargo, $estadoEmpleado, $turno) {
-            parent::__construct($nombreEmpleado, $apellidoPaternoE, $apellidoMaternoE, $telefono, $salario, $cargo, $estadoEmpleado);
-            $this->turno = $turno;
-        }
+require_once __DIR__ . '/Empleado.php';
 
-        //Getters y Setters
-        public function getTurno() {
-            return $this->turno;
-        }
+class Recepcionista extends Empleado {
+    //Atributos 
+    private $idRecepcionista;
+    private $turno;
 
-        public function setTurno($turno) {
-            $this->turno = $turno;
-        }
+    //Constructor
+    public function __construct($nombreEmpleado, $dni, $apellidoPaternoE, $apellidoMaternoE, $telefono, $salario, $cargo, $estadoEmpleado, $generoEmpleado, $turno) {
+        parent::__construct($nombreEmpleado, $dni, $apellidoPaternoE, $apellidoMaternoE, $telefono, $salario, $cargo, $estadoEmpleado, $generoEmpleado);
+        $this->turno = $turno;
     }
+
+    //Getters y Setters
+    public function getTurno() {
+        return $this->turno;
+    }
+
+    public function setTurno($turno) {
+        $this->turno = $turno;
+    }
+}
 ?>

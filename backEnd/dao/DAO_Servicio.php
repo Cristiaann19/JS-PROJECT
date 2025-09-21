@@ -1,6 +1,6 @@
 <?php
-require_once "conexionBD_MySQL.php";
-require_once "Servicio.php";
+require_once(__DIR__ . '/../conexionBD_MySQL.php');
+require_once(__DIR__ . '/../modelos/Servicios.php');
 
 class DAO_Servicio {
 
