@@ -11,7 +11,8 @@ if (!$nombreUsuario || !$contrasenia) {
         "error" => true,
         "valido" => false,
         "estado" => null,
-        "usuario" => null
+        "usuario" => null,
+        "cargo" => null
     ]);
     exit;
 }
@@ -20,14 +21,31 @@ try {
     $daoUsuario = new DAO_Usuario();
     $resultado = $daoUsuario->verificarUsuario($nombreUsuario, $contrasenia);
 
-    echo json_encode($resultado);
+    if ($resultado['valido']) {
+        echo json_encode([
+            "error"   => false,
+            "valido"  => true,
+            "estado"  => $resultado['estado'],
+            "usuario" => $resultado['usuario'],
+            "cargo"   => $resultado['cargo']
+        ]);
+    } else {
+        echo json_encode([
+            "error"   => false,
+            "valido"  => false,
+            "estado"  => null,
+            "usuario" => null,
+            "cargo"   => null
+        ]);
+    }
 
 } catch (Exception $e) {
     echo json_encode([
         "error" => true,
         "valido" => false,
         "estado" => null,
-        "usuario" => null
+        "usuario" => null,
+        "cargo"   => null
     ]);
 }
 ?>

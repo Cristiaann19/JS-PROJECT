@@ -36,17 +36,17 @@ class DAO_Usuario {
     public function verificarUsuario($nombreUsuario, $contrasenia) {
         $conexion = conexionPHP();
 
-        $sql = "SELECT usuario.nombreUsuario, usuario.contraseña, empleado.estadoE
+        $sql = "SELECT usuario.nombreUsuario, usuario.contraseña, empleado.estadoE, empleado.cargo
                 FROM Usuario
                 INNER JOIN Empleado ON usuario.idEmpleado = empleado.idEmpleado
-                WHERE usuario.nombreUsuario = ?";
+                WHERE usuario.nombreUsuario = ? AND usuario.contraseña = ?";
 
         $stmt = mysqli_prepare($conexion, $sql);
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta de verificación: " . mysqli_error($conexion));
         }
 
-        mysqli_stmt_bind_param($stmt, "s", $nombreUsuario);
+        mysqli_stmt_bind_param($stmt, "ss", $nombreUsuario, $contrasenia);
 
         if (!mysqli_stmt_execute($stmt)) {
             throw new Exception("Error al ejecutar la consulta de verificación: " . mysqli_error($conexion));
@@ -55,26 +55,21 @@ class DAO_Usuario {
         $resultado = mysqli_stmt_get_result($stmt);
 
         if ($fila = mysqli_fetch_assoc($resultado)) {
-            if ($fila['contraseña'] === $contrasenia) {
-                return [
-                    "valido"  => true,
-                    "estado"  => $fila['estadoE'],
-                    "usuario" => $fila['nombreUsuario']
-                ];
-            } else {
-                return [
-                    "valido"  => false,
-                    "estado"  => $fila['estadoE'],
-                    "usuario" => $fila['nombreUsuario']
-                ];
-            }
+            return [
+                "valido"  => true,
+                "estado"  => $fila['estadoE'],
+                "usuario" => $fila['nombreUsuario'],
+                "cargo"   => $fila['cargo']
+            ];
         } else {
             return [
                 "valido"  => false,
                 "estado"  => null,
-                "usuario" => null
+                "usuario" => null,
+                "cargo"   => null
             ];
         }
     }
+
 }
 ?>
