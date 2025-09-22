@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Inicializar los toast
+    //Inicializar los toast
     const sistemaToast = new SistemaToast();
 
     //Abrir y cerrar modal
