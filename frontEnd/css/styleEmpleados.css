@@ -11,8 +11,8 @@
 #divEmpleados {
     margin-top: 60px; 
     background: #f1f4f9;
-    margin-left: -20px;
     padding: 1.3rem;
+    margin-left: 150px;
 }
 
 #menu-toggle:checked ~ #divEmpleados {

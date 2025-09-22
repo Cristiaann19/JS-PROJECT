@@ -250,6 +250,7 @@ main {
 .page-header {
     padding: 1.3rem 1rem;
     background: #E9edf2;
+    margin-top: 50px;
     border-bottom: 1px solid #dee2e8;
 }
 
@@ -470,18 +471,6 @@ table tbody tr {
     border: none;
 }
 
-.footer {
-    background: #3c3c3c;
-    color: #fff;
-    text-align: center;
-    padding: 15px 0; 
-    margin-top: 20px;
-    font-size: 14px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
 .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -493,6 +482,7 @@ table tbody tr {
 .row section {
     display: flex;
     flex-direction: column;
+    height: 500px !important;
 }
 
 .row .card {
