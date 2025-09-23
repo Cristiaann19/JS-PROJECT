@@ -71,5 +71,30 @@ class DAO_Usuario {
         }
     }
 
+    //Obtener nombre, apellido y cargo por nombre de usuario
+    public function obtenerNombreCompletoCargoPorUsuario($nombreUsuario) {
+        $conexion = conexionPHP();
+        $sql = "SELECT empleado.nombreEmpleado, empleado.apellidoPaternoE, empleado.cargo, empleado.generoE
+                FROM empleado
+                INNER JOIN usuario ON usuario.idEmpleado = empleado.idEmpleado
+                WHERE usuario.nombreUsuario = ?";
+
+        $stmt = mysqli_prepare($conexion, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $nombreUsuario);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            $nombreCompleto = $fila['nombreEmpleado'] . ' ' . $fila['apellidoPaternoE'];
+
+            return [
+                'nombreCompleto' => $nombreCompleto,
+                'cargo'          => $fila['cargo'],
+                'genero'         => $fila['generoE']
+            ];
+        } else {
+            return null;
+        }
+    }
 }
 ?>

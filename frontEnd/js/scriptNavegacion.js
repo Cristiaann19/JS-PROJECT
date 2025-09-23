@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const enlacesSidebar = document.querySelectorAll('.side-menu a');
-    const seccionesArray = [
+    let seccionesArray = [
         'divDashboard',
         'divEmpleados',  
         'divClientes',
@@ -34,12 +34,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    //funcion para cambiar de seccion
     function cambiarSeccion(indice) {
         if (indice >= 0 && indice < seccionesArray.length) {
             ocultarTodasLasSecciones();
             mostrarSeccion(seccionesArray[indice]);
             actualizarEnlaceActivo(indice);
+        }
+    }
+
+    function ajustarVisibilidadPorCargo() {
+        const cargoUsuario = localStorage.getItem('usuarioCargo');
+        if (cargoUsuario) {
+            const permisos = {
+                'Barbero': ['divHorarioReserva', 'divReservas'],
+                'Recepcionista': ['divClientes', 'divHorarioReserva', 'divReservas'],
+            };
+
+            switch (cargoUsuario) {
+                case 'Barbero':
+                    seccionesArray = ['divDashboard', 'divHorarioReserva', 'divReservas'];
+                    break;
+                case 'Recepcionista':
+                    seccionesArray = ['divDashboard', 'divClientes', 'divHorarioReserva', 'divReservas'];
+                    break;
+                case 'Administrador':
+                    break;
+                default:
+                    console.warn('Cargo de usuario desconocido:', cargoUsuario);
+            }
+
+            const seccionesPermitidas = permisos[cargoUsuario];
+
+            if (seccionesPermitidas) {
+                enlacesSidebar.forEach(enlace => {
+                    const seccionObjetivo = enlace.dataset.seccion;
+                    if (!seccionesPermitidas.includes(seccionObjetivo)) {
+                        enlace.parentElement.style.display = 'none';
+                    }
+                });
+            }
         }
     }
 
@@ -52,32 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     cambiarSeccion(0);
     
-    function inicializarNavegacionMejorada() {
-        const enlacesConData = document.querySelectorAll('.side-menu a[data-section]');
-        
-        enlacesConData.forEach(enlace => {
-            enlace.addEventListener('click', function(e) {
-                e.preventDefault();
-                const seccionObjetivo = this.getAttribute('data-section');
-                
-                seccionesArray.forEach(id => {
-                    const elemento = document.getElementById(id);
-                    if (elemento) {
-                        elemento.style.display = 'none';
-                    }
-                });
-                
-                const elemento = document.getElementById(seccionObjetivo);
-                if (elemento) {
-                    elemento.style.display = 'block';
-                }
-                
-                enlacesConData.forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    }
-
     window.navegarA = function(nombreSeccion) {
         const indice = seccionesArray.indexOf(nombreSeccion);
         if (indice !== -1) {
@@ -117,8 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
         guardarEstado(indice);
     };
 
+    ajustarVisibilidadPorCargo();
     restaurarEstado();
-
+    
     window.debugSidebar = function() {
         console.log('Secciones disponibles:', seccionesArray);
         console.log('Sección actual:', obtenerSeccionActual());

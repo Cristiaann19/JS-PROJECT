@@ -27,40 +27,45 @@
         
         <div class="side-content">
             <div class="profile">
-                <div class="profile-img bg-img" style="background-image: url('https://img.freepik.com/vector-premium/icono-perfil-avatar-estilo-plano-ilustracion-vector-perfil-usuario-masculino-sobre-fondo-aislado-concepto-negocio-signo-perfil-hombre_157943-38764.jpg'); background-size: 150%; background-position: center; border: black;"></div>
-                <h4>Cristian Huaman</h4> <!--SE TIENE QUE CAMBIAR CUANDO SE INICIA CON ALGUIEN DIFERENTE-->
-                <small>Administrador</small>
+                <div id="profile-img" 
+                    class="profile-img bg-img" 
+                    style="background-size: 105%; 
+                            background-position: center; 
+                            border: black;">
+                </div>
+                <h4 id="profile-name">Nombre de Usuario</h4>
+                <small id="profile-role">Cargo</small>
             </div>
 
             <div class="side-menu">
                 <ul>
                     <li>
-                       <a href="#" class="active">
+                       <a href="#" class="active" data-seccion="divDashboard">
                             <span class="las la-home"></span>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                       <a href="#">
+                       <a href="#" data-seccion="divEmpleados">
                             <span class="las la-id-badge"></span>
                             <small>Empleados</small>
                         </a>
                     </li>
                     <li>
-                       <a href="#">
+                       <a href="#" data-seccion="divClientes">
                             <span class="las la-user-alt"></span>
                             <small>Clientes</small>
                         </a>
                     </li>
                     <li>
-                       <a href="#">
+                       <a href="#" data-seccion="divHorarioReserva">
                             <span class="las la-clock"></span>
                             <small>Horarios</small>
                             <small>y Agenda</small>
                         </a>
                     </li>
                     <li>
-                       <a href="#">
+                       <a href="#" data-seccion="divReservas">
                             <span class="las la-calendar"></span>
                             <small>Reservas</small>
                         </a>

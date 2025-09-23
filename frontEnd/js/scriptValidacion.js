@@ -1,7 +1,74 @@
 const LoginForm = document.getElementById('LoginForm');
-const toast = new SistemaToast();
 
+// -----------------------------
+// Función para obtener perfil y guardar en localStorage
+// -----------------------------
+function obtenerPerfilUsuario(usuario) {
+    return fetch('/backEnd/controladores/controladorDatosUsuario.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `usuario=${encodeURIComponent(usuario)}`
+    })
+    .then(res => {
+        if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+        return res.json();
+    })
+    .then(data => {
+        if (!data.error && data.usuario) {
+            localStorage.setItem("usuarioNombre", data.usuario);
+            localStorage.setItem("usuarioCargo", data.cargo);
+            localStorage.setItem("usuarioGenero", data.genero);
+        }
+        return data;
+    });
+}
+
+// -----------------------------
+// Mostrar datos en dashboard
+// -----------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    const nombre = localStorage.getItem("usuarioNombre");
+    const cargo = localStorage.getItem("usuarioCargo");
+    const genero = localStorage.getItem("usuarioGenero")?.toLowerCase() || "";
+
+    if (nombre && cargo) {
+        const profileName = document.getElementById("profile-name");
+        const profileRole = document.getElementById("profile-role");
+        const profileImg = document.getElementById("profile-img");
+
+        if (profileName) profileName.textContent = nombre;
+        if (profileRole) profileRole.textContent = cargo;
+
+        // Imagen según cargo + género
+        let imagen = "https://img.freepik.com/vector-premium/icono-perfil-avatar-estilo-plano-ilustracion-vector-perfil-usuario-masculino-sobre-fondo-aislado-concepto-negocio-signo-perfil-hombre_157943-38764.jpg";
+
+        switch (cargo.toLowerCase()) {
+            case "administrador":
+                imagen = (genero === "femenino") 
+                    ? 'https://i.imgur.com/IogPnjv.jpeg' 
+                    : 'https://i.imgur.com/aXAz5J3.jpeg';
+                break;
+            case "recepcionista":
+                imagen = (genero === "femenino") 
+                    ? 'https://i.imgur.com/gHaQRGi.jpeg' 
+                    : 'https://i.imgur.com/xm0ixha.jpeg';
+                break;
+            case "barbero":
+                imagen = 'https://i.imgur.com/ofqkTNn.jpeg';    
+                break;
+        }
+
+        if (profileImg) profileImg.style.backgroundImage = `url('${imagen}')`;
+        console.log("Imagen asignada:", imagen); 
+    }
+});
+
+// -----------------------------
+// Validación login
+// -----------------------------
 if (LoginForm) {
+    const toast = new SistemaToast();
+
     LoginForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -9,51 +76,48 @@ if (LoginForm) {
         const password = document.getElementById('password').value.trim();
 
         if (!user || !password) {
-            alert("Atención! Completa todos los datos.");
-            console.log("Atención! Completa todos los datos.");
-            toast.mostrar('info', 'Campos obligatorios no ingresados', 'Ingrese su usuario y contraseña.');
-
+            toast.mostrar('info', 'Campos incompletos', 'Por favor, ingrese su usuario y contraseña.');
             return;
         }
-        // Petición al backend
+
         fetch('/backEnd/controladores/controladorUsuario.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `usuario=${encodeURIComponent(user)}&contrasena=${encodeURIComponent(password)}`
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+            return res.json();
+        })
         .then(data => {
-            console.log("Respuesta del backend:", data);
-            alert(JSON.stringify(data)); // Para debug
-
             if (data.valido && data.estado === "Activo") {
-                localStorage.setItem("usuarioNombre", data.usuario);
-                localStorage.setItem("usuarioCargo", data.cargo);
+                toast.mostrar('success', `¡Bienvenido!`, 'Usuario y contraseña correctas.');
 
-                alert(`¡Listo! Bienvenido ${data.usuario} (${data.cargo}).`);
-                toast.mostrar('success', '¡Bienvenido!', 'Bienvenido al sistema');
+                // Guardar datos completos (nombre, cargo y género)
+                obtenerPerfilUsuario(user).then(() => {
+                    setTimeout(() => {
+                        window.location.href = "/frontEnd/html/dashboard.html";
+                    }, 1500);
+                });
 
-                setTimeout(() => {
-                    window.location.href = "/frontEnd/html/dashboard.html";
-                }, 2000);
             } else if (data.estado === "Inactivo") {
-                alert("Cuenta inactiva: Tu usuario está inhabilitado.");
-                toast.mostrar('warning', 'Usuario inactivo', 'Empelado inactivo, no puede ingresar');
+                toast.mostrar('warning', 'Usuario inactivo', 'Tu cuenta está deshabilitada.');
             } else {
-                alert("Error: Los datos son incorrectos");
-                toast.mostrar('error', '¡Error al inciar sesion!', 'Credenciales incorrectas');
+                toast.mostrar('error', 'Error al iniciar sesión', 'El usuario o la contraseña son incorrectos.');
             }
         })
         .catch((error) => {
-            console.log("Error en fetch:", error);
-            alert("Error: No se pudo conectar al servidor.");
+            console.error("Error en fetch:", error);
         });
     });
 }
 
-//PARA CERRAR SESION
+// -----------------------------
+// Cerrar sesión
+// -----------------------------
 document.getElementById('LogOut')?.addEventListener("click", () => {
     localStorage.removeItem("usuarioNombre");
     localStorage.removeItem("usuarioCargo");
+    localStorage.removeItem("usuarioGenero");
     window.location.href = "/frontEnd/html/login.html";
 });
