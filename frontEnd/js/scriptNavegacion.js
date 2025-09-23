@@ -1,15 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     const enlacesSidebar = document.querySelectorAll('.side-menu a');
-    let seccionesArray = [
+    const todasLasSecciones = [
         'divDashboard',
         'divEmpleados',  
         'divClientes',
         'divHorarioReserva',
         'divReservas'
     ];
+    let seccionesArray = [...todasLasSecciones];
 
     function ocultarTodasLasSecciones() {
-        seccionesArray.forEach(id => {
+        todasLasSecciones.forEach(id => {
             const elemento = document.getElementById(id);
             if (elemento) {
                 elemento.style.display = 'none';
@@ -34,11 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function cambiarSeccion(indice) {
-        if (indice >= 0 && indice < seccionesArray.length) {
+    function cambiarSeccion(nombreSeccion) {
+        if (seccionesArray.includes(nombreSeccion)) {
             ocultarTodasLasSecciones();
-            mostrarSeccion(seccionesArray[indice]);
-            actualizarEnlaceActivo(indice);
+            mostrarSeccion(nombreSeccion);
+
+            let indiceActivo = -1;
+            enlacesSidebar.forEach((enlace, i) => {
+                if (enlace.dataset.seccion === nombreSeccion) {
+                    indiceActivo = i;
+                }
+            });
+            actualizarEnlaceActivo(indiceActivo);
         }
     }
 
@@ -52,10 +60,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             switch (cargoUsuario) {
                 case 'Barbero':
-                    seccionesArray = ['divDashboard', 'divHorarioReserva', 'divReservas'];
+                    seccionesArray = ['divHorarioReserva', 'divReservas'];
                     break;
                 case 'Recepcionista':
-                    seccionesArray = ['divDashboard', 'divClientes', 'divHorarioReserva', 'divReservas'];
+                    seccionesArray = ['divClientes', 'divHorarioReserva', 'divReservas'];
                     break;
                 case 'Administrador':
                     break;
@@ -76,19 +84,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    enlacesSidebar.forEach((enlace, indice) => {
+    enlacesSidebar.forEach(enlace => {
         enlace.addEventListener('click', function(e) {
             e.preventDefault();
-            cambiarSeccion(indice);
+            const nombreSeccion = this.dataset.seccion;
+            cambiarSeccion(nombreSeccion);
         });
     });
 
-    cambiarSeccion(0);
-    
     window.navegarA = function(nombreSeccion) {
-        const indice = seccionesArray.indexOf(nombreSeccion);
-        if (indice !== -1) {
-            cambiarSeccion(indice);
+        if (nombreSeccion) {
+            cambiarSeccion(nombreSeccion);
         }
     };
     
@@ -102,26 +108,23 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     };
     
-    function guardarEstado(indice) {
-        localStorage.setItem('seccionActiva', indice.toString());
+    function guardarEstado(nombreSeccion) {
+        localStorage.setItem('seccionActiva', nombreSeccion);
     }
     
     function restaurarEstado() {
         const estadoGuardado = localStorage.getItem('seccionActiva');
-        if (estadoGuardado !== null) {
-            const indice = parseInt(estadoGuardado);
-            if (indice >= 0 && indice < seccionesArray.length) {
-                cambiarSeccion(indice);
-                return;
-            }
+        if (estadoGuardado && seccionesArray.includes(estadoGuardado)) {
+            cambiarSeccion(estadoGuardado);
+        } else {
+            cambiarSeccion(seccionesArray[0]);
         }
-        cambiarSeccion(0);
     }
 
     const cambiarSeccionOriginal = cambiarSeccion;
-    cambiarSeccion = function(indice) {
-        cambiarSeccionOriginal(indice);
-        guardarEstado(indice);
+    cambiarSeccion = function(nombreSeccion) {
+        cambiarSeccionOriginal(nombreSeccion);
+        guardarEstado(nombreSeccion);
     };
 
     ajustarVisibilidadPorCargo();
