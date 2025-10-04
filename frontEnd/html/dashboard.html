@@ -83,7 +83,7 @@
                 </label>
                 <div class="user">                        
                     <button class="btn" id="LogOut">
-                        <span class="las la-power-off"></span>
+                        <i class="fa-solid fa-right-from-bracket"></i>
                         <span>Cerrar Sesión</span>
                     </button>
                 </div>
@@ -330,47 +330,58 @@
     <section id="divClientes">
         <div class="contenedor-clientes">
             <!-- Buscador y botones -->
-            <div class="acciones-cliente">
-                <!-- Buscador -->
-                <div class="buscador">
+            <div class="acciones-cliente" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <div class="buscador" style="flex:1;">
                     <label for="buscarCliente"><i class="fa-solid fa-magnifying-glass"></i></label>
-                    <input type="text" id="buscarCliente" placeholder="Buscar cliente...">
+                    <input type="text" id="buscarCliente" placeholder="Buscar cliente..." style="width:90%; padding:5px; font-size:14px;">
                 </div>
-
-                <!-- Botones -->
-                <div class="botones">
+                <div class="botones" style="display:flex; gap:10px;">
                     <button id="btnAbrirModalCliente" class="btn btn-primary btn-lg"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
-                    <button id="btnVerTarjetas" class="btn btn-primary btn-lg"><i class="fa-solid fa-address-card"></i> Ver Tarjetas</button>
+                    <button id="btnVerTarjetas" class="btn btn-primary btn-lg"><i class="fa-solid fa-pencil"></i> Editar</button>
                 </div>
             </div>
 
-            <!-- Tabla de cliente -->
-            <div class="tabla-clientes">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Teléfono</th>
-                            <th>Correo Electronico</th>    
-                        </tr>
-                    </thead>
-                    <tbody id="clientes-body">
-                        <!-- Aquí se cargará la tabla desde los controladores -->
-                    </tbody>
-                </table>
-            </div>
+            <!-- Contenedor principal -->
+            <div class="contenedor-tabla-lista" style="display:flex; gap:20px; align-items:flex-start;">
+                <!-- Tabla de clientes -->
+                <div class="tabla-clientes" style="flex:2;">
+                    <table style="width:100%; border-collapse: collapse; table-layout: fixed;">
+                        <thead style="background-color:#9aa7a1; color:white;">
+                            <tr>
+                                <th style="padding:8px; text-align:left;">Nombre</th>
+                                <th style="padding:8px; text-align:left;">Apellido Paterno</th>
+                                <th style="padding:8px; text-align:left;">Apellido Materno</th>
+                                <th style="padding:8px; text-align:left;">Teléfono</th>
+                                <th style="padding:8px; text-align:left;">Correo Electrónico</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientes-body" style="border:1px solid #ccc;">
+                            <!-- Cargar la tabla desde los controladores -->
+                        </tbody>
+                    </table>
+                </div>
 
-            <!-- Cards de clientes -->
-            <div class="clientes-grid" id="clientesCards" style="display:none;">
-                <!-- Se carga dinamicamente -->
+                <!-- Tabla de reservas por clientes -->
+                <div class="reservas-cliente" style="flex:1; border:1px solid #ccc; border-radius:8px; padding:10px; background-color:#f9f9f9; max-height:500px; overflow-y:auto;">
+                    <h3 style="text-align:center; margin-bottom:10px;">Reservas del Cliente</h3>
+                    <table id="tablaReservas" style="width:100%; border-collapse: collapse; table-layout: fixed;">
+                        <thead style="background-color:#00733c; color:white;">
+                            <tr>
+                                <th style="padding:8px; text-align:left;">Servicio</th>
+                                <th style="padding:8px; text-align:left;">Fecha</th>
+                                <th style="padding:8px; text-align:left;">Hora</th>
+                                <th style="padding:8px; text-align:left;">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservas-body">
+                            <tr>
+                                <td colspan="4" style="text-align:center; padding:10px;">No hay reservas seleccionadas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
         </div>
-
-
-
     </section>
 
     <!-- Horarios y reserva -->
@@ -392,9 +403,13 @@
     <!-- Scripts datos -->
     <script src="/frontEnd/js/otrosScripts/scriptReportes.js"></script>   
 
+    <!-- Scrips de empleados -->
     <script src="/frontEnd/js/otrosScripts/scriptEmpleados.js"></script>
     <script src="/frontEnd/js/otrosScripts/scriptListarPerfilE.js"></script>
     <script src="/frontEnd/js/otrosScripts/scriptListarPerfilE.js"></script>
+
+    <!-- Scripts de clientes -->
+    <script src="/frontEnd/js/otrosScripts/scriptClientes.js"></script>
 
     <!-- Link de chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -408,91 +423,5 @@
     <script src="/frontEnd/js/scriptNavegacion.js"></script>
     <script src="/frontEnd/js/scriptBuscador.js"></script>
     <script src="/frontEnd/js/scriptValidacion.js"></script>
-
-
-<script>
-// Datos ficticios
-const clientes = [
-  {id:1, nombre:"Juan", apP:"Pérez", apM:"Gómez", tel:"987654321", email:"juan.perez@mail.com"},
-  {id:2, nombre:"María", apP:"López", apM:"Rojas", tel:"912345678", email:"maria.lopez@mail.com"},
-  {id:3, nombre:"Carlos", apP:"Ramírez", apM:"Torres", tel:"976543210", email:"carlos.ramirez@mail.com"},
-  {id:4, nombre:"Ana", apP:"Vargas", apM:"Mendoza", tel:"965432109", email:"ana.vargas@mail.com"},
-  {id:5, nombre:"Luis", apP:"Castro", apM:"Paredes", tel:"954321098", email:"luis.castro@mail.com"}
-];
-
-// Referencias a elementos del DOM
-const tbody = document.getElementById("clientes-body");
-const cardsContainer = document.getElementById("clientesCards");
-const inputBuscar = document.getElementById("buscarCliente");
-const tablaContainer = document.querySelector(".tabla-clientes"); // div que contiene la tabla
-const btnVerTarjetas = document.getElementById("btnVerTarjetas"); // botón de ver tarjetas
-
-// Función para mostrar clientes
-function mostrarClientes(data) {
-  // Llenar tabla
-  tbody.innerHTML = "";
-  data.forEach(c => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${c.nombre}</td>
-      <td>${c.apP}</td>
-      <td>${c.apM}</td>
-      <td>${c.tel}</td>
-      <td>${c.email}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  // Llenar cards
-  cardsContainer.innerHTML = "";
-  data.forEach(c => {
-    const div = document.createElement("div");
-    div.classList.add("cliente-card");
-    div.innerHTML = `
-      <h3>${c.nombre} ${c.apP}</h3>
-      <p>Apellido Materno: ${c.apM}</p>
-      <p>Tel: ${c.tel}</p>
-      <p>Email: ${c.email}</p>
-    `;
-    cardsContainer.appendChild(div);
-  });
-}
-
-// Función búsqueda en tiempo real
-inputBuscar.addEventListener("input", function() {
-  const busqueda = this.value.toLowerCase();
-  const filtrados = clientes.filter(c => 
-    c.nombre.toLowerCase().includes(busqueda) ||
-    c.apP.toLowerCase().includes(busqueda) ||
-    c.apM.toLowerCase().includes(busqueda) ||
-    c.tel.includes(busqueda) ||
-    c.email.toLowerCase().includes(busqueda)
-  );
-  mostrarClientes(filtrados);
-});
-
-// Alternar vista Tabla / Cards y cambiar texto del botón
-function toggleView() {
-  if(tablaContainer.style.display === "none") {
-    tablaContainer.style.display = "block"; // mostrar tabla
-    cardsContainer.style.display = "none";  // ocultar cards
-    btnVerTarjetas.innerHTML = `<i class="fa-solid fa-address-card"></i> Ver Tarjetas`;
-  } else {
-    tablaContainer.style.display = "none";  // ocultar tabla
-    cardsContainer.style.display = "grid";   // mostrar cards
-    btnVerTarjetas.innerHTML = `<i class="fa-solid fa-table"></i> Ver Tabla`;
-  }
-}
-
-// Asignar evento al botón "Ver Tarjetas"
-btnVerTarjetas.addEventListener("click", toggleView);
-
-// Mostrar todos al cargar
-mostrarClientes(clientes);
-
-
-</script>
-
-
 </body>
 </html>

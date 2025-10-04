@@ -32,6 +32,7 @@ class DAO_Cliente {
 
         while ($fila = mysqli_fetch_assoc($resultado)) {
             $cliente = new Cliente(
+                $fila['idCliente'],
                 $fila['nombreCliente'],
                 $fila['apellidoPaterno'],
                 $fila['apellidoMaterno'],
@@ -41,32 +42,7 @@ class DAO_Cliente {
             $cliente->setIdCliente($fila['idCliente']);
             $clientes[] = $cliente;
         }
-
         return $clientes;
-    }
-
-    //Buscar un cliente por ID
-    public function buscarPorId($idCliente) {
-        $conexion = conexionPHP();
-        $sql = "SELECT * FROM CLIENTE WHERE idCliente = ?";
-        $stmt = mysqli_prepare($conexion, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $idCliente);
-        mysqli_stmt_execute($stmt);
-        $resultado = mysqli_stmt_get_result($stmt);
-
-        if ($fila = mysqli_fetch_assoc($resultado)) {
-            $cliente = new Cliente(
-                $fila['nombreCliente'],
-                $fila['apellidoPaterno'],
-                $fila['apellidoMaterno'],
-                $fila['telefono'],
-                $fila['email']
-            );
-            $cliente->setIdCliente($fila['idCliente']);
-            return $cliente;
-        }
-
-        return null;
     }
 
     //Actualizar un cliente por ID
@@ -88,13 +64,32 @@ class DAO_Cliente {
         return mysqli_stmt_execute($stmt);
     }
 
-    //Eliminar un cliente por ID
-    public function eliminarCliente($idCliente) {
+    //Listar reservas del cliente
+    public function listarReservacionesDeCliente($idCliente){
         $conexion = conexionPHP();
-        $sql = "DELETE FROM CLIENTE WHERE idCliente = ?";
+        $sql = "SELECT servicio.nombreServicio, reserva.fechaReserva, reserva.hora, servicio.precio 
+                FROM servicio 
+                INNER JOIN reserva ON reserva.idServicio = servicio.idServicio 
+                INNER JOIN cliente ON cliente.idCliente = reserva.idCliente
+                WHERE cliente.idCliente = ?";
+
         $stmt = mysqli_prepare($conexion, $sql);
+        if(!$stmt) return [];
+
+        // "i" porque idCliente es un entero
         mysqli_stmt_bind_param($stmt, "i", $idCliente);
-        return mysqli_stmt_execute($stmt);
+
+        mysqli_stmt_execute($stmt);
+
+        $resultado = mysqli_stmt_get_result($stmt);
+        $reservas = [];
+        while($fila = mysqli_fetch_assoc($resultado)){
+            $reservas[] = $fila;
+        }
+
+        mysqli_stmt_close($stmt);
+
+        return $reservas;
     }
 }
 ?>

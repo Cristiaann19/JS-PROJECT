@@ -155,3 +155,20 @@
 .tabla-clientes tbody tr.selected td {
     color: var(--main-color);
 }
+
+.contenedor-tabla-lista {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* Tablas con scroll si son muy largas */
+.tabla-clientes, .reservas-cliente {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* Resaltado de fila seleccionada */
+tr.seleccionado {
+    background-color: #d8e2d7;
+}

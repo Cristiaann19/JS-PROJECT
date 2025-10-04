@@ -9,7 +9,8 @@
         private $email;
 
         //Constructor
-        public function __construct($nombreCliente, $apellidoPaterno, $apellidoMaterno, $telefono, $email) {
+        public function __construct($idCliente, $nombreCliente, $apellidoPaterno, $apellidoMaterno, $telefono, $email) {
+            $this->idCliente = $idCliente;
             $this->nombreCliente = $nombreCliente;
             $this->apellidoPaterno = $apellidoPaterno;
             $this->apellidoMaterno = $apellidoMaterno;
