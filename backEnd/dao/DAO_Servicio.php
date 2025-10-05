@@ -33,7 +33,8 @@ class DAO_Servicio {
                 $fila['idServicio'],
                 $fila['nombreServicio'],
                 $fila['descripcion'],
-                $fila['precio']
+                $fila['precio'],
+                $fila['imagenURL'] ?? '' 
             );
             $servicios[] = $servicio;
         }
@@ -55,7 +56,8 @@ class DAO_Servicio {
                 $fila['idServicio'],
                 $fila['nombreServicio'],
                 $fila['descripcion'],
-                $fila['precio']
+                $fila['precio'],
+                $fila['imagenURL'] ?? '' // Añadir la URL de la imagen
             );
         }
 

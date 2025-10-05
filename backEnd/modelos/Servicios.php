@@ -5,13 +5,15 @@
         private $nombreServicio;
         private $descripcion;
         private $precio;
+        private $imagenURL;
         
         //Constructor
-        public function __construct($idServicio, $nombreServicio, $descripcion, $precio) {
+        public function __construct($idServicio, $nombreServicio, $descripcion, $precio, $imagenURL = '') {
             $this->idServicio = $idServicio;
             $this->nombreServicio = $nombreServicio;
             $this->descripcion = $descripcion;
             $this->precio = $precio;
+            $this->imagenURL = $imagenURL;
         }
 
         //Getters
@@ -31,6 +33,10 @@
             return $this->precio;
         }
 
+        public function getImagenURL() {
+            return $this->imagenURL;
+        }
+
         //Setters
         public function setIdServicio($idServicio) {
             $this->idServicio = $idServicio;
@@ -48,6 +54,10 @@
             if ($precio >= 0) {
                 $this->precio = $precio;
             }
+        }
+
+        public function setImagenURL($imagenURL) {
+            $this->imagenURL = $imagenURL;
         }
     }
 ?>
