@@ -1,4 +1,4 @@
-create database barberia;
+-- create database barberia;
 use barberia;
 
 -- Tabla clientes
@@ -129,6 +129,15 @@ INSERT INTO Servicio (nombreServicio, descripcion, precio) VALUES
 ('Corte clasico', 'Corte tradicional con tijeras y máquina', 20.00),
 ('Corte moderno', 'Corte personalizado con asesoría de estilo', 35.00),
 ('Afeitado barba y bigote', 'Afeitado tradicional con navaja y toallas calientes', 25.00);
+
+-- 3.1 INSERTAR DATOS EN LA TABLA SERVICIO (ADICIONALES)
+INSERT INTO Servicio (nombreServicio, descripcion, precio) VALUES
+('Taper Fade', 'Degradado limpio y moderno.', 28.00),
+('Low Fade', 'Degradado bajo y preciso.', 27.00),
+('Mohicano', 'Corte con estilo atrevido.', 32.00),
+('Mid Fade', 'Degradado medio con precisión.', 29.00),
+('Mod Cut', 'Estilo moderno y elegante.', 30.00);
+
 
 -- 4. CUARTO: Insertar datos en la tabla Barbero
 INSERT INTO Barbero (idEmpleado, especialidad) VALUES
