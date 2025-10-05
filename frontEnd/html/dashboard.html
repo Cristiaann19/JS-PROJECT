@@ -52,6 +52,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="" data-seccion="divServicios">
+                            <span class="las la-cut"></span>
+                            <small>Servicios</small>
+                        </a>
+                    </li> 
+                    <li>
                        <a href="#" data-seccion="divClientes">
                             <span class="las la-user-alt"></span>
                             <small>Clientes</small>
@@ -379,6 +385,22 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="divServicios">
+        <div class="contenedor-servicios">
+            <!-- Buscador y botones -->
+            <div class="acciones-cliente" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <div class="buscador" style="flex:1;">
+                    <label for="buscarCliente"><i class="fa-solid fa-magnifying-glass"></i></label>
+                    <input type="text" id="buscarCliente" placeholder="Buscar cliente..." style="width:90%; padding:5px; font-size:14px;">
+                </div>
+                <div class="botones" style="display:flex; gap:10px;">
+                    <button id="btnAbrirModalCliente" class="btn btn-primary btn-lg"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
+                    <button id="btnVerTarjetas" class="btn btn-primary btn-lg"><i class="fa-solid fa-pencil"></i> Editar</button>
                 </div>
             </div>
         </div>

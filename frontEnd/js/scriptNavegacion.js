@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const enlacesSidebar = document.querySelectorAll('.side-menu a');
     const todasLasSecciones = [
         'divDashboard',
-        'divEmpleados',  
+        'divEmpleados',
+        'divServicios',
         'divClientes',
         'divHorarioReserva',
         'divReservas'
