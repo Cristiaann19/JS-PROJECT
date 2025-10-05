@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/frontEnd/css/styleModalEmpleado.css">
     <!-- Estilos para clientes -->
     <link rel="stylesheet" href="/frontEnd/css/styleClientes.css">
+    <link rel="stylesheet" href="/frontEnd/css/styleModalCliente.css">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -342,8 +343,8 @@
                     <input type="text" id="buscarCliente" placeholder="Buscar cliente..." style="width:90%; padding:5px; font-size:14px;">
                 </div>
                 <div class="botones" style="display:flex; gap:10px;">
-                    <button id="btnAbrirModalCliente" class="btn btn-primary btn-lg"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
-                    <button id="btnVerTarjetas" class="btn btn-primary btn-lg"><i class="fa-solid fa-pencil"></i> Editar</button>
+                    <button id="btnAbrirModalCliente" class="btn btn-primary btn-lg" style="background-color: #ee814a !important;"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
+                    <button id="btnEditarCliente" class="btn btn-primary btn-lg"><i class="fa-solid fa-pencil"></i> Editar</button>
                 </div>
             </div>
 
@@ -385,6 +386,88 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Agregar Cliente -->
+        <div id="modalAgregarCliente" class="custom-modal">
+            <div class="custom-modal-content">
+                <div class="custom-modal-header">
+                <h5>Agregar Cliente</h5>
+                <button class="custom-btn-close" data-close="modalAgregarCliente">&times;</button>
+                </div>
+                <div class="custom-modal-body">
+                <form class="custom-form">
+                    
+                    <div class="custom-row">
+                    <div class="custom-col-md-6">
+                        <label class="custom-label">Nombre</label>
+                        <input type="text" class="custom-input" placeholder="Ingrese nombre">
+                    </div>
+                    <div class="custom-col-md-6">
+                        <label class="custom-label">Apellidos</label>
+                        <input type="text" class="custom-input" placeholder="Ingrese apellidos">
+                    </div>
+                    </div>
+
+                    <div class="custom-row">
+                    <div class="custom-col-md-6">
+                        <label class="custom-label">Teléfono</label>
+                        <input type="text" class="custom-input" placeholder="Ingrese teléfono">
+                    </div>
+                    <div class="custom-col-md-6">
+                        <label class="custom-label">Email</label>
+                        <input type="email" class="custom-input" placeholder="Ingrese email">
+                    </div>
+                    </div>
+                    
+                    <div class="custom-modal-footer">
+                    <button type="button" class="custom-btn-secondary" data-close="modalAgregarCliente">Cancelar</button>
+                    <button type="submit" class="custom-btn-primary">Guardar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Editar Cliente -->
+        <div id="modalEditarCliente" class="custom-modal">
+            <div class="custom-modal-content">
+                <div class="custom-modal-header">
+                <h5>Editar Cliente</h5>
+                <button class="custom-btn-close" data-close="modalEditarCliente">&times;</button>
+                </div>
+                <div class="custom-modal-body">
+                <form class="custom-form">
+
+                    <div class="custom-row">
+                    <div class="custom-col-md-6">
+                        <label class="custom-label">Nombre</label>
+                        <input type="text" class="custom-input" value="Nombre cliente" readonly>
+                    </div>
+                    <div class="custom-col-md-6">
+                        <label class="custom-label">Apellidos</label>
+                        <input type="text" class="custom-input" value="Apellidos cliente" readonly>
+                    </div>
+                    </div>
+
+                    <div class="custom-row">
+                    <div class="custom-col-md-6">
+                        <label class="custom-label">Teléfono</label>
+                        <input type="text" class="custom-input" placeholder="Actualizar teléfono">
+                    </div>
+                    <div class="custom-col-md-6">
+                        <label class="custom-label">Email</label>
+                        <input type="email" class="custom-input" placeholder="Actualizar email">
+                    </div>
+                    </div>
+
+                    <div class="custom-modal-footer">
+                    <button type="button" class="custom-btn-secondary" data-close="modalEditarCliente">Cancelar</button>
+                    <button type="submit" class="custom-btn-primary">Actualizar</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>

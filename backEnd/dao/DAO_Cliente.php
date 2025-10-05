@@ -10,14 +10,20 @@ class DAO_Cliente {
         $sql = "INSERT INTO CLIENTE (nombreCliente, apellidoPaterno, apellidoMaterno, telefono, email) VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conexion, $sql);
 
+        $nombre = $cliente->getNombre();
+        $apellidoP = $cliente->getApellidoPaterno();
+        $apellidoM = $cliente->getApellidoMaterno();
+        $telefono = $cliente->getTelefono();
+        $email = $cliente->getEmail();
+
         mysqli_stmt_bind_param(
             $stmt,
             "sssss",
-            $cliente->getNombre(),
-            $cliente->getApellidoPaterno(),
-            $cliente->getApellidoMaterno(),
-            $cliente->getTelefono(),
-            $cliente->getEmail()
+            $nombre,
+            $apellidoP,
+            $apellidoM,
+            $telefono,
+            $email
         );
 
         return mysqli_stmt_execute($stmt);
@@ -45,22 +51,33 @@ class DAO_Cliente {
         return $clientes;
     }
 
-    //Actualizar un cliente por ID
-    public function actualizarCliente($cliente, $idCliente) {
+    //para actualizar el cliente
+    public function actualizarCliente($cliente, $apellidoPaternoActual, $apellidoMaternoActual) {
         $conexion = conexionPHP();
-        $sql = "UPDATE CLIENTE SET nombreCliente = ?, apellidoPaterno = ?, apellidoMaterno = ?, telefono = ?, email = ? WHERE idCliente = ?";
+
+        $sql = "UPDATE CLIENTE 
+                SET nombreCliente = ?, apellidoPaterno = ?, apellidoMaterno = ?, telefono = ?, email = ? 
+                WHERE apellidoPaterno = ? AND apellidoMaterno = ?";
+
         $stmt = mysqli_prepare($conexion, $sql);
+
+        $nombre = $cliente->getNombre();
+        $apellidoP = $cliente->getApellidoPaterno();
+        $apellidoM = $cliente->getApellidoMaterno();
+        $telefono = $cliente->getTelefono();
+        $email = $cliente->getEmail();
+
         mysqli_stmt_bind_param(
             $stmt,
-            "sssssi",
-            $cliente->getNombre(),
-            $cliente->getApellidoPaterno(),
-            $cliente->getApellidoMaterno(),
-            $cliente->getTelefono(),
-            $cliente->getEmail(),
-            $idCliente
+            "sssssss",
+            $nombre,
+            $apellidoP,
+            $apellidoM,
+            $telefono,
+            $email,
+            $apellidoPaternoActual,
+            $apellidoMaternoActual
         );
-
         return mysqli_stmt_execute($stmt);
     }
 

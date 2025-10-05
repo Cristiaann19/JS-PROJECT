@@ -10,6 +10,7 @@
     background: #f1f4f9;
     padding: 1.3rem;
     margin-left: 150px;
+    height: 800px !important;
 }
 
 #menu-toggle:checked ~ #divClientes {

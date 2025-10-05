@@ -27,7 +27,7 @@
     $method = $_SERVER['REQUEST_METHOD'];
 
     if ($method === 'POST') {
-        // Agregar nuevo cliente
+        //Agregar nuevo cliente
         $data = json_decode(file_get_contents("php://input"), true);
 
         $nombre = $data['nombre'] ?? '';
