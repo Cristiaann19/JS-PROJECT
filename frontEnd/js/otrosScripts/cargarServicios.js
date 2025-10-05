@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Carga las opciones de servicios en el <select> del modal
     if (modalSelectServicio) {
-        fetch('/backEnd/controladores/controladorOpcionesServicio.php')
+        fetch('/backEnd/controladores/controladorServicioOpciones.php')
             .then(response => response.json())
             .then(servicios => {
                 servicios.forEach(servicio => {
