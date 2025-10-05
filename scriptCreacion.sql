@@ -138,6 +138,18 @@ INSERT INTO Servicio (nombreServicio, descripcion, precio) VALUES
 ('Mid Fade', 'Degradado medio con precisión.', 29.00),
 ('Mod Cut', 'Estilo moderno y elegante.', 30.00);
 
+-- 3.2 INSERTAR DESPUES DE EL 3 Y 3.1
+ALTER TABLE Servicio ADD imagenURL VARCHAR(255);
+UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/736x/ba/5d/e9/ba5de9c144330c53f43289bb1f6fcbbe.jpg' WHERE nombreServicio = 'Corte clasico';
+UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/736x/87/48/03/8748031d6e694fb31b0ad85bf3e7c849.jpg' WHERE nombreServicio = 'Corte moderno';
+UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/1200x/91/d6/03/91d6037c183ccc9644cdd59a70857524.jpg' WHERE nombreServicio = 'Afeitado barba y bigote';
+UPDATE Servicio SET imagenURL = 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Low_Taper_Fade_Fluffy_Hair.png?v=1747859628' WHERE nombreServicio = 'Taper Fade';
+UPDATE Servicio SET imagenURL = 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Low-Drop-Fade_600x600.webp?v=1750682896' where nombreServicio = 'Low Fade';
+UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/736x/fb/f7/78/fbf778533f579cbf36c72abbaed7cf3c.jpg' where nombreServicio = 'Mohicano';
+UPDATE Servicio SET imagenURL = 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Mid-Fade-Haircut_600x600.webp?v=1751273586' where nombreServicio = 'Mid Fade';
+UPDATE Servicio SET imagenURL = 'https://media.gqmagazine.fr/photos/66bb2d2aabbfb9fd16c03ab3/1:1/w_1498,h_1498,c_limit/ModCut.jpg' where nombreServicio = 'Mod Cut';
+
+
 
 -- 4. CUARTO: Insertar datos en la tabla Barbero
 INSERT INTO Barbero (idEmpleado, especialidad) VALUES
