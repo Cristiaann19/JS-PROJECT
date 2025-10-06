@@ -15,8 +15,13 @@
     <!-- Estilos para clientes -->
     <link rel="stylesheet" href="/frontEnd/css/styleClientes.css">
     <link rel="stylesheet" href="/frontEnd/css/styleModalCliente.css">
+<<<<<<< HEAD
     <!-- Estilos para horario y agenda -->
     <link rel="stylesheet" href="/frontEnd/css/styleCalendario.css">
+=======
+    <!--Estilos para los Servicios-->
+    <link rel="stylesheet" href="/frontEnd/css/styleServicios.css">
+>>>>>>> 077df1a13158923c112d5858a069cc79657e094f
     <!-- Iconos -->
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -480,17 +485,36 @@
     <section id="divServicios">
         <div class="contenedor-servicios">
             <!-- Buscador y botones -->
-            <div class="acciones-cliente" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                <div class="buscador" style="flex:1;">
-                    <label for="buscarCliente"><i class="fa-solid fa-magnifying-glass"></i></label>
-                    <input type="text" id="buscarCliente" placeholder="Buscar cliente..." style="width:90%; padding:5px; font-size:14px;">
+            <div class="acciones-servicios">
+                <!-- Buscador -->
+                <div class="buscador">
+                    <label for="buscarServicio"><i class="fa-solid fa-magnifying-glass"></i></label>
+                    <input type="text" id="buscarServicio" placeholder="Buscar Servicio...">
                 </div>
-                <div class="botones" style="display:flex; gap:10px;">
-                    <button id="btnAbrirModalCliente" class="btn btn-primary btn-lg"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
-                    <button id="btnVerTarjetas" class="btn btn-primary btn-lg"><i class="fa-solid fa-pencil"></i> Editar</button>
+                <!-- Botones -->
+                <div class="botones">
+                    <button id="btnAgregar" class="btn btn-primary btn-lg"><i class="fa-solid fa-circle-plus"></i> Agregar</button>
+                    <button id="btnDeshabilitar"><i class="fas fa-times-circle"></i> Deshabilitar</button>
+                    <button id="btnHabilitar"><i class="fas fa-check-circle"></i> Habilitar</button>
                 </div>
             </div>
-        </div>
+            <div class="tabla-servicios">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Nombre Servicio</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="servicios-body">
+                        <!-- Aquí se cargará la tabla desde los controladores -->
+                    </tbody>
+                </table>
+            </div>
+        </div>    
     </section>
 
     <!-- Horarios y reserva -->
@@ -554,8 +578,13 @@
     <!-- Scripts de clientes -->
     <script src="/frontEnd/js/otrosScripts/scriptClientes.js"></script>
 
+<<<<<<< HEAD
     <!-- Reservas y calendario-->    
     <script src="/frontEnd/js/otrosScripts/scriptReservasYCalendario.js"></script>
+=======
+    <!-- Scripts de servicios -->
+    <script src="/frontEnd/js/otrosScripts/scriptServicios.js"></script>
+>>>>>>> 077df1a13158923c112d5858a069cc79657e094f
 
     <!-- Link de chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

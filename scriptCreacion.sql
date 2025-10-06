@@ -149,6 +149,15 @@ UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/736x/fb/f7/78/fbf778533f57
 UPDATE Servicio SET imagenURL = 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Mid-Fade-Haircut_600x600.webp?v=1751273586' where nombreServicio = 'Mid Fade';
 UPDATE Servicio SET imagenURL = 'https://media.gqmagazine.fr/photos/66bb2d2aabbfb9fd16c03ab3/1:1/w_1498,h_1498,c_limit/ModCut.jpg' where nombreServicio = 'Mod Cut';
 
+ALTER TABLE Servicio ADD estadoS enum('Activo', 'Inactivo');
+UPDATE Servicio SET estadoS = 'Activo' WHERE nombreServicio = 'Corte clasico';
+UPDATE Servicio SET estadoS = 'Activo' WHERE nombreServicio = 'Corte moderno';
+UPDATE Servicio SET estadoS = 'Activo' WHERE nombreServicio = 'Afeitado barba y bigote';
+UPDATE Servicio SET estadoS = 'Activo' WHERE nombreServicio = 'Taper Fade';
+UPDATE Servicio SET estadoS = 'Activo' where nombreServicio = 'Low Fade';
+UPDATE Servicio SET estadoS = 'Activo' where nombreServicio = 'Mohicano';
+UPDATE Servicio SET estadoS = 'Activo' where nombreServicio = 'Mid Fade';
+UPDATE Servicio SET estadoS = 'Activo' where nombreServicio = 'Mod Cut';
 
 
 -- 4. CUARTO: Insertar datos en la tabla Barbero
