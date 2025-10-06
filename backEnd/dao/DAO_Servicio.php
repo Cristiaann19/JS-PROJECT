@@ -34,13 +34,15 @@ class DAO_Servicio {
                 $fila['nombreServicio'],
                 $fila['descripcion'],
                 $fila['precio'],
-                $fila['imagenURL'] ?? '' 
+                $fila['imagenURL'] ?? '',
+                $fila['estadoS']
             );
             $servicios[] = $servicio;
         }
 
         return $servicios;
     }
+
 
     //Buscar un servicio por ID
     public function buscarPorId($idServicio) {
@@ -57,7 +59,8 @@ class DAO_Servicio {
                 $fila['nombreServicio'],
                 $fila['descripcion'],
                 $fila['precio'],
-                $fila['imagenURL'] ?? '' // Añadir la URL de la imagen
+                $fila['imagenURL'] ?? '',
+                $fila['estadoS']
             );
         }
 

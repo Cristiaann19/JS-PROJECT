@@ -6,14 +6,16 @@
         private $descripcion;
         private $precio;
         private $imagenURL;
+        private $estadoS;
         
         //Constructor
-        public function __construct($idServicio, $nombreServicio, $descripcion, $precio, $imagenURL = '') {
+        public function __construct($idServicio, $nombreServicio, $descripcion, $precio, $imagenURL = '', $estadoS) {
             $this->idServicio = $idServicio;
             $this->nombreServicio = $nombreServicio;
             $this->descripcion = $descripcion;
             $this->precio = $precio;
             $this->imagenURL = $imagenURL;
+            $this->estadoS = $estadoS;
         }
 
         //Getters
@@ -35,6 +37,10 @@
 
         public function getImagenURL() {
             return $this->imagenURL;
+        }
+
+        public function getEstadoS(){
+            return $this->estadoS;
         }
 
         //Setters
@@ -59,5 +65,10 @@
         public function setImagenURL($imagenURL) {
             $this->imagenURL = $imagenURL;
         }
+
+        public function setEstadoS($estadoS) {
+            $this->estadoS = $estadoS;
+        }
+
     }
 ?>

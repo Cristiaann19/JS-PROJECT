@@ -39,10 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Evento para pre-seleccionar el servicio cuando se abre el modal
     if (reservasModal) {
         reservasModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget; // Botón que abrió el modal
-            const servicioId = button.getAttribute('data-servicio-id'); // Extraer info del data-*
+            const button = event.relatedTarget; 
+            const servicioId = button.getAttribute('data-servicio-id'); 
             
-            modalSelectServicio.value = servicioId; // Seleccionar la opción correcta
+            modalSelectServicio.value = servicioId; 
         });
     }
 });
