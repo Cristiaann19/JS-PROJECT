@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'divServicios',
         'divClientes',
         'divHorarioReserva',
-        'divReservas'
+        'divReservas',
+        'divPagos'
     ];
     let seccionesArray = [...todasLasSecciones];
 
@@ -56,8 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cargoUsuario) {
             const permisos = {
                 'Barbero': ['divHorarioReserva'],
-                'Recepcionista': ['divClientes', 'divReservas'],
-                'Administrador' : ['divDashboard', 'divEmpleados', 'divServicios', 'divClientes', 'divReservas']
+                'Recepcionista': ['divClientes', 'divReservas', 'divPagos'],
+                'Administrador' : ['divDashboard', 'divEmpleados', 'divServicios', 'divClientes', 'divReservas', 'divPagos']
             };
 
             switch (cargoUsuario) {
@@ -65,10 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     seccionesArray = ['divHorarioReserva'];
                     break;
                 case 'Recepcionista':
-                    seccionesArray = ['divClientes', 'divReservas'];
+                    seccionesArray = ['divClientes', 'divReservas', 'divPagos'];
                     break;
                 case 'Administrador':
-                    seccionesArray = ['divDashboard', 'divEmpleados', 'divServicios', 'divClientes', 'divReservas'];
+                    seccionesArray = ['divDashboard', 'divEmpleados', 'divServicios', 'divClientes', 'divReservas', 'divPagos'];
                     break;
                 default:
                     console.warn('Cargo de usuario desconocido:', cargoUsuario);
