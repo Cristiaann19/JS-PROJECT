@@ -23,6 +23,27 @@ function obtenerPerfilUsuario(usuario) {
     });
 }
 
+//obtener el id de un barbero
+function obtenerIdBarbero(usuario){
+    return fetch('../../backEnd/controladores/controladorIdBarbero.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `usuario=${encodeURIComponent(usuario)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (!data.error && data.idBarbero) {
+            return data.idBarbero;
+        } else {
+            return null;
+        }
+    })
+    .catch(err => {
+        console.error("Error al obtener ID Barbero:", err);
+        return null;
+    });
+}
+
 // -----------------------------
 // Mostrar datos en dashboard
 // -----------------------------
@@ -93,8 +114,13 @@ if (LoginForm) {
             if (data.valido && data.estado === "Activo") {
                 toast.mostrar('success', `¡Bienvenido!`, 'Usuario y contraseña correctas.');
 
-                // Guardar datos completos (nombre, cargo y género)
                 obtenerPerfilUsuario(user).then(() => {
+                    if (data.cargo === "Barbero") {
+                        obtenerIdBarbero(user).then(idBarbero => {
+                            sessionStorage.setItem('idBarbero', idBarbero);
+                        });
+                    }
+
                     setTimeout(() => {
                         window.location.href = "/frontEnd/html/dashboard.html";
                     }, 1500);

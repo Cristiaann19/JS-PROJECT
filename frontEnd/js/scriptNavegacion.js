@@ -55,18 +55,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const cargoUsuario = localStorage.getItem('usuarioCargo');
         if (cargoUsuario) {
             const permisos = {
-                'Barbero': ['divHorarioReserva', 'divReservas'],
-                'Recepcionista': ['divClientes', 'divHorarioReserva', 'divReservas'],
+                'Barbero': ['divHorarioReserva'],
+                'Recepcionista': ['divClientes', 'divReservas'],
+                'Administrador' : ['divDashboard', 'divEmpleados', 'divServicios', 'divClientes', 'divReservas']
             };
 
             switch (cargoUsuario) {
                 case 'Barbero':
-                    seccionesArray = ['divHorarioReserva', 'divReservas'];
+                    seccionesArray = ['divHorarioReserva'];
                     break;
                 case 'Recepcionista':
-                    seccionesArray = ['divClientes', 'divHorarioReserva', 'divReservas'];
+                    seccionesArray = ['divClientes', 'divReservas'];
                     break;
                 case 'Administrador':
+                    seccionesArray = ['divDashboard', 'divEmpleados', 'divServicios', 'divClientes', 'divReservas'];
                     break;
                 default:
                     console.warn('Cargo de usuario desconocido:', cargoUsuario);

@@ -96,5 +96,34 @@ class DAO_Usuario {
             return null;
         }
     }
+
+    //obtener id del barbero
+    public function obtenerIdEmpleadoPorUsuario($nombreUsuario) {
+        $conexion = conexionPHP(); 
+
+        $sql = "SELECT barbero.idBarbero from empleado 
+        inner join usuario on empleado.idEmpleado = usuario.idEmpleado 
+        inner join barbero on barbero.idEmpleado = empleado.idEmpleado
+        where usuario.nombreUsuario = ?";
+
+        if ($stmt = $conexion->prepare($sql)) {
+            $stmt->bind_param("s", $nombreUsuario);
+
+            $stmt->execute();
+
+            $resultado = $stmt->get_result();
+            $idBarbero = null;
+
+            if ($row = $resultado->fetch_assoc()) {
+                $idBarbero = $row['idBarbero'];
+            }
+
+            $stmt->close();
+            return $idBarbero; 
+        } else {
+            echo "Error en la consulta: " . $conexion->error;
+            return null;
+        }
+    }
 }
 ?>
