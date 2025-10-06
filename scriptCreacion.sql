@@ -64,12 +64,13 @@ create table Usuario (
 );
 
 -- Tabla servicios 
-create table Servicio (
-	idServicio int auto_increment not null unique, 
-	nombreServicio varchar(100) not null unique,
-    descripcion text not null, 
-    precio decimal(10,2),
-    primary key (idServicio)
+CREATE TABLE Servicio (
+    idServicio int auto_increment not null unique,
+    nombreServicio VARCHAR(100) NOT NULL unique,
+    descripcion text not null,
+    precio DECIMAL(10,2) NOT NULL,
+    imagenURL VARCHAR(255),
+    estadoS ENUM('Activo', 'Inactivo') DEFAULT 'Activo'
 );
 
 -- Tabla reserva
@@ -124,40 +125,30 @@ INSERT INTO Empleado (nombreEmpleado, dni, apellidoPaternoE, apellidoMaternoE, t
 ('Carmen', '99887766', 'Ramos', 'Ortega', '921789012', 2400.00, 'Barbero', 'Activo', 'Femenino'),
 ('Fernando', '66554433', 'Cruz', 'Guerrero', '910890123', 1850.00, 'Recepcionista', 'Activo', 'Masculino');
 
--- 3. TERCERO: Insertar datos en la tabla Servicio
-INSERT INTO Servicio (nombreServicio, descripcion, precio) VALUES
-('Corte clasico', 'Corte tradicional con tijeras y máquina', 20.00),
-('Corte moderno', 'Corte personalizado con asesoría de estilo', 35.00),
-('Afeitado barba y bigote', 'Afeitado tradicional con navaja y toallas calientes', 25.00);
+INSERT INTO Servicio (nombreServicio, descripcion, precio, imagenURL, estadoS) VALUES
+('Corte clasico', 'Corte tradicional con tijeras y máquina', 20.00, 
+ 'https://i.pinimg.com/736x/ba/5d/e9/ba5de9c144330c53f43289bb1f6fcbbe.jpg', 'Activo'),
 
--- 3.1 INSERTAR DATOS EN LA TABLA SERVICIO (ADICIONALES)
-INSERT INTO Servicio (nombreServicio, descripcion, precio) VALUES
-('Taper Fade', 'Degradado limpio y moderno.', 28.00),
-('Low Fade', 'Degradado bajo y preciso.', 27.00),
-('Mohicano', 'Corte con estilo atrevido.', 32.00),
-('Mid Fade', 'Degradado medio con precisión.', 29.00),
-('Mod Cut', 'Estilo moderno y elegante.', 30.00);
+('Corte moderno', 'Corte personalizado con asesoría de estilo', 35.00, 
+ 'https://i.pinimg.com/736x/87/48/03/8748031d6e694fb31b0ad85bf3e7c849.jpg', 'Activo'),
 
--- 3.2 INSERTAR DESPUES DE EL 3 Y 3.1
-ALTER TABLE Servicio ADD imagenURL VARCHAR(255);
-UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/736x/ba/5d/e9/ba5de9c144330c53f43289bb1f6fcbbe.jpg' WHERE nombreServicio = 'Corte clasico';
-UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/736x/87/48/03/8748031d6e694fb31b0ad85bf3e7c849.jpg' WHERE nombreServicio = 'Corte moderno';
-UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/1200x/91/d6/03/91d6037c183ccc9644cdd59a70857524.jpg' WHERE nombreServicio = 'Afeitado barba y bigote';
-UPDATE Servicio SET imagenURL = 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Low_Taper_Fade_Fluffy_Hair.png?v=1747859628' WHERE nombreServicio = 'Taper Fade';
-UPDATE Servicio SET imagenURL = 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Low-Drop-Fade_600x600.webp?v=1750682896' where nombreServicio = 'Low Fade';
-UPDATE Servicio SET imagenURL = 'https://i.pinimg.com/736x/fb/f7/78/fbf778533f579cbf36c72abbaed7cf3c.jpg' where nombreServicio = 'Mohicano';
-UPDATE Servicio SET imagenURL = 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Mid-Fade-Haircut_600x600.webp?v=1751273586' where nombreServicio = 'Mid Fade';
-UPDATE Servicio SET imagenURL = 'https://media.gqmagazine.fr/photos/66bb2d2aabbfb9fd16c03ab3/1:1/w_1498,h_1498,c_limit/ModCut.jpg' where nombreServicio = 'Mod Cut';
+('Afeitado barba y bigote', 'Afeitado tradicional con navaja y toallas calientes', 25.00, 
+ 'https://i.pinimg.com/1200x/91/d6/03/91d6037c183ccc9644cdd59a70857524.jpg', 'Activo'),
 
-ALTER TABLE Servicio ADD estadoS enum('Activo', 'Inactivo');
-UPDATE Servicio SET estadoS = 'Activo' WHERE nombreServicio = 'Corte clasico';
-UPDATE Servicio SET estadoS = 'Activo' WHERE nombreServicio = 'Corte moderno';
-UPDATE Servicio SET estadoS = 'Activo' WHERE nombreServicio = 'Afeitado barba y bigote';
-UPDATE Servicio SET estadoS = 'Activo' WHERE nombreServicio = 'Taper Fade';
-UPDATE Servicio SET estadoS = 'Activo' where nombreServicio = 'Low Fade';
-UPDATE Servicio SET estadoS = 'Activo' where nombreServicio = 'Mohicano';
-UPDATE Servicio SET estadoS = 'Activo' where nombreServicio = 'Mid Fade';
-UPDATE Servicio SET estadoS = 'Activo' where nombreServicio = 'Mod Cut';
+('Taper Fade', 'Degradado limpio y moderno.', 30.00, 
+ 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Low_Taper_Fade_Fluffy_Hair.png?v=1747859628', 'Activo'),
+
+('Low Fade', 'Degradado bajo y preciso.', 25.00, 
+ 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Low-Drop-Fade_600x600.webp?v=1750682896', 'Activo'),
+
+('Mohicano', 'Corte con estilo atrevido.', 30.00, 
+ 'https://i.pinimg.com/736x/fb/f7/78/fbf778533f579cbf36c72abbaed7cf3c.jpg', 'Activo'),
+
+('Mid Fade', 'Degradado medio con precisión.', 30.00, 
+ 'https://cdn.shopify.com/s/files/1/0029/0868/4397/files/Mid-Fade-Haircut_600x600.webp?v=1751273586', 'Activo'),
+
+('Mod Cut', 'Estilo moderno y elegante.', 30.00, 
+ 'https://media.gqmagazine.fr/photos/66bb2d2aabbfb9fd16c03ab3/1:1/w_1498,h_1498,c_limit/ModCut.jpg', 'Activo');
 
 
 -- 4. CUARTO: Insertar datos en la tabla Barbero

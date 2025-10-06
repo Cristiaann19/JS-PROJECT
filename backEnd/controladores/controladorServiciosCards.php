@@ -12,8 +12,8 @@ foreach ($servicios as $serv){
     echo "<tr data-id='{$idServicio}'>";
     echo "<td>{$contador}</td>";
     echo "<td>{$serv->getNombreServicio()}</td>";
-    echo "<td>{$serv->getDescripcion()}</td>";
     echo "<td>S/ " . number_format($serv->getPrecio(), 2) . "</td>";
+    echo "<td>{$serv->getDescripcion()}</td>";
 
     $estado = $serv->getEstadoS();
     $estadoS = (strtolower($estado) === "activo") ? "estado-activo" : "estado-inactivo";

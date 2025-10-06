@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+    
 </head> 
 <body>
    <input type="checkbox" id="menu-toggle">
@@ -501,22 +502,66 @@
                     <button id="btnHabilitar"><i class="fas fa-check-circle"></i> Habilitar</button>
                 </div>
             </div>
-            <div class="tabla-servicios">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Nombre Servicio</th>
-                            <th>Descripcion</th>
-                            <th>Precio</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="servicios-body">
-                        <!-- Aquí se cargará la tabla desde los controladores -->
-                    </tbody>
-                </table>
+            <div class="contenedor-tabla-lista" style="display:flex; gap:20px; align-items:flex-start;">
+                <!-- Tabla de clientes -->
+                <div class="tabla-servicios" style="flex:2;">
+                    <table style="width:100%; border-collapse: collapse;">
+                        <thead style="background-color:#9aa7a1; color:white;">
+                            <tr>
+                                <th style="padding:8px; text-align:left;">N°</th>
+                                <th style="padding:8px; text-align:left;">SERVICIO</th>
+                                <th style="padding:8px; text-align:left;">PRECIO</th>
+                                <th style="padding:8px; text-align:left;">DESCRIPCION</th>
+                                <th style="padding:8px; text-align:left;">ESTADO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servicios-body" style="border:1px solid #ccc;">
+                            <!-- Cargar la tabla desde los controladores -->
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Tabla de reservas por clientes -->
+                <div class="informe-servicio" style="flex:1; border:1px solid #ccc; border-radius:8px; padding:10px; background-color:#f9f9f9; max-height:500px; overflow-y:auto;">
+                </div>
             </div>
+            <div class="modal" id="modalAgregarServicio">
+            <div class="modal-content">
+                <form id="formServicio">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Nuevo Servicio</h5>
+                    <button type="button" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                    <div class="col-md-6">
+                        <label for="nombreServicio">Nombre del Servicio</label>
+                        <input type="text" id="nombreServicio" name="nombreServicio" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="precio">Precio</label>
+                        <input type="number" id="precio" name="precio" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="descripcion">Descripcion</label>
+                        <input type="text" id="descripcion" name="descripcion" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="estado">Estado</label>
+                        <select id="estado" name="estado" required>
+                        <option value="" selected disabled>Seleccione</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Agregar Servicio</button>
+                </div>
+                </form>
+            </div>
+        </div>
         </div>    
     </section>
 
@@ -585,7 +630,7 @@
     <script src="/frontEnd/js/otrosScripts/scriptReservasYCalendario.js"></script>
 
     <!-- Scripts de servicios -->
-    <script src="/frontEnd/js/otrosScripts/scriptServicios.js"></script>
+    <script src="/frontEnd/js/otrosScripts/scriptServiciosDashboard.js"></script>
 
     <!-- Link de chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

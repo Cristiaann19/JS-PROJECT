@@ -126,9 +126,7 @@
 #btnHabilitar:hover {
     background-color: #f6f630;
 }
-
-/**/
-tabla-servicios {
+.tabla-servicios {
     width: 100%;
     margin-bottom: 30px;
     background: #fff;
@@ -181,7 +179,7 @@ tabla-servicios {
 }
 
 /* Filas seleccionadas */
-.tabla-servicios tbody tr.selected {
+.tabla-servicios tbody tr.selected, .tabla-servicios tbody tr.selected:hover {
     background-color: #e5f8ed;
 }
 
@@ -199,6 +197,60 @@ tabla-servicios {
     font-weight: 600;
     display: inline-block;
     text-align: center;
+}
+
+/* ===== TARJETA DE INFORME DE SERVICIO ===== */
+.perfil-servicio-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.perfil-servicio-card .servicio-imagen {
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 3px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.perfil-servicio-card .servicio-info {
+    text-align: center;
+    width: 100%;
+}
+
+.servicio-info h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.servicio-info p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.servicio-info .servicio-detalles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f8f9fa;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.servicio-detalles span strong {
+    color: var(--color-dark);
 }
 
 .estado-inactivo {
