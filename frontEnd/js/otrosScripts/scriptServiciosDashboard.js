@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCerrarModalServicio = modalAgregarServicio.querySelector(".btn-close");
     const btnCancelarServicio = modalAgregarServicio.querySelector(".btn-secondary");
 
+    // Elementos del Modal de Editar Servicio
+    const modalEditarServicio = document.getElementById("modalEditarServicio");
+    const btnAbrirModalEditar = seccionServicios.querySelector("#btnEditar");
+    const formEditarServicio = modalEditarServicio.querySelector("form");
+    const btnCerrarModalEditar = modalEditarServicio.querySelector(".custom-btn-close");
+
     // Botones de Habilitar/Deshabilitar
     const btnHabilitar = seccionServicios.querySelector("#btnHabilitar");
     const btnDeshabilitar = seccionServicios.querySelector("#btnDeshabilitar");
@@ -141,20 +147,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formServicio.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const formData = new FormData(formServicio);
-        const datosServicio = Object.fromEntries(formData.entries());
-        
+        const formData = new FormData(formServicio); // Usamos FormData para el archivo
+
         try {
             const response = await fetch('/backEnd/controladores/controladorAgregarServicio.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(datosServicio)
+                body: formData
             });
 
             const result = await response.json();
-
             if (result.success) {
                 sistemaToast.mostrar('success', 'Servicio agregado correctamente.');
                 modalAgregarServicio.classList.remove("show");
@@ -172,6 +173,59 @@ document.addEventListener("DOMContentLoaded", () => {
             modalAgregarServicio.classList.remove("show");
         }
     });
+
+    // --- Lógica para Editar Servicio ---
+
+    btnAbrirModalEditar.addEventListener("click", () => {
+        if (!servicioSeleccionado) {
+            sistemaToast.mostrar("warning", "Debe seleccionar un servicio para editar.");
+            return;
+        }
+
+        // Llenar el formulario de edición
+        document.getElementById('editIdServicio').value = servicioSeleccionado.idServicio;
+        document.getElementById('editNombreServicio').value = servicioSeleccionado.nombreServicio;
+        document.getElementById('editDescripcion').value = servicioSeleccionado.descripcion;
+        document.getElementById('editPrecio').value = parseFloat(servicioSeleccionado.precio).toFixed(2);
+        document.getElementById('editEstado').value = servicioSeleccionado.estadoS;
+        document.getElementById('editImagen').value = ''; // Limpiar el input de archivo
+
+        modalEditarServicio.classList.add("show");
+    });
+
+    btnCerrarModalEditar.addEventListener("click", () => modalEditarServicio.classList.remove("show"));
+    modalEditarServicio.querySelector('[data-close="modalEditarServicio"]').addEventListener("click", () => modalEditarServicio.classList.remove("show"));
+
+    formEditarServicio.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(formEditarServicio);
+
+        try {
+            const response = await fetch('/backEnd/controladores/controladorEditarServicio.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                sistemaToast.mostrar('success', 'Servicio actualizado correctamente.');
+                modalEditarServicio.classList.remove("show");
+                // Forzamos la recarga de servicios
+                serviciosCargados = false;
+                await cargarServicios();
+            } else {
+                sistemaToast.mostrar('error', result.message || 'No se pudo actualizar el servicio.');
+            }
+
+        } catch (error) {
+            console.error('Error al actualizar el servicio:', error);
+            sistemaToast.mostrar('error', 'Error de conexión al actualizar el servicio.');
+        } finally {
+            modalEditarServicio.classList.remove("show");
+        }
+    });
+
 
     // --- Lógica para Habilitar y Deshabilitar ---
 
