@@ -73,7 +73,7 @@ class DAO_Reserva {
     //Listar reservas de un barbero 
     public function listarReservasID($idBarbero) {
         $conexion = conexionPHP();
-        $sql = "SELECT cliente.nombreCliente, concat(cliente.apellidoPaterno, ' ', cliente.apellidoMaterno) as Apellidos, reserva.fechaReserva, reserva.hora, servicio.nombreServicio 
+        $sql = "SELECT reserva.idReserva, cliente.nombreCliente, concat(cliente.apellidoPaterno, ' ', cliente.apellidoMaterno) as Apellidos, reserva.fechaReserva, reserva.hora, servicio.nombreServicio, reserva.estado 
         from cliente inner join reserva on cliente.idCliente = reserva.idCliente inner join servicio on reserva.idServicio = servicio.idServicio 
         where idBarbero = ?";
 

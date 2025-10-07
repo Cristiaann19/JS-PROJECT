@@ -6,18 +6,22 @@ class DAO_Pago {
     //Agregar un nuevo pago
     public function agregarNuevoPago($pago) {
         $conexion = conexionPHP();
-        $sql = "INSERT INTO PAGO (idReserva, montoPago, metodo, fechaPago, estado) VALUES (?, ?, ?, ?, ?)";
+        if (!$conexion) throw new Exception("No se pudo conectar a la base de datos");
+
+        $sql = "INSERT INTO PAGO (idReserva, montoPago, metodo, fechaPago, estadoPago) VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conexion, $sql);
+
+        if (!$stmt) {
+            throw new Exception("Error en prepare (INSERT PAGO): " . mysqli_error($conexion));
+        }
 
         $idReserva = $pago->getIdReserva();
         $montoPago = $pago->getMontoPago();
-        $metodo = $pago->getMetodo();
+        $metodo    = null;
         $fechaPago = $pago->getFechaPago();
-        $estado = "Pendiente";
+        $estado    = "Pendiente";
 
-        mysqli_stmt_bind_param(
-            $stmt,
-            "idss",
+        mysqli_stmt_bind_param($stmt, "idsss",
             $idReserva,
             $montoPago,
             $metodo,
@@ -25,7 +29,13 @@ class DAO_Pago {
             $estado
         );
 
-        return mysqli_stmt_execute($stmt);
+        if (!mysqli_stmt_execute($stmt)) {
+            $err = mysqli_stmt_error($stmt);
+            mysqli_stmt_close($stmt);
+            throw new Exception("Error al ejecutar INSERT en PAGO: " . $err);
+        }
+        mysqli_stmt_close($stmt);
+        return true;
     }
 
     //Listar todos los pagos
@@ -41,28 +51,26 @@ class DAO_Pago {
                 $fila['idReserva'],
                 $fila['montoPago'],
                 $fila['metodo'],
-                $fila['fechaPago']
+                $fila['fechaPago'],
+                $fila['estadoPago']
             );
             $pagos[] = $pago;
         }
-
         return $pagos;
     }
 
     //Procesar pago 
     public function procesarPago($idPago, $metodoPago) {
         $conexion = conexionPHP();
-        $sql = "UPDATE PAGO SET estado = 'Confirmado', metodo = ? WHERE idPago = ?";
+        $sql = "UPDATE PAGO SET estadoPago = 'Confirmado', metodo = ? WHERE idPago = ?";
         $stmt = mysqli_prepare($conexion, $sql);
-
         if (!$stmt) {
-            return false;
+            throw new Exception("Error en prepare (UPDATE PAGO): " . mysqli_error($conexion));
         }
-
         mysqli_stmt_bind_param($stmt, "si", $metodoPago, $idPago);
-        $resultado = mysqli_stmt_execute($stmt);
+        $ok = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-        return $resultado;
+        return $ok;
     }
 }
 ?>

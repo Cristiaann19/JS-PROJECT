@@ -9,7 +9,7 @@
         private $estadoS;
         
         //Constructor
-        public function __construct($idServicio, $nombreServicio, $descripcion, $precio, $imagenURL = '', $estadoS) {
+        public function __construct($idServicio, $nombreServicio, $descripcion, $precio, $imagenURL = '', $estadoS = 'Activo') {
             $this->idServicio = $idServicio;
             $this->nombreServicio = $nombreServicio;
             $this->descripcion = $descripcion;

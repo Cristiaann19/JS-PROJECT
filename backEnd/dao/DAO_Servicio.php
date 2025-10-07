@@ -120,5 +120,27 @@ class DAO_Servicio {
         mysqli_stmt_bind_param($stmt, "i", $idServicio);
         return mysqli_stmt_execute($stmt);
     }
+
+    //Obtener monto de un servicio
+    public function obtenerMontoServicio($nombreServicio) {
+        $sql = "SELECT precio FROM servicio WHERE nombreServicio = ?";
+        $conexion = conexionPHP();
+        $stmt = mysqli_prepare($conexion, $sql);
+
+        if (!$stmt) {
+            return null;
+        }
+
+        mysqli_stmt_bind_param($stmt, "s", $nombreServicio);
+        mysqli_stmt_execute($stmt);
+
+        $resultado = mysqli_stmt_get_result($stmt);
+
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            return $fila['precio'];
+        } else {
+            return null;
+        }
+    }
 }
 ?>

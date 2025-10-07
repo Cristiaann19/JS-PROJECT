@@ -4,6 +4,7 @@ let citas = [];
 
 const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 const nombresDias = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const sistemaToast = new SistemaToast();
 
 // ----------------------------
 // Funciones del calendario
@@ -103,15 +104,34 @@ function mostrarCitas() {
         citasDelDia.forEach(cita => {
             const tarjeta = document.createElement('div');
             tarjeta.className = 'appointment-card';
+
+            const esCompletada = cita.estado === "Completada";
+
             tarjeta.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px;">
                     <div style="display: flex; align-items: center; gap: 6px; font-weight: bold; color: #1e293b; font-size: 15px;">
                         <i class="fa-solid fa-clock"></i>
                         ${cita.hora}
                     </div>
-                    <button onclick="completarCita(${cita.id})" style="background: #71bd79; color: #000000; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background 0.2s; display: flex; align-items: center; gap: 5px;">
-                        <i class="fa-solid fa-check"></i>
-                        Completar
+                    <button 
+                        ${esCompletada ? "disabled" : `onclick="completarCita(${cita.idReserva})"`} 
+                        style="
+                            background: ${esCompletada ? '#60a5fa' : '#71bd79'}; 
+                            color: #000000; 
+                            border: none; 
+                            padding: 8px 16px; 
+                            border-radius: 4px; 
+                            font-size: 14px; 
+                            font-weight: 600; 
+                            transition: background 0.2s; 
+                            display: flex; 
+                            align-items: center; 
+                            gap: 5px;
+                            cursor: ${esCompletada ? 'not-allowed' : 'pointer'};
+                            opacity: ${esCompletada ? '0.7' : '1'};
+                        ">
+                        <i class="fa-solid ${esCompletada ? 'fa-circle-info' : 'fa-check'}"></i>
+                        ${esCompletada ? 'Completada' : 'Completar'}
                     </button>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 3px; font-size: 14px;">
@@ -164,6 +184,41 @@ function cargarReservasBarbero() {
         }
     })
     .catch(err => console.error("Error al cargar reservas:", err));
+}
+
+function completarCita(idReserva) {
+    const cita = citas.find(c => c.idReserva === idReserva);
+    if (!cita) {
+        console.log("No se encontró la cita seleccionada");
+        return;
+    }
+
+    const payload = {
+        idReserva: cita.idReserva,
+        nombreServicio: cita.nombreServicio,
+        metodo: null
+    };
+
+    fetch('../../backEnd/controladores/controladorEstadoYPago.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Respuesta completar cita:", data);
+
+        if (data.success) {
+            sistemaToast.mostrar('success', 'Cita Completada', 'La cita ha sido marcada como completada.');
+            cita.estado = "Completada";
+            cargarReservasBarbero();
+        } else {
+            console.log(data.mensaje);
+        }
+    })
+    .catch(err => {
+        console.error("Error en completar cita:", err);
+    });
 }
 
 // ----------------------------

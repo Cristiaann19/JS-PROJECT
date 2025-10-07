@@ -6,16 +6,16 @@
         private $montoPago;
         private $metodo;
         private $fechaPago;
-        private $estado;
+        private $estadoPago;
 
         //Constructor
-        public function __construct($idPago, $idReserva, $montoPago, $metodo, $fechaPago, $estado) {
+        public function __construct($idPago, $idReserva, $montoPago, $metodo, $fechaPago, $estadoPago) {
             $this->idPago = $idPago;
             $this->idReserva = $idReserva;
             $this->montoPago = $montoPago;
             $this->metodo = $metodo;
             $this->fechaPago = $fechaPago;
-            $this->estado = $estado;
+            $this->estadoPago = $estadoPago;
         }
 
         //Getters
@@ -62,12 +62,12 @@
             $this->fechaPago = $fechaPago;
         }
 
-        public function setEstado($estado) {
-            $this->estado = $estado;
+        public function setEstado($estadoPago) {
+            $this->estadoPago = $estadoPago;
         }
 
         public function getEstado() {
-            return $this->estado;
+            return $this->estadoPago;
         }
     }
 ?>

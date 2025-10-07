@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const modalInstance = bootstrap.Modal.getInstance(reservasModal);
                 if (modalInstance) modalInstance.hide();
             } else {
-                // ¡Corrección aquí! Mostramos un toast de error.
                 sistemaToast.mostrar('error', 'Error en la reserva', respuesta.mensaje || 'No se pudo completar la reserva.');
                 console.error("Error en reserva:", respuesta.mensaje);
             }

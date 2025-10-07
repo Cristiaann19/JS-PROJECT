@@ -103,7 +103,7 @@ class DAO_Reporte{
                     metodo, 
                     SUM(montoPago) AS total
                 FROM pago
-                WHERE YEAR(fechaPago) = YEAR(CURDATE())
+                WHERE YEAR(fechaPago) = YEAR(CURDATE()) and estadoPago = 'Confirmado'
                 GROUP BY MONTH(fechaPago), metodo
                 ORDER BY MONTH(fechaPago), metodo;";
 
