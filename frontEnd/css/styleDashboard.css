@@ -15,6 +15,10 @@
     font-family: 'Merriweather', sans-serif;
 }
 
+body {
+    background-color: #f1f4f9;
+}
+
 #menu-toggle {
     display: none;
 }

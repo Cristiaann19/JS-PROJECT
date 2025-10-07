@@ -1,20 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
     const seccionServicios = document.getElementById('divServicios');
-    if (!seccionServicios) return; // No ejecutar si no estamos en la sección de servicios del dashboard
+    if (!seccionServicios) return;
 
     const tablaServiciosBody = document.getElementById('servicios-body');
     const sistemaToast = new SistemaToast();
     const informeServicioDiv = document.querySelector('.informe-servicio');
     const buscarInput = document.getElementById('buscarServicio');
 
-    // Elementos del Modal de Agregar Servicio
+    //Elementos del Modal de Agregar Servicio
     const modalAgregarServicio = document.getElementById("modalAgregarServicio");
     const btnAbrirModalServicio = document.getElementById("btnAgregar");
     const formServicio = document.getElementById("formServicio");
     const btnCerrarModalServicio = modalAgregarServicio.querySelector(".btn-close");
     const btnCancelarServicio = modalAgregarServicio.querySelector(".btn-secondary");
 
-    // Botones de Habilitar/Deshabilitar
+    //Botones de Habilitar/Deshabilitar
     const btnHabilitar = seccionServicios.querySelector("#btnHabilitar");
     const btnDeshabilitar = seccionServicios.querySelector("#btnDeshabilitar");
 
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let servicioSeleccionado = null;
     let serviciosCargados = false;
 
-    // Muestra la tarjeta de informe para un servicio seleccionado
+    //Muestra la tarjeta de informe para un servicio seleccionado
     function mostrarInformeServicio(servicio) {
         if (!servicio) {
             informeServicioDiv.innerHTML = `
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
-    // Renderiza la tabla de servicios en el dashboard
+    //Renderiza la tabla de servicios en el dashboard
     function renderServicios(serviciosArenderizar) {
         tablaServiciosBody.innerHTML = '';
         if (serviciosArenderizar.length === 0) {
@@ -186,7 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (data.success) {
                 sistemaToast.mostrar("success", `Servicio ${accion === 'habilitar' ? 'habilitado' : 'deshabilitado'} correctamente.`);
-                // Recargamos los servicios para reflejar el cambio
                 serviciosCargados = false;
                 await cargarServicios();
             } else {

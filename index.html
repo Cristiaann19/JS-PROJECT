@@ -10,14 +10,18 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Urban Blades Barber</title>
     <link rel="stylesheet" href="frontEnd/css/styleIndex.css">
+    <link rel="stylesheet" href="frontEnd/css/styleToast.css">
 </head>
 
 <body>
+    <!-- Contenedor de Toast -->
+    <div id="toastContainer"></div>
+
     <nav class="navbar navbar-expand-md fixed-top transparent">
         <div class="container d-flex justify-content-between align-items-center">
             <!-- Logo -->
             <a class="navbar-brand" href="#">
-                <img src="/recursos/logoBarberia.png" style="max-height: 65px; width: auto;" alt="Logo">
+                <img src="recursos/logoBarberia.png" style="max-height: 65px; width: auto;" alt="Logo">
             </a>
 
             <!-- Botón responsive -->
@@ -34,7 +38,7 @@
                     <li class="nav-item"><a class="nav-link" href="#servicios">Sevicios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contactanos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#comentarios">Comentarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/frontEnd/html/login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="frontEnd/html/login.html">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -45,7 +49,7 @@
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar"
             aria-controls="top-navbar">
             <div class="d-flex justify-content-between align-items-center  p-3">
-                <img src="/recursos/logoBarberia.png" style="max-height: 65px; width: auto;" alt="">
+                <img src="recursos/logoBarberia.png" style="max-height: 65px; width: auto;" alt="">
                 <ion-icon name="close-circle-outline"></ion-icon>
             </div>
         </button>
@@ -55,7 +59,7 @@
             <li class="nav-item"><a class="nav-link" href="#servicios">Sevicios</a></li>
             <li class="nav-item"><a class="nav-link" href="#contacto">Contactanos</a></li>
             <li class="nav-item"><a class="nav-link" href="#comentarios2">Comentarios</a></li>
-            <li class="nav-item"><a class="nav-link" href="/frontEnd/html/login.html">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="frontEnd/html/login.html">Login</a></li>
         </ul>
     </div>
 
@@ -96,7 +100,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card  shadow-sm border-0">
-                        <img src="/recursos/barbero3.jpg" class="card-img-top rounded-top" alt="Barbero 1"
+                        <img src="recursos/barbero3.jpg" class="card-img-top rounded-top" alt="Barbero 1"
                             style="height: 440px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Luis Barber</h5>
@@ -132,13 +136,22 @@
                     <div class="modal-body">
                         <form id="formReserva">
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Nombre" required>
+                                <input type="text" id="nombreCliente" class="form-control" placeholder="Nombre" required>
                             </div>
                             <div class="mb-3">
-                                <input type="tel" class="form-control" placeholder="Teléfono" required>
+                                <input type="text" id="apellidos" class="form-control" placeholder="Apellidos" required>
                             </div>
                             <div class="mb-3">
-                                <input type="date" class="form-control" required>
+                                <input type="tel" id="telefono" class="form-control" placeholder="Teléfono" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="tel" id="correoE" class="form-control" placeholder="Correo Electrónico">
+                            </div>
+                            <div class="mb-3">
+                                <input type="date" id="fecha" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="time" id="hora" class="form-control" placeholder="Hora de reserva" required>
                             </div>
                             <div class="mb-3">
                                 <select id="selectServicioModal" class="form-control" required>
@@ -151,7 +164,6 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -421,13 +433,15 @@
             </div>
         </footer>
     </div>
+
     <!-- Bootstrap script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
-    <script src="/frontEnd/js/scriptClassToast.js"></script>
-    <script src="/frontEnd/js/otrosScripts/scriptServicios.js"></script>
-    <script src="/frontEnd/js/script.js"></script>
+    crossorigin="anonymous"></script>    
+    <script src="frontEnd/js/scriptClassToast.js"></script> 
+    <script src="frontEnd/js/otrosScripts/scriptAgregarReserva.js"></script>
+    <script src="frontEnd/js/otrosScripts/scriptServicios.js"></script>
+    <script src="frontEnd/js/script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

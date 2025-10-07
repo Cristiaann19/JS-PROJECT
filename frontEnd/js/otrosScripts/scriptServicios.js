@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalSelectServicio = document.getElementById("selectServicioModal");
     const reservasModal = document.getElementById('reservasModal');
     if (serviciosContainer) {
-        fetch('/backEnd/controladores/controladorServicios.php')
+        fetch('../../../backEnd/controladores/controladorServicios.php')
             .then(response => response.text())
             .then(html => {
                 serviciosContainer.innerHTML = html;
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Carga las opciones de servicios en el <select> del modal
     if (modalSelectServicio) {
-        fetch('/backEnd/controladores/controladorServicios.php?formato=json')
+        fetch('../../../backEnd/controladores/controladorServicios.php?formato=json')
             .then(response => response.json())
             .then(servicios => {
                 servicios.forEach(servicio => {

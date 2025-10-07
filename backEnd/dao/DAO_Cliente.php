@@ -108,5 +108,41 @@ class DAO_Cliente {
 
         return $reservas;
     }
+
+    //Verificar cliente 
+    public function verificarCliente($nombre, $apellidoPaterno, $apellidoMaterno){
+        $conexion = conexionPHP();
+        
+        $sql = "SELECT idCliente 
+                FROM cliente 
+                WHERE nombreCliente = ? 
+                AND apellidoPaterno = ? 
+                AND apellidoMaterno = ?";
+
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("sss", $nombre, $apellidoPaterno, $apellidoMaterno);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+
+        if ($fila = $resultado->fetch_assoc()) {
+            return $fila['idCliente'];
+        } else {
+            return false;
+        }
+    }
+
+    //Obtener ultimo id de cliente
+    public function obtenerUltimoIDCliente() {
+        $conexion = conexionPHP();
+        $sql = "SELECT idCliente FROM Cliente ORDER BY idCliente DESC LIMIT 1";
+        $resultado = mysqli_query($conexion, $sql);
+
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            $ultimoID = (int)$fila['idCliente'];
+            return $ultimoID;
+        } else {
+            return 0;
+        }
+    }
 }
 ?>
