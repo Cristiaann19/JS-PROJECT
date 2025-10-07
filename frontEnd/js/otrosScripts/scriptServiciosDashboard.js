@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCerrarModalServicio = modalAgregarServicio.querySelector(".btn-close");
     const btnCancelarServicio = modalAgregarServicio.querySelector(".btn-secondary");
 
+    // Botones de Habilitar/Deshabilitar
+    const btnHabilitar = seccionServicios.querySelector("#btnHabilitar");
+    const btnDeshabilitar = seccionServicios.querySelector("#btnDeshabilitar");
+
     let servicios = [];
     let servicioSeleccionado = null;
     let serviciosCargados = false;
@@ -139,12 +143,83 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const formData = new FormData(formServicio);
         const datosServicio = Object.fromEntries(formData.entries());
+        
+        try {
+            const response = await fetch('/backEnd/controladores/controladorAgregarServicio.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datosServicio)
+            });
 
-        // Aquí iría la lógica para enviar los datos al backend (controladorAgregarServicio.php)
-        // y luego recargar la lista de servicios.
-        // Por simplicidad, se omite la llamada fetch, pero sería similar a la que tenías.
-        console.log("Datos a enviar:", datosServicio);
-        sistemaToast.mostrar('info', 'Funcionalidad de agregar pendiente.');
-        modalAgregarServicio.classList.remove("show");
+            const result = await response.json();
+
+            if (result.success) {
+                sistemaToast.mostrar('success', 'Servicio agregado correctamente.');
+                modalAgregarServicio.classList.remove("show");
+                // Forzamos la recarga de servicios
+                serviciosCargados = false; 
+                await cargarServicios();
+            } else {
+                sistemaToast.mostrar('error', result.message || 'No se pudo agregar el servicio.');
+            }
+
+        } catch (error) {
+            console.error('Error al agregar el servicio:', error);
+            sistemaToast.mostrar('error', 'Error de conexión al agregar el servicio.');
+        } finally {
+            modalAgregarServicio.classList.remove("show");
+        }
     });
+
+    // --- Lógica para Habilitar y Deshabilitar ---
+
+    async function cambiarEstadoServicio(idServicio, accion) {
+        try {
+            const response = await fetch('/backEnd/controladores/controladorServicioEstado.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idServicio, accion })
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                sistemaToast.mostrar("success", `Servicio ${accion === 'habilitar' ? 'habilitado' : 'deshabilitado'} correctamente.`);
+                // Recargamos los servicios para reflejar el cambio
+                serviciosCargados = false;
+                await cargarServicios();
+            } else {
+                sistemaToast.mostrar("error", data.message || "No se pudo actualizar el estado.");
+            }
+        } catch (error) {
+            sistemaToast.mostrar("error", "Error de conexión al cambiar estado.");
+            console.error('Error en cambiarEstadoServicio:', error);
+        }
+    }
+
+    btnDeshabilitar.addEventListener("click", () => {
+        if (!servicioSeleccionado) {
+            sistemaToast.mostrar("warning", "Debe seleccionar un servicio de la tabla.");
+            return;
+        }
+        if (servicioSeleccionado.estadoS.toLowerCase() === 'inactivo') {
+            sistemaToast.mostrar("info", "El servicio ya está inactivo.");
+            return;
+        }
+        cambiarEstadoServicio(servicioSeleccionado.idServicio, "deshabilitar");
+    });
+
+    btnHabilitar.addEventListener("click", () => {
+        if (!servicioSeleccionado) {
+            sistemaToast.mostrar("warning", "Debe seleccionar un servicio de la tabla.");
+            return;
+        }
+        if (servicioSeleccionado.estadoS.toLowerCase() === 'activo') {
+            sistemaToast.mostrar("info", "El servicio ya está activo.");
+            return;
+        }
+        cambiarEstadoServicio(servicioSeleccionado.idServicio, "habilitar");
+    });
+
 });

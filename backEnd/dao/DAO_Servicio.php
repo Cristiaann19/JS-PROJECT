@@ -7,18 +7,26 @@ class DAO_Servicio {
     //Agregar un nuevo servicio
     public function agregarNuevoServicio($servicio) {
         $conexion = conexionPHP();
-        $sql = "INSERT INTO SERVICIO (nombreServicio, descripcion, precio) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO SERVICIO (nombreServicio, descripcion, precio, estadoS) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($conexion, $sql);
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta de inserción: " . mysqli_error($conexion));
+        }
 
         mysqli_stmt_bind_param(
             $stmt,
-            "ssd",
+            "ssds",
             $servicio->getNombreServicio(),
             $servicio->getDescripcion(),
-            $servicio->getPrecio()
+            $servicio->getPrecio(),
+            $servicio->getEstadoS()
         );
 
-        return mysqli_stmt_execute($stmt);
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception("Error al ejecutar la consulta de inserción: " . mysqli_stmt_error($stmt));
+        }
+
+        return true;
     }
 
     //Listar todos los servicios
@@ -70,14 +78,18 @@ class DAO_Servicio {
     //Actualizar un servicio
     public function actualizarServicio($servicio) {
         $conexion = conexionPHP();
-        $sql = "UPDATE SERVICIO SET nombreServicio = ?, descripcion = ?, precio = ? WHERE idServicio = ?";
+        $sql = "UPDATE SERVICIO SET nombreServicio = ?, descripcion = ?, precio = ?, estadoS = ? WHERE idServicio = ?";
         $stmt = mysqli_prepare($conexion, $sql);
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta de actualización: " . mysqli_error($conexion));
+        }
         mysqli_stmt_bind_param(
             $stmt,
-            "ssdi",
+            "ssdsi",
             $servicio->getNombreServicio(),
             $servicio->getDescripcion(),
             $servicio->getPrecio(),
+            $servicio->getEstadoS(),
             $servicio->getIdServicio()
         );
         return mysqli_stmt_execute($stmt);
@@ -87,6 +99,23 @@ class DAO_Servicio {
     public function eliminarServicio($idServicio) {
         $conexion = conexionPHP();
         $sql = "DELETE FROM SERVICIO WHERE idServicio = ?";
+        $stmt = mysqli_prepare($conexion, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $idServicio);
+        return mysqli_stmt_execute($stmt);
+    }
+
+    public function deshabilitarServicio($idServicio) {
+        $conexion = conexionPHP();
+        $sql = "UPDATE servicio SET estadoS = 'Inactivo' WHERE idServicio = ?";
+        $stmt = mysqli_prepare($conexion, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $idServicio);
+        return mysqli_stmt_execute($stmt);
+    }
+
+    //Habilitar un servicio por ID
+    public function habilitarServicio($idServicio) {
+        $conexion = conexionPHP();
+        $sql = "UPDATE servicio SET estadoS = 'Activo' WHERE idServicio = ?";
         $stmt = mysqli_prepare($conexion, $sql);
         mysqli_stmt_bind_param($stmt, "i", $idServicio);
         return mysqli_stmt_execute($stmt);
