@@ -7,7 +7,7 @@ class DAO_Servicio {
     //Agregar un nuevo servicio
     public function agregarNuevoServicio($servicio) {
         $conexion = conexionPHP();
-        $sql = "INSERT INTO SERVICIO (nombreServicio, descripcion, precio, estadoS) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO SERVICIO (nombreServicio, descripcion, precio, imagenURL, estadoS) VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conexion, $sql);
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta de inserción: " . mysqli_error($conexion));
@@ -15,10 +15,11 @@ class DAO_Servicio {
 
         mysqli_stmt_bind_param(
             $stmt,
-            "ssds",
+            "ssdss",
             $servicio->getNombreServicio(),
             $servicio->getDescripcion(),
             $servicio->getPrecio(),
+            $servicio->getImagenURL(),
             $servicio->getEstadoS()
         );
 
@@ -78,17 +79,18 @@ class DAO_Servicio {
     //Actualizar un servicio
     public function actualizarServicio($servicio) {
         $conexion = conexionPHP();
-        $sql = "UPDATE SERVICIO SET nombreServicio = ?, descripcion = ?, precio = ?, estadoS = ? WHERE idServicio = ?";
+        $sql = "UPDATE SERVICIO SET nombreServicio = ?, descripcion = ?, precio = ?, imagenURL = ?, estadoS = ? WHERE idServicio = ?";
         $stmt = mysqli_prepare($conexion, $sql);
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta de actualización: " . mysqli_error($conexion));
         }
         mysqli_stmt_bind_param(
             $stmt,
-            "ssdsi",
+            "ssdssi",
             $servicio->getNombreServicio(),
             $servicio->getDescripcion(),
             $servicio->getPrecio(),
+            $servicio->getImagenURL(),
             $servicio->getEstadoS(),
             $servicio->getIdServicio()
         );

@@ -109,6 +109,17 @@
     background: #1da085;
 }
 
+#btnEditar {
+    background: #05a2c6;
+    color: black;
+    border: none;
+}
+
+#btnEditar:hover {
+    background: #59b8d7;
+}
+
+
 #btnDeshabilitar {
     background: #f25656;
     color: black;
