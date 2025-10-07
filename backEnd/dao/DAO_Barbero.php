@@ -63,5 +63,18 @@ class DAO_Barbero {
 
         return $idEmpleado; 
     }
+    
+    //Obtener cantidad de barberos
+    public function obtenerCantidadBarberos() {
+        $conexion = conexionPHP();
+        $sql = "SELECT COUNT(*) AS total FROM barbero";
+        $resultado = mysqli_query($conexion, $sql);
+
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            return (int)$fila['total'];
+        } else {
+            return 0;
+        }
+    }
 }
 ?>

@@ -3,20 +3,26 @@ require_once(__DIR__ . '/../conexionBD_MySQL.php');
 require_once(__DIR__ . '/../modelos/Pago.php');
 
 class DAO_Pago {
-
     //Agregar un nuevo pago
     public function agregarNuevoPago($pago) {
         $conexion = conexionPHP();
-        $sql = "INSERT INTO PAGO (idReserva, montoPago, metodo, fechaPago) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO PAGO (idReserva, montoPago, metodo, fechaPago, estado) VALUES (?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conexion, $sql);
+
+        $idReserva = $pago->getIdReserva();
+        $montoPago = $pago->getMontoPago();
+        $metodo = $pago->getMetodo();
+        $fechaPago = $pago->getFechaPago();
+        $estado = "Pendiente";
 
         mysqli_stmt_bind_param(
             $stmt,
             "idss",
-            $pago->getIdReserva(),
-            $pago->getMontoPago(),
-            $pago->getMetodo(),
-            $pago->getFechaPago()
+            $idReserva,
+            $montoPago,
+            $metodo,
+            $fechaPago,
+            $estado
         );
 
         return mysqli_stmt_execute($stmt);
@@ -43,52 +49,20 @@ class DAO_Pago {
         return $pagos;
     }
 
-    //Buscar un pago por ID
-    public function buscarPorId($idPago) {
+    //Procesar pago 
+    public function procesarPago($idPago, $metodoPago) {
         $conexion = conexionPHP();
-        $sql = "SELECT * FROM PAGO WHERE idPago = ?";
+        $sql = "UPDATE PAGO SET estado = 'Confirmado', metodo = ? WHERE idPago = ?";
         $stmt = mysqli_prepare($conexion, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $idPago);
-        mysqli_stmt_execute($stmt);
-        $resultado = mysqli_stmt_get_result($stmt);
 
-        if ($fila = mysqli_fetch_assoc($resultado)) {
-            return new Pago(
-                $fila['idPago'],
-                $fila['idReserva'],
-                $fila['montoPago'],
-                $fila['metodo'],
-                $fila['fechaPago']
-            );
+        if (!$stmt) {
+            return false;
         }
 
-        return null;
-    }
-
-    //Actualizar un pago
-    public function actualizarPago($pago) {
-        $conexion = conexionPHP();
-        $sql = "UPDATE PAGO SET idReserva = ?, montoPago = ?, metodo = ?, fechaPago = ? WHERE idPago = ?";
-        $stmt = mysqli_prepare($conexion, $sql);
-        mysqli_stmt_bind_param(
-            $stmt,
-            "idssi",
-            $pago->getIdReserva(),
-            $pago->getMontoPago(),
-            $pago->getMetodo(),
-            $pago->getFechaPago(),
-            $pago->getIdPago()
-        );
-        return mysqli_stmt_execute($stmt);
-    }
-
-    // Eliminar un pago
-    public function eliminarPago($idPago) {
-        $conexion = conexionPHP();
-        $sql = "DELETE FROM PAGO WHERE idPago = ?";
-        $stmt = mysqli_prepare($conexion, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $idPago);
-        return mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_param($stmt, "si", $metodoPago, $idPago);
+        $resultado = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $resultado;
     }
 }
 ?>

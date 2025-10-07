@@ -1,4 +1,4 @@
--- create database barberia;
+create database barberia;
 use barberia;
 
 -- Tabla clientes
@@ -94,8 +94,9 @@ create table Pago (
 	idPago int auto_increment not null unique, 
     idReserva int not null unique, 
     montoPago decimal(10,2),
-	metodo enum('Efectivo', 'Tarjeta', 'Yape', 'Plin') not null, 
+	metodo enum('Efectivo', 'Tarjeta', 'Yape', 'Plin') null, 
     fechaPago datetime not null,
+    estadoPago enum('Pendiente', 'Confirmado'),
     primary key (idPago), 
     foreign key (idReserva) references Reserva(idReserva)
 );
@@ -203,24 +204,24 @@ INSERT INTO Reserva (idCliente, idBarbero, idServicio, fechaReserva, hora, estad
 (10, 1, 2, '2025-09-03', '09:15:00', 'Completada');
 
 -- 9. NOVENO: Insertar datos en la tabla Pago (AL FINAL)
-INSERT INTO Pago (idReserva, montoPago, metodo, fechaPago) VALUES
-(1, 20.00, 'Efectivo', '2025-09-10 09:30:00'),      -- Corte clásico
-(2, 25.00, 'Tarjeta', '2025-09-10 11:00:00'),       -- Afeitado barba y bigote
-(3, 35.00, 'Yape', '2025-09-11 14:30:00'),          -- Corte moderno
-(4, 20.00, 'Efectivo', '2025-09-11 17:00:00'),      -- Corte clásico
-(5, 35.00, 'Tarjeta', '2025-09-12 11:30:00'),       -- Corte moderno
-(6, 25.00, 'Plin', '2025-09-12 16:15:00'),          -- Afeitado barba y bigote
-(7, 20.00, 'Yape', '2025-09-13 10:45:00'),          -- Corte clásico
-(8, 35.00, 'Efectivo', '2025-09-13 13:00:00'),      -- Corte moderno
-(9, 25.00, 'Tarjeta', '2025-09-14 10:15:00'),       -- Afeitado barba y bigote
-(10, 20.00, 'Efectivo', '2025-09-14 17:30:00'),     -- Corte clásico
-(11, 35.00, 'Yape', '2025-09-05 09:00:00'),         -- Corte moderno
-(12, 25.00, 'Plin', '2025-09-06 13:45:00'),         -- Afeitado barba y bigote
-(13, 20.00, 'Tarjeta', '2025-09-07 18:30:00'),      -- Corte clásico
-(14, 35.00, 'Efectivo', '2025-09-08 12:15:00'),     -- Corte moderno
-(15, 25.00, 'Yape', '2025-09-09 16:45:00'),         -- Afeitado barba y bigote
-(16, 20.00, 'Tarjeta', '2025-08-30 10:30:00'),      -- Corte clásico
-(17, 35.00, 'Efectivo', '2025-08-31 15:00:00'),     -- Corte moderno
-(18, 25.00, 'Plin', '2025-09-01 12:30:00'),         -- Afeitado barba y bigote
-(19, 20.00, 'Yape', '2025-09-02 16:00:00'),         -- Corte clásico
-(20, 35.00, 'Efectivo', '2025-09-03 09:45:00');     -- Corte moderno
+INSERT INTO Pago (idReserva, montoPago, metodo, fechaPago, estadoPago) VALUES
+(1, 20.00, 'Efectivo', '2025-09-10 09:30:00', 'Confirmado'),      -- Corte clásico
+(2, 25.00, 'Tarjeta', '2025-09-10 11:00:00', 'Confirmado'),       -- Afeitado barba y bigote
+(3, 35.00, 'Yape', '2025-09-11 14:30:00', 'Confirmado'),          -- Corte moderno
+(4, 20.00, 'Efectivo', '2025-09-11 17:00:00', 'Confirmado'),      -- Corte clásico
+(5, 35.00, 'Tarjeta', '2025-09-12 11:30:00', 'Confirmado'),       -- Corte moderno
+(6, 25.00, 'Plin', '2025-09-12 16:15:00', 'Confirmado'),          -- Afeitado barba y bigote
+(7, 20.00, 'Yape', '2025-09-13 10:45:00', 'Confirmado'),          -- Corte clásico
+(8, 35.00, 'Efectivo', '2025-09-13 13:00:00', 'Confirmado'),      -- Corte moderno
+(9, 25.00, 'Tarjeta', '2025-09-14 10:15:00', 'Confirmado'),       -- Afeitado barba y bigote
+(10, 20.00, 'Efectivo', '2025-09-14 17:30:00', 'Confirmado'),     -- Corte clásico
+(11, 35.00, 'Yape', '2025-09-05 09:00:00', 'Confirmado'),         -- Corte moderno
+(12, 25.00, 'Plin', '2025-09-06 13:45:00', 'Confirmado'),         -- Afeitado barba y bigote
+(13, 20.00, 'Tarjeta', '2025-09-07 18:30:00', 'Confirmado'),      -- Corte clásico
+(14, 35.00, 'Efectivo', '2025-09-08 12:15:00', 'Confirmado'),     -- Corte moderno
+(15, 25.00, 'Yape', '2025-09-09 16:45:00', 'Confirmado'),         -- Afeitado barba y bigote
+(16, 20.00, 'Tarjeta', '2025-08-30 10:30:00', 'Confirmado'),      -- Corte clásico
+(17, 35.00, 'Efectivo', '2025-08-31 15:00:00', 'Confirmado'),     -- Corte moderno
+(18, 25.00, 'Plin', '2025-09-01 12:30:00', 'Confirmado'),         -- Afeitado barba y bigote
+(19, 20.00, 'Yape', '2025-09-02 16:00:00', 'Confirmado'),         -- Corte clásico
+(20, 35.00, 'Efectivo', '2025-09-03 09:45:00', 'Confirmado');     -- Corte moderno
