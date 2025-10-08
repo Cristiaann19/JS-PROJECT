@@ -75,7 +75,8 @@ class DAO_Reserva {
         $conexion = conexionPHP();
         $sql = "SELECT reserva.idReserva, cliente.nombreCliente, concat(cliente.apellidoPaterno, ' ', cliente.apellidoMaterno) as Apellidos, reserva.fechaReserva, reserva.hora, servicio.nombreServicio, reserva.estado 
         from cliente inner join reserva on cliente.idCliente = reserva.idCliente inner join servicio on reserva.idServicio = servicio.idServicio 
-        where idBarbero = ?";
+        where idBarbero = ?
+        order by fechaReserva, hora asc";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param("i", $idBarbero);

@@ -631,7 +631,7 @@
         </div>
     </section>
 
-    <!-- Horarios y reserva -->
+    <!-- Horarios y reserva (Barbero) -->
     <section id="divHorarioReserva" style="margin-top: 90px; margin-left: 180px;">
         <div style="display:flex; gap:20px; align-items:flex-start;">
 
@@ -673,8 +673,539 @@
         </div>
     </section>
 
-    <!-- Reservas -->
-    <section id="divReservas"></section>
+    <!-- Reservas (Admin y recepcionista) -->
+    <section id="divReservas">
+        <style>
+          /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Contenedor principal de reservas */
+        #divReservas {
+            margin-top: 70px;
+            margin-left: 180px;
+            padding: 20px;
+        }
+
+        .contenedor-reservas {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-right: 10px;
+        }
+
+        /* Sidebar del calendario */
+        .sidebar-calendario {
+            flex: 0 0 280px;
+            background: #ebecef;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-calendario h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .filtro-barberos {
+            width: 100%;
+            padding: 10px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            color: #000000;
+            font-size: 14px;
+            margin-bottom: 24px;
+            cursor: pointer;
+        }
+
+        .filtro-barberos:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        /* Header del calendario */
+        .calendario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendario-header button {
+            background: none;
+            border: none;
+            color: #000000;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .calendario-header button:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .mes-anio {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        /* Grid del calendario */
+        .calendario-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .dia-header {
+            text-align: center;
+            font-size: 12px;
+            color: #000000;
+            padding: 8px 0;
+            font-weight: 600;
+        }
+
+        .dia {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .dia:hover:not(.inactivo) {
+            background: #f1f5f9;
+            transform: scale(1.05);
+        }
+
+        .dia.inactivo {
+            color: #cbd5e1;
+            cursor: default;
+            background: transparent;
+        }
+
+        .dia.activo {
+            background: #3b82f6;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Contenido principal */
+        .contenido-principal {
+            margin-left: 15px;
+            flex: 2;
+            height: 750px;
+            background: #ebecef;
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Header del contenido */
+        .contenido-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .contenido-titulo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 6px;
+        }
+
+        .contenido-titulo p {
+            color: #000000;
+            font-size: 14px;
+        }
+
+        .btn-nueva-cita {
+            background: #f8e44b;
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-nueva-cita:hover {
+            background: #ebd73a;
+        }
+
+        /* Tabla de horarios */
+        .tabla-horarios {
+            width: 100%;
+        }
+
+        .horarios-header {
+            display: grid;
+            grid-template-columns: 100px repeat(3, 1fr);
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #cbd5e1;
+            margin-bottom: 12px;
+        }
+
+        .horarios-header div {
+            color: #000000;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .horarios-header div:first-child {
+            text-align: left;
+        }
+
+        .fila-horario {
+            display: grid;
+            grid-template-columns: 100px repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .hora {
+            color: #000000;
+            font-size: 14px;
+            padding-top: 14px;
+            font-weight: 500;
+        }
+
+        .cita {
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .cita:hover {
+            transform: scale(1.02);
+        }
+
+        .cita.disponible {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+            border-color: rgba(34, 197, 94, 0.2);
+        }
+
+        .cita.reservada {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .cita.bloqueada {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .cita-titulo {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cita-subtitulo {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            #divReservas {
+                margin-left: 0;
+            }
+
+            .contenedor-reservas {
+                flex-direction: column;
+            }
+
+            .sidebar-calendario {
+                width: 100%;
+            }
+        }
+
+        </style>
+
+    <div class="contenedor-reservas">
+            <!-- Sidebar con calendario -->
+            <div class="sidebar-calendario">
+                <h2>Calendario</h2>
+                
+                <select class="filtro-barberos" id="filtroBarberos">
+                    <option value="">Todos los barberos</option>
+                    <option value="1">Barbero 1</option>
+                    <option value="2">Barbero 2</option>
+                    <option value="3">Barbero 3</option>
+                </select>
+
+                <div class="calendario-header">
+                    <button id="mesAnterior">
+                        <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <span class="mes-anio" id="mesAnio">Julio 2024</span>
+                    <button id="mesSiguiente">
+                        <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="calendario-grid" id="calendarioGrid">
+                    <div class="dia-header">D</div>
+                    <div class="dia-header">L</div>
+                    <div class="dia-header">M</div>
+                    <div class="dia-header">M</div>
+                    <div class="dia-header">J</div>
+                    <div class="dia-header">V</div>
+                    <div class="dia-header">S</div>
+                </div>
+            </div>
+
+            <!-- Contenido principal -->
+            <div class="contenido-principal">
+                <div class="contenido-header">
+                    <div class="contenido-titulo">
+                        <h1>Calendario de Reservas</h1>
+                        <p>Gestiona la disponibilidad de los barberos, las reservas y programa nuevas citas.</p>
+                    </div>
+                    <button class="btn-nueva-cita" id="btnNuevaCita">
+                        <i class="fa-solid fa-calendar-plus"></i>
+                        Nueva Cita
+                    </button>
+                </div>
+
+                <div class="tabla-horarios">
+                    <div class="horarios-header">
+                        <div>Hora</div>
+                        <div>Barbero 1</div>
+                        <div>Barbero 2</div>
+                        <div>Barbero 3</div>
+                    </div>
+
+                    <div id="contenedorHorarios"></div>
+                </div>
+            </div>
+
+
+<script>
+        // Datos de las citas
+        const citasData = [
+            {
+                hora: '9:00 AM',
+                barbero1: { estado: 'disponible', titulo: 'Disponible' },
+                barbero2: { estado: 'reservada', titulo: 'Cita con Juan', subtitulo: 'Corte de caballero' },
+                barbero3: { estado: 'disponible', titulo: 'Disponible' }
+            },
+            {
+                hora: '10:00 AM',
+                barbero1: { estado: 'reservada', titulo: 'Cita con Ana', subtitulo: 'Corte y tinte' },
+                barbero2: { estado: 'disponible', titulo: 'Disponible' },
+                barbero3: { estado: 'reservada', titulo: 'Cita con Carlos', subtitulo: 'Arreglo de barba' }
+            },
+            {
+                hora: '11:00 AM',
+                barbero1: { estado: 'disponible', titulo: 'Disponible' },
+                barbero2: { estado: 'bloqueada', titulo: 'Bloqueado', subtitulo: 'Descanso' },
+                barbero3: { estado: 'disponible', titulo: 'Disponible' }
+            },
+            {
+                hora: '12:00 PM',
+                barbero1: { estado: 'reservada', titulo: 'Cita con Laura', subtitulo: 'Corte de niño' },
+                barbero2: { estado: 'bloqueada', titulo: 'Bloqueado', subtitulo: 'Almuerzo' },
+                barbero3: { estado: 'reservada', titulo: 'Cita con Sofía', subtitulo: 'Corte de dama' }
+            },
+            {
+                hora: '1:00 PM',
+                barbero1: { estado: 'disponible', titulo: 'Disponible' },
+                barbero2: { estado: 'reservada', titulo: 'Cita con Miguel', subtitulo: 'Corte de caballero' },
+                barbero3: { estado: 'disponible', titulo: 'Disponible' }
+            },
+            {
+                hora: '2:00 PM',
+                barbero1: { estado: 'reservada', titulo: 'Cita con Elena', subtitulo: 'Arreglo de barba' },
+                barbero2: { estado: 'disponible', titulo: 'Disponible' },
+                barbero3: { estado: 'reservada', titulo: 'Cita con Javier', subtitulo: 'Corte de caballero' }
+            }
+        ];
+
+        // Variables del calendario
+        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                       'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        let mesActual = 6; // Julio
+        let anioActual = 2024;
+        let diaSeleccionado = 5;
+
+        // Generar calendario
+        function generarCalendario() {
+            const grid = document.getElementById('calendarioGrid');
+            const mesAnioTexto = document.getElementById('mesAnio');
+            
+            // Actualizar texto
+            mesAnioTexto.textContent = `${meses[mesActual]} ${anioActual}`;
+            
+            // Limpiar días (mantener headers)
+            const headers = grid.querySelectorAll('.dia-header');
+            grid.innerHTML = '';
+            headers.forEach(h => grid.appendChild(h));
+            
+            // Calcular días
+            const primerDia = new Date(anioActual, mesActual, 1).getDay();
+            const diasEnMes = new Date(anioActual, mesActual + 1, 0).getDate();
+            const diasMesAnterior = new Date(anioActual, mesActual, 0).getDate();
+            
+            // Días del mes anterior
+            for (let i = primerDia - 1; i >= 0; i--) {
+                const dia = crearDia(diasMesAnterior - i, true);
+                grid.appendChild(dia);
+            }
+            
+            // Días del mes actual
+            for (let i = 1; i <= diasEnMes; i++) {
+                const dia = crearDia(i, false);
+                if (i === diaSeleccionado && mesActual === 6 && anioActual === 2024) {
+                    dia.classList.add('activo');
+                }
+                grid.appendChild(dia);
+            }
+            
+            // Días del mes siguiente
+            const celdasUsadas = primerDia + diasEnMes;
+            const celdasRestantes = 42 - celdasUsadas; // 6 semanas
+            for (let i = 1; i <= celdasRestantes; i++) {
+                const dia = crearDia(i, true);
+                grid.appendChild(dia);
+            }
+        }
+
+        // Crear elemento día
+        function crearDia(numero, inactivo) {
+            const dia = document.createElement('div');
+            dia.className = 'dia';
+            if (inactivo) dia.classList.add('inactivo');
+            dia.textContent = numero;
+            
+            if (!inactivo) {
+                dia.addEventListener('click', () => seleccionarDia(dia, numero));
+            }
+            
+            return dia;
+        }
+
+        // Seleccionar día
+        function seleccionarDia(elemento, dia) {
+            document.querySelectorAll('.dia:not(.inactivo)').forEach(d => {
+                d.classList.remove('activo');
+            });
+            elemento.classList.add('activo');
+            diaSeleccionado = dia;
+        }
+
+        // Cambiar mes
+        function cambiarMes(delta) {
+            mesActual += delta;
+            if (mesActual > 11) {
+                mesActual = 0;
+                anioActual++;
+            } else if (mesActual < 0) {
+                mesActual = 11;
+                anioActual--;
+            }
+            generarCalendario();
+        }
+
+        // Generar horarios
+        function generarHorarios() {
+            const contenedor = document.getElementById('contenedorHorarios');
+            contenedor.innerHTML = '';
+            
+            citasData.forEach(horario => {
+                const fila = document.createElement('div');
+                fila.className = 'fila-horario';
+                
+                // Hora
+                const horaDiv = document.createElement('div');
+                horaDiv.className = 'hora';
+                horaDiv.textContent = horario.hora;
+                fila.appendChild(horaDiv);
+                
+                // Barberos
+                ['barbero1', 'barbero2', 'barbero3'].forEach(barbero => {
+                    const cita = horario[barbero];
+                    const citaDiv = document.createElement('div');
+                    citaDiv.className = `cita ${cita.estado}`;
+                    
+                    const tituloDiv = document.createElement('div');
+                    tituloDiv.className = 'cita-titulo';
+                    tituloDiv.textContent = cita.titulo;
+                    citaDiv.appendChild(tituloDiv);
+                    
+                    if (cita.subtitulo) {
+                        const subtituloDiv = document.createElement('div');
+                        subtituloDiv.className = 'cita-subtitulo';
+                        subtituloDiv.textContent = cita.subtitulo;
+                        citaDiv.appendChild(subtituloDiv);
+                    }
+                    
+                    citaDiv.addEventListener('click', () => manejarClickCita(cita));
+                    fila.appendChild(citaDiv);
+                });
+                
+                contenedor.appendChild(fila);
+            });
+        }
+
+        // Manejar clic en cita
+        function manejarClickCita(cita) {
+            if (cita.estado === 'disponible') {
+                alert('Programar nueva cita en este horario');
+            } else if (cita.estado === 'reservada') {
+                alert(`Ver detalles de: ${cita.titulo}\n${cita.subtitulo || ''}`);
+            } else if (cita.estado === 'bloqueada') {
+                alert('Horario bloqueado: ' + (cita.subtitulo || ''));
+            }
+        }
+
+        // Event listeners
+        document.getElementById('mesAnterior').addEventListener('click', () => cambiarMes(-1));
+        document.getElementById('mesSiguiente').addEventListener('click', () => cambiarMes(1));
+        document.getElementById('btnNuevaCita').addEventListener('click', () => {
+            alert('Abrir formulario para nueva cita');
+        });
+
+        // Inicializar
+        generarCalendario();
+        generarHorarios();
+    </script>
+
+
+
+    </section>
 
     <!-- Pagos -->
     <section id="divPagos"></section>
