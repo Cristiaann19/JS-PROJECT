@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
     //Inicializar los toast
     const sistemaToast = new SistemaToast();
 
+    //para recargar la tabla
+    function recargarTablaEmpleados() {
+        fetch('../../backEnd/controladores/controladorEmpleado.php')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('empleados-body').innerHTML = html;
+            })
+            .catch(err => console.error('Error recargando empleados:', err));
+    }
+
     //Abrir y cerrar modal
     const modal = document.getElementById("modalAgregarEmpleado");
     const btnAbrirModal = document.getElementById("btnAbrirModal");
@@ -70,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   formEmpleado.reset();
                   extraCampos.innerHTML = "";
                   sistemaToast.mostrar('success', 'Empleado agregado', 'Usuario y contraseña generados automáticamente.');
+                  recargarTablaEmpleados(); // <-- Aquí se recarga la tabla
                 } else {
                     sistemaToast.mostrar('error', 'Error al agregar empleado');
                 }

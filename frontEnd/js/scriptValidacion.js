@@ -145,5 +145,5 @@ document.getElementById('LogOut')?.addEventListener("click", () => {
     localStorage.removeItem("usuarioNombre");
     localStorage.removeItem("usuarioCargo");
     localStorage.removeItem("usuarioGenero");
-    window.location.href = "/frontEnd/html/login.html";
+    window.location.href = "/index.html";
 });
