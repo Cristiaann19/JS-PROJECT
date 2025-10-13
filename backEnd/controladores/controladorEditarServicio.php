@@ -18,7 +18,7 @@ require_once(__DIR__ . '/../dao/DAO_Servicio.php');
 require_once(__DIR__ . '/../modelos/Servicios.php');
 
 try {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { // FormData se envía por POST
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         throw new Exception("Método no permitido.");
     }
 

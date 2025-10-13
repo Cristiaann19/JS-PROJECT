@@ -31,7 +31,7 @@ class DAO_Reporte{
     
     public function cantidadReservas() {
         $conexion = conexionPHP();  
-        $sql = "SELECT count(*) as total from reserva;";  
+        $sql = "SELECT count(*) as total from reserva where reserva.estado != 'Cancelada';";  
         $resultado = mysqli_query($conexion, $sql);  
 
         if ($resultado) {

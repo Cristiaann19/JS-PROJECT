@@ -159,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (result.success) {
                 sistemaToast.mostrar('success', 'Servicio agregado correctamente.');
                 modalAgregarServicio.classList.remove("show");
-                // Forzamos la recarga de servicios
                 serviciosCargados = false; 
                 await cargarServicios();
             } else {
@@ -182,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Llenar el formulario de edición
+        //Llenar el formulario de edición
         document.getElementById('editIdServicio').value = servicioSeleccionado.idServicio;
         document.getElementById('editNombreServicio').value = servicioSeleccionado.nombreServicio;
         document.getElementById('editDescripcion').value = servicioSeleccionado.descripcion;
@@ -211,7 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (result.success) {
                 sistemaToast.mostrar('success', 'Servicio actualizado correctamente.');
                 modalEditarServicio.classList.remove("show");
-                // Forzamos la recarga de servicios
                 serviciosCargados = false;
                 await cargarServicios();
             } else {

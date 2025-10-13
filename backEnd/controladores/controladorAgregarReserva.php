@@ -29,11 +29,11 @@ try {
     $idCliente = $daoCliente->verificarCliente($nombre, $apellidoP, $apellidoM);
 
     if (!$idCliente) {
-        // Crear nuevo cliente
+        //Crear nuevo cliente
         $cliente = new Cliente(null, $nombre, $apellidoP, $apellidoM, $telefono, $email);
         $daoCliente->agregarNuevoCliente($cliente);
 
-        // Obtener el último ID insertado
+        //Obtener el último ID insertado
         $idCliente = $daoCliente->obtenerUltimoIDCliente();
 
         if (!$idCliente) throw new Exception("No se pudo obtener el ID del nuevo cliente");

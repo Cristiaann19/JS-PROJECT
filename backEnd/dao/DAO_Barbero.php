@@ -76,5 +76,21 @@ class DAO_Barbero {
             return 0;
         }
     }
+
+    //Listar todos los barberos
+    public function listarBarberos() {
+        $conexion = conexionPHP();
+        $sql = "SELECT concat(empleado.nombreEmpleado, ' ', empleado.apellidoPaternoE, ' ', empleado.apellidoMaternoE) as Barbero
+        from barbero inner join empleado on empleado.idEmpleado = barbero.idEmpleado";
+        $resultado = mysqli_query($conexion, $sql);
+        $barberos = [];
+
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $barberos[] = $fila['Barbero'];
+        }
+
+        mysqli_close($conexion);
+        return $barberos;
+    }
 }
 ?>
