@@ -2,12 +2,12 @@
 require_once(__DIR__ . '/../conexionBD_MySQL.php');
 require_once(__DIR__ . '/../modelos/Usuario.php');
 
-class DAO_Usuario {
+class DAO_UsuarioEmpleado {
     //Agregar un nuevo usuario
     public function agregarNuevoUsuario($usuario) {
         $conexion = conexionPHP();
 
-        $sql = "INSERT INTO USUARIO (idEmpleado, nombreUsuario, contraseña) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO UsuarioEmpleado (idEmpleado, nombreUsuario, contraseña) VALUES (?, ?, ?)";
         $stmt = mysqli_prepare($conexion, $sql);
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta USUARIO: " . mysqli_error($conexion));
@@ -37,7 +37,7 @@ class DAO_Usuario {
         $conexion = conexionPHP();
 
         $sql = "SELECT usuario.nombreUsuario, usuario.contraseña, empleado.estadoE, empleado.cargo
-                FROM Usuario
+                FROM UsuarioEmpleado
                 INNER JOIN Empleado ON usuario.idEmpleado = empleado.idEmpleado
                 WHERE usuario.nombreUsuario = ? AND usuario.contraseña = ?";
 

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../../backEnd/dao/DAO_Usuario.php');
+require_once(__DIR__ . '/../../backEnd/dao/DAO_UsuarioEmpleado.php');
 header('Content-Type: application/json');
 
 $nombreUsuario = $_POST['usuario'] ?? null;
@@ -13,7 +13,7 @@ if (!$nombreUsuario) {
 }
 
 try {
-    $daoUsuario = new DAO_Usuario();
+    $daoUsuario = new DAO_UsuarioEmpleado();
 
     $idBarbero = $daoUsuario->obtenerIdEmpleadoPorUsuario($nombreUsuario);
 

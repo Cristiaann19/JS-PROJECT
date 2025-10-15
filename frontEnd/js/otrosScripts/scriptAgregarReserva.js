@@ -1,6 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
     const reservasModal = document.getElementById("reservasModal");
     const formReserva = document.getElementById("formReserva");
+    const modalSesion = new bootstrap.Modal(document.getElementById('modalSesion'));
+
+    // --- Lógica para manejar la apertura del modal de reserva ---
+    reservasModal.addEventListener('show.bs.modal', function (event) {
+        if (typeof usuarioLogueado === 'undefined' || !usuarioLogueado) {
+            event.preventDefault();
+            modalSesion.show();
+            return;
+        }
+
+        if (typeof usuarioLogueado !== 'undefined' && usuarioLogueado) {
+            const nombreCompleto = nombreCliente.split(' ');
+            const nombre = nombreCompleto.length > 0 ? nombreCompleto[0] : '';
+            const apellidos = nombreCompleto.length > 1 ? nombreCompleto.slice(1).join(' ') : '';
+
+            formReserva.querySelector("#nombreCliente").value = nombre;
+            formReserva.querySelector("#apellidos").value = apellidos;
+            formReserva.querySelector("#correoE").value = correoElectronico;
+
+            formReserva.querySelector("#nombreCliente").readOnly = true;
+            formReserva.querySelector("#apellidos").readOnly = true;
+            formReserva.querySelector("#correoE").readOnly = true;
+        } else {
+            formReserva.reset();
+            formReserva.querySelector("#nombreCliente").readOnly = false;
+            formReserva.querySelector("#apellidos").readOnly = false;
+            formReserva.querySelector("#correoE").readOnly = false;
+        }
+    });
 
     if (!formReserva) {
         console.error("Formulario de reserva no encontrado");
@@ -9,6 +38,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formReserva.addEventListener("submit", function (e) {
         e.preventDefault();
+
+        if (typeof usuarioLogueado === 'undefined' || !usuarioLogueado) {
+            const modalReservaInstance = bootstrap.Modal.getInstance(reservasModal);
+            if (modalReservaInstance) modalReservaInstance.hide();
+
+            setTimeout(() => modalSesion.show(), 400);
+            return;
+        }
 
         const nombre = formReserva.querySelector("#nombreCliente").value.trim();
         const apellidos = formReserva.querySelector("#apellidos").value.trim();
@@ -55,13 +92,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         console.log("Enviando datos:", datos);
 
-        // Cerrar modal de reserva
+        //Cerrar modal de reserva
         const modalInstance = bootstrap.Modal.getInstance(reservasModal);
         if (modalInstance) {
             modalInstance.hide();
         }
 
-        // Enviar datos al servidor
+        //Enviar datos al servidor
         fetch('../../backEnd/controladores/controladorAgregarReserva.php', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -129,7 +166,7 @@ function validarHorario(hora) {
     
     const horaInicio = 9 * 60;
     const horaFin = 19 * 60;
-    
+
     return horaEnMinutos >= horaInicio && horaEnMinutos <= horaFin;
 }
 

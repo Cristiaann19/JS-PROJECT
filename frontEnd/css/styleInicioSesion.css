@@ -137,3 +137,61 @@ form input[type="submit"]:hover {
     font-size: 0.8rem;
     text-align: center;
 }
+
+.divisor {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 10px;
+}
+
+.divisor hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.divisor span {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.google-btn {
+    width: 100%;
+}
+
+.btn-google {
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.4rem;
+    width: 100%;
+    background: linear-gradient(45deg, #4c4a4a, #181818);
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 300;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-google:hover {
+    letter-spacing: 0.5px;
+    background: linear-gradient(45deg, #3a3838, #0a0a0a);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn-google:active {
+    transform: translateY(0);
+}
+
+.btn-google i {
+    font-size: 1.1rem;
+}

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../../backEnd/dao/DAO_Usuario.php');
+require_once(__DIR__ . '/../../backEnd/dao/DAO_UsuarioEmpleado.php');
 
 header('Content-Type: application/json');
 
@@ -18,7 +18,7 @@ if (!$nombreUsuario || !$contrasenia) {
 }
 
 try {
-    $daoUsuario = new DAO_Usuario();
+    $daoUsuario = new DAO_UsuarioEmpleado();
     $resultado = $daoUsuario->verificarUsuario($nombreUsuario, $contrasenia);
 
     if ($resultado['valido']) {

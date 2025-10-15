@@ -7,8 +7,8 @@ create table Cliente (
     nombreCliente varchar(30) not null,
     apellidoPaterno varchar(50) not null, 
     apellidoMaterno varchar(50) not null, 
-    telefono char(9) not null unique, 
-    email char(100) unique,
+    telefono char(9) null unique, 
+    email char(100) null unique,
     primary key(idCliente)
 );
 
@@ -53,8 +53,8 @@ create table Administrador (
     foreign key (idEmpleado) references Empleado(idEmpleado)
 );
 
--- Tabla usuarios 
-create table Usuario (
+-- Tabla usuarios empleados
+create table UsuarioEmpleados (
 	idUsuario int auto_increment not null unique, 
     idEmpleado int not null unique, 
     nombreUsuario varchar(30) not null unique,
@@ -62,6 +62,17 @@ create table Usuario (
     primary key (idUsuario), 
     foreign key (idEmpleado) references Empleado(idEmpleado)
 );
+
+-- Tabla usuario clientes
+create table UsuarioClientes (
+	idUsuario int auto_increment not null unique, 
+    idCliente int not null unique, 
+    correoElectronico varchar(300) not null unique,
+    contraseña varchar(30) not null,     
+    fotoPerfil varchar(500),
+    primary key (idUsuario), 
+    foreign key (idCliente) references Cliente(idCliente)
+); 
 
 -- Tabla servicios 
 CREATE TABLE Servicio (
@@ -170,7 +181,7 @@ INSERT INTO Administrador (idEmpleado) VALUES
 (6);
 
 -- 7. SÉPTIMO: Insertar datos en la tabla Usuario
-INSERT INTO Usuario (idEmpleado, nombreUsuario, contraseña) VALUES
+INSERT INTO UsuarioEmpleados (idEmpleado, nombreUsuario, contraseña) VALUES
 (1, 'pedro_barbero', 'pedro123'),
 (2, 'juan_barbero', 'juan456'),
 (3, 'eduardo_barbero', 'edu789'),

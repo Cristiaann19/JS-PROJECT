@@ -25,7 +25,7 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../dao/DAO_Administrador.php';
 require_once __DIR__ . '/../dao/DAO_Barbero.php';
 require_once __DIR__ . '/../dao/DAO_Recepcionista.php';
-require_once __DIR__ . '/../dao/DAO_Usuario.php';
+require_once __DIR__ . '/../dao/DAO_UsuarioEmpleado.php';
 require_once __DIR__ . '/../modelos/Usuario.php';
 require_once __DIR__ . '/../modelos/Administrador.php';
 require_once __DIR__ . '/../modelos/Barbero.php';
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Crear usuario automáticamente
-        $daoUsuario = new DAO_Usuario();
+        $daoUsuario = new DAO_UsuarioEmpleado();
         $nombreUsuario = strtolower($nombre . '_' . strtolower($cargo));
         $contraseña = strtolower(substr($nombre, 0, 4) . '12345');
         $usuario = new Usuario(null, $idEmpleado, $nombreUsuario, $contraseña);
