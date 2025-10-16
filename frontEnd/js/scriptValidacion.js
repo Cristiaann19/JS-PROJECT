@@ -122,7 +122,7 @@ if (LoginForm) {
                     }
 
                     setTimeout(() => {
-                        window.location.href = "/frontEnd/html/dashboard.html";
+                        window.location.href = "/frontEnd/html/dashboard2.html";
                     }, 1500);
                 });
 

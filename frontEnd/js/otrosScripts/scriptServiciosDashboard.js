@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         informeServicioDiv.innerHTML = `
-            <h3 style="text-align:center; margin-bottom:15px;">Informe del Servicio</h3>
             <div class="perfil-servicio-card">
                 <img src="${imagenURL}" alt="${servicio.nombreServicio}" class="servicio-imagen">
                 <div class="servicio-info">
