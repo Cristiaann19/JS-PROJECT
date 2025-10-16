@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const sistemaToast = new SistemaToast();
+    const seccionClientes = document.getElementById('divClientes');
 
     const clientesBody = document.getElementById('clientes-body');
     const reservasBody = document.getElementById('reservas-body');
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let clientes = [];
     let clienteSeleccionado = null;
+    let clientesCargados = false;
 
     // ---------------- Cargar reservas ----------------
     function cargarReservas(idCliente) {
@@ -102,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---------------- Traer clientes ----------------
     async function cargarClientes() {
+        if (clientesCargados) return; 
         try {
             const res = await fetch('../../backEnd/controladores/controladorCliente.php');
             const data = await res.json();
@@ -109,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clientes = data.clientes;
                 renderClientes();
             } else {
+                clientesCargados = true; // Marcar como cargado para no reintentar infinitamente
                 clientesBody.innerHTML = `<tr><td colspan="5">Error al cargar clientes: ${data.mensaje}</td></tr>`;
                 sistemaToast.mostrar("error", `Error al cargar clientes: ${data.mensaje}`);
                 console.error(data.mensaje);
@@ -224,5 +228,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ---------------- Inicializar ----------------
-    cargarClientes();
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+            
+            if (mutation.attributeName === 'style' && seccionClientes.style.display === 'block') {
+                cargarClientes();
+            }
+        });
+    });
+    observer.observe(seccionClientes, { attributes: true });
 });
