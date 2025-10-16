@@ -85,7 +85,6 @@ const handleLogout = async () => {
             window.location.reload();
         } else {
             console.error("Error al cerrar sesión:", data.message);
-            alert("No se pudo cerrar la sesión. Intenta de nuevo.");
         }
     } catch (error) {
         console.error("Error de red al cerrar sesión:", error);

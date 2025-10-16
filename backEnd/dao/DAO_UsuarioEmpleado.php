@@ -7,7 +7,7 @@ class DAO_UsuarioEmpleado {
     public function agregarNuevoUsuario($usuario) {
         $conexion = conexionPHP();
 
-        $sql = "INSERT INTO UsuarioEmpleado (idEmpleado, nombreUsuario, contraseña) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO UsuarioEmpleados (idEmpleado, nombreUsuario, contraseña) VALUES (?, ?, ?)";
         $stmt = mysqli_prepare($conexion, $sql);
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta USUARIO: " . mysqli_error($conexion));
@@ -36,10 +36,10 @@ class DAO_UsuarioEmpleado {
     public function verificarUsuario($nombreUsuario, $contrasenia) {
         $conexion = conexionPHP();
 
-        $sql = "SELECT usuario.nombreUsuario, usuario.contraseña, empleado.estadoE, empleado.cargo
-                FROM UsuarioEmpleado
-                INNER JOIN Empleado ON usuario.idEmpleado = empleado.idEmpleado
-                WHERE usuario.nombreUsuario = ? AND usuario.contraseña = ?";
+        $sql = "SELECT UsuarioEmpleados.nombreUsuario, UsuarioEmpleados.contraseña, empleado.estadoE, empleado.cargo
+                FROM UsuarioEmpleados
+                INNER JOIN Empleado ON UsuarioEmpleados.idEmpleado = empleado.idEmpleado
+                WHERE UsuarioEmpleados.nombreUsuario = ? AND UsuarioEmpleados.contraseña = ?";
 
         $stmt = mysqli_prepare($conexion, $sql);
         if (!$stmt) {
@@ -76,8 +76,8 @@ class DAO_UsuarioEmpleado {
         $conexion = conexionPHP();
         $sql = "SELECT empleado.nombreEmpleado, empleado.apellidoPaternoE, empleado.cargo, empleado.generoE
                 FROM empleado
-                INNER JOIN usuario ON usuario.idEmpleado = empleado.idEmpleado
-                WHERE usuario.nombreUsuario = ?";
+                INNER JOIN UsuarioEmpleados ON UsuarioEmpleados.idEmpleado = empleado.idEmpleado
+                WHERE UsuarioEmpleados.nombreUsuario = ?";
 
         $stmt = mysqli_prepare($conexion, $sql);
         mysqli_stmt_bind_param($stmt, "s", $nombreUsuario);
@@ -102,9 +102,9 @@ class DAO_UsuarioEmpleado {
         $conexion = conexionPHP(); 
 
         $sql = "SELECT barbero.idBarbero from empleado 
-        inner join usuario on empleado.idEmpleado = usuario.idEmpleado 
+        inner join UsuarioEmpleados on empleado.idEmpleado = UsuarioEmpleados.idEmpleado 
         inner join barbero on barbero.idEmpleado = empleado.idEmpleado
-        where usuario.nombreUsuario = ?";
+        where UsuarioEmpleados.nombreUsuario = ?";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param("s", $nombreUsuario);
